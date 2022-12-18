@@ -1,0 +1,15 @@
+{
+    "short_name": "ComputerShop",
+    "name": "Website built for portfolio. Author: Igor Klusek",
+    "icons": [
+        {
+            "src": "barIcon.jpg",
+            "type": "image/jpg",
+            "sizes": "75x68"
+        }
+    ],
+    "start_url": ".",
+    "display": "standalone",
+    "theme_color": "#000000",
+    "background_color": "#ffffff"
+}
