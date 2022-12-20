@@ -4,6 +4,7 @@ import { axiosPrivate } from 'api/axios';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBasket, replaceBasket } from 'features/basket/basketSlice';
+import { AuthContextInterface } from './AuthProvider';
 
 interface PromoCodesProviderProps {
     children: ReactNode;
@@ -20,22 +21,35 @@ interface PromoCodesResponseInterface {
     priceBeforeDiscount: number; // to fix
 }
 
+interface PromoCodesContextInterface {
+    successfullyUsedPromoCode: boolean;
+    promoCode: string;
+    promoCodeAlert: string;
+    promoCodeInputDisabled: boolean;
+    promoCodeDisabled: () => void;
+    promoCodeEnabled: () => void;
+    promoCodeSubmit: () => Promise<PromoCodesResponseInterface[] | void>;
+    sendPromoCode: (value: string) => void;
+    resetPromoCode: () => void;
+    promoCodeUsedSucceeded: () => void;
+}
+
 interface PromoCodesResponseErrorInterface {
     message: string;
     errCode: string;
 }
 
-const PromoCodesContext = createContext({});
+const PromoCodesContext = createContext<PromoCodesContextInterface | {}>({});
 
 export const PromoCodesProvider = ({ children }: PromoCodesProviderProps) => {
     const basketItems = useSelector(getBasket);
     const dispatchBasket = useDispatch();
 
-    const { auth } = useAuth();
-    const [promoCodeInputDisabled, setPromoCodeInputDisabled] = useState(false);
-    const [successfullyUsedPromoCode, setSuccessfullyUsedPromoCode] = useState(false);
-    const [promoCode, setPromoCode] = useState('');
-    const [promoCodeAlert, setPromoCodeAlert] = useState('');
+    const { auth } = useAuth() as AuthContextInterface;
+    const [promoCodeInputDisabled, setPromoCodeInputDisabled] = useState<boolean>(false);
+    const [successfullyUsedPromoCode, setSuccessfullyUsedPromoCode] = useState<boolean>(false);
+    const [promoCode, setPromoCode] = useState<string>('');
+    const [promoCodeAlert, setPromoCodeAlert] = useState<string>('');
 
     const notifyUsedPromoCode = () => {
         toast.success('Użyto kodu promocyjnego', {
