@@ -63,7 +63,7 @@ const basketSlice = createSlice({
         replaceBasket(state, action) {
             state.data = action.payload;
         },
-        removeBasket(state, action) {
+        removeBasket(state) {
             state.data = [];
         },
         deleteProduct(state, action) {
@@ -76,7 +76,7 @@ const basketSlice = createSlice({
             }
             notifyDeleteProduct();
         },
-        updatePriceToPay(state, action) {
+        updatePriceToPay(state) {
             let bill = 0;
             if (state.data.length === 0) state.priceToPay = 0;
             state.data.map((product) => (bill += product.price * product.quantity));

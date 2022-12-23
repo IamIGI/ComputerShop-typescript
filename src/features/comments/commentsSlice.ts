@@ -2,22 +2,18 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getAllCommentsAPI, getProductAverageScore } from 'api/comments';
 import { RootState } from 'app/store.js';
 import { RequestState } from 'features/articles/articleInterfaces.js';
-import { ProductDataInterface } from 'features/products/productInterface.js';
+import { AverageScoreData, CommentsResponseInterface } from 'interfaces/comments.interfaces.js';
+import { ProductDataInterface } from 'interfaces/product.interfaces.js';
 import { ACTIONS as ACTIONS_COMMENT_FILTERS } from './commentFiltersActions.js';
-import {
-    averageScoreData,
-    commentsResponseInterface,
-    filterInitInterface,
-    initialStateInterface,
-} from './commentInterface.js';
+import { FilterInitInterface, InitialStateInterface } from './commentInterface.js';
 
-const filterInit: filterInitInterface = {
+const filterInit: FilterInitInterface = {
     productId: '629d359fd1cd32ed85648fbd',
     filters: { rating: 0, confirmed: false },
     sortBy: 'date',
 };
 
-const initialState: initialStateInterface = {
+const initialState: InitialStateInterface = {
     data: {}, //{comments: [], images: [], length: 1. length_AllComments: 1}
     averageScore: { data: {}, status: 'idle' },
     status: 'idle',
@@ -77,26 +73,26 @@ const commentsSlice = createSlice({
                     break;
             }
         },
-        clearFilters(state, action) {
+        clearFilters(state) {
             state.filters = filterInit;
         },
         handleChooseImage(state, action) {
             state.images.chosenImageIndex = action.payload;
             state.images.isOpenGallery = [true];
         },
-        closeGallery(state, action) {
+        closeGallery(state) {
             state.images.isOpenGallery = [false];
         },
-        refreshComments(state, action) {
+        refreshComments(state) {
             state.refreshComments = !state.refreshComments;
         },
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchComments.pending, (state, action) => {
+            .addCase(fetchComments.pending, (state) => {
                 state.status = 'loading';
             })
-            .addCase(fetchComments.fulfilled, (state, action: PayloadAction<commentsResponseInterface>) => {
+            .addCase(fetchComments.fulfilled, (state, action: PayloadAction<CommentsResponseInterface>) => {
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
@@ -104,12 +100,12 @@ const commentsSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.error.message as string;
             })
-            .addCase(fetchAverageScore.pending, (state, action) => {
+            .addCase(fetchAverageScore.pending, (state) => {
                 state.averageScore.status = 'loading';
             })
             .addCase(
                 fetchAverageScore.fulfilled,
-                (state, action: PayloadAction<{ data: averageScoreData | {}; status: RequestState }>) => {
+                (state, action: PayloadAction<{ data: AverageScoreData | {}; status: RequestState }>) => {
                     state.averageScore.status = 'succeeded';
                     state.averageScore.data = action.payload;
                 }
@@ -125,7 +121,7 @@ export const getAllCommentsData = (state: RootState) => state.comments.data;
 export const getCommentsStatus = (state: RootState) => state.comments.status;
 export const getCommentsErrors = (state: RootState) => state.comments.error;
 export const getNumberOfCommentsWithoutFilters = (state: RootState) =>
-    (state.comments.data as commentsResponseInterface).length_AllComments;
+    (state.comments.data as CommentsResponseInterface).length_AllComments;
 
 export const getCommentsFilters = (state: RootState) => state.comments.filters;
 export const getCommentsFiltersIsConfirmed = (state: RootState) => state.comments.filters.filters.confirmed;

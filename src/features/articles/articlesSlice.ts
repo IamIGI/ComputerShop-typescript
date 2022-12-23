@@ -42,7 +42,7 @@ const articlesSlice = createSlice({
                 state.status = 'failed';
                 state.error = action.payload;
             })
-            .addCase(fetchArticlesForHomePage.pending, (state, action) => {
+            .addCase(fetchArticlesForHomePage.pending, (state) => {
                 state.status = 'loading';
             })
             .addCase(fetchArticlesForHomePage.fulfilled, (state, action: PayloadAction<ArticleApiResponse[]>) => {

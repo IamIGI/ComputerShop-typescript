@@ -2,10 +2,11 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import ProductsApi from 'api/products';
 import { getProduct } from 'api/products';
 import { RootState } from 'app/store';
-import { FiltersDropDownListInterface, initialStateInterface, ProductDataInterface } from './productInterface';
+import { ProductDataInterface } from 'interfaces/product.interfaces';
+import { FiltersDropDownListInterface, InitialStateInterface } from './productInterface';
 import { filterInit } from './productsFilters';
 
-const initialState: initialStateInterface = {
+const initialState: InitialStateInterface = {
     data: [],
     status: 'idle',
     error: null,
@@ -98,19 +99,19 @@ const productsSlice = createSlice({
                     break;
             }
         },
-        clearFilters(state, action) {
+        clearFilters(state) {
             state.filters = filterInit;
         },
         handleAddedComment(state, action: PayloadAction<boolean>) {
             state.addedCommentFlag = action.payload;
         },
-        handleRefreshProducts(state, action) {
+        handleRefreshProducts(state) {
             state.refreshProducts = !state.refreshProducts;
         },
     },
     extraReducers(builder) {
         builder
-            .addCase(fetchProducts.pending, (state, action) => {
+            .addCase(fetchProducts.pending, (state) => {
                 state.status = 'loading';
             })
             .addCase(fetchProducts.fulfilled, (state, action: PayloadAction<ProductDataInterface[]>) => {
@@ -132,7 +133,7 @@ const productsSlice = createSlice({
                 state.productById_status = 'failed';
                 state.error = action.error.message as string;
             })
-            .addCase(fetchMayLikeItems.pending, (state, action) => {
+            .addCase(fetchMayLikeItems.pending, (state) => {
                 state.mayLikeStatus = 'loading';
             })
             .addCase(fetchMayLikeItems.fulfilled, (state, action: PayloadAction<ProductDataInterface[]>) => {
