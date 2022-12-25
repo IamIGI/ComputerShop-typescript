@@ -1,5 +1,5 @@
 import { RequestState } from 'features/articles/articleInterfaces';
-import { AverageScoreData, CommentsResponseInterface } from 'interfaces/comments.interfaces';
+import { AverageScoreData, CommentsResponseInterface } from 'interfaces/Comments.interfaces';
 
 export interface FilterInitInterface {
     productId: string;
@@ -14,7 +14,7 @@ export interface InitialStateInterface {
     error: null | string;
     filters: FilterInitInterface;
     images: {
-        isOpenGallery: boolean[];
+        isOpenGallery: [boolean];
         chosenImageIndex: number;
     };
     refreshComments: boolean;

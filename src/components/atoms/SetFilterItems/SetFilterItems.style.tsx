@@ -45,7 +45,7 @@ export const InputField = styled.input<InputFiledProps>`
 
 interface FilterOptions {
     display: string | undefined;
-    width: number;
+    width: string;
 }
 
 export const FilterOptions = styled.div<FilterOptions>`

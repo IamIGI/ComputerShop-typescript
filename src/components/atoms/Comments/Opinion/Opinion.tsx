@@ -1,10 +1,10 @@
 import { Wrapper, UnWrap } from './Opinion.style';
 import { readMoreSplit, checkBreakLine } from 'components/molecules/Comments/Comments.logic';
 import { useState } from 'react';
-import { Comment } from 'interfaces/comments.interfaces';
+import { CommentInterface } from 'interfaces/Comments.interfaces';
 
 interface OpinionProps {
-    comment: Comment;
+    comment: CommentInterface;
 }
 
 const Opinion = ({ comment }: OpinionProps) => {

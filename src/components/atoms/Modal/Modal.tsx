@@ -1,17 +1,16 @@
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
 import ReactDOM from 'react-dom';
 import { GrClose } from 'react-icons/gr';
 
 import { Close, InsideWrapper, Overlay, OutsideWrapper } from './Modal.styles';
 
 interface ModalProps {
-    width?: number;
-    open: [boolean];
+    open: [boolean, any?];
     children: ReactNode;
     onClose: () => void;
 }
 
-export default function Modal({ width, open, children, onClose }: ModalProps) {
+export default function Modal({ open, children, onClose }: ModalProps) {
     if (!open[0]) return null;
 
     return ReactDOM.createPortal(

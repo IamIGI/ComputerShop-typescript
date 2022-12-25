@@ -7,7 +7,7 @@ import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { useSelector } from 'react-redux';
 import { getProductById } from 'features/products/productsSlice';
 import { BASE_URL } from 'data/URL';
-import { ProductDataInterface } from 'interfaces/product.interfaces';
+import { ProductDataInterface } from 'interfaces/Product.interfaces';
 
 const ProductGallery = ({ addServerPrefix = false }) => {
     const product = useSelector(getProductById) as ProductDataInterface;

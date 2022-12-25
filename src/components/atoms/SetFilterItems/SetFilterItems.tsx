@@ -1,3 +1,4 @@
+import { filtersSchemaDropDownMenu } from 'interfaces/GLOBAL.interfaces';
 import { useEffect, useState } from 'react';
 import {
     ApproveButton,
@@ -12,24 +13,18 @@ import {
     Wrapper,
 } from './SetFilterItems.style';
 
-interface filterData {
-    label: string;
-    value: number;
-    checked: boolean;
-}
-
 interface SetFilterItemsProps {
-    width: number;
+    width: string;
     description: string;
-    filterData: filterData[];
-    handleItems: (arg0: filterData[]) => void; // may be like that
+    filterData: filtersSchemaDropDownMenu[];
+    handleItems: (arg0: filtersSchemaDropDownMenu[]) => void; // may be like that
     clearItems?: boolean;
     handleClearItems?: () => void;
     OneTimeChoice: boolean;
-    displayCheckbox: boolean; // may no need cuz there is default value set
-    selectOptionsInCenter: boolean;
-    afterClickWrap: boolean;
-    showConfirmButtonOnSmallScreen: boolean;
+    displayCheckbox?: boolean; // may no need cuz there is default value set
+    selectOptionsInCenter?: boolean;
+    afterClickWrap?: boolean;
+    showConfirmButtonOnSmallScreen?: boolean;
     handleReset?: (arg0: boolean) => void;
     reset?: boolean;
 }
@@ -50,7 +45,7 @@ const SetFilterItems = ({
     reset,
 }: SetFilterItemsProps) => {
     const [toggle, setToggle] = useState<boolean>(false);
-    const [check, setCheck] = useState<filterData[]>(filterData); // to think
+    const [check, setCheck] = useState<filtersSchemaDropDownMenu[]>(filterData); // to think
     const [quantity, setQuantity] = useState<number>(0);
     const [placeholder, setPlaceHolder] = useState<string>(OneTimeChoice ? filterData[0].label : '');
 
@@ -128,7 +123,7 @@ const SetFilterItems = ({
                             activeChoice={item.checked}
                             selectOptionsInCenter={selectOptionsInCenter}
                             key={item.label}
-                            onClick={() => handleCheck(item.value, item.checked)}
+                            onClick={() => handleCheck(item.value as number, item.checked)}
                         >
                             {displayCheckbox && <Checkbox type="checkbox" checked={item.checked} readOnly={true} />}
                             <OptionDescription>{item.label}</OptionDescription>

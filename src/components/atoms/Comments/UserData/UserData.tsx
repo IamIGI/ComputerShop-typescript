@@ -10,10 +10,10 @@ import {
 } from './UserData.style';
 import { BsPerson, BsCheckCircle } from 'react-icons/bs';
 import capitalizeFirstLetter from 'helpers/capitalizeFirstLetter';
-import { Comment } from 'interfaces/comments.interfaces';
+import { CommentInterface } from 'interfaces/Comments.interfaces';
 
 interface UserDataProps {
-    comment: Comment;
+    comment: CommentInterface;
 }
 
 const UserData = ({ comment }: UserDataProps) => {

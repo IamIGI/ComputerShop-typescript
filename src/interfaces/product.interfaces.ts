@@ -1,3 +1,5 @@
+import { RequestState } from './Articles.interfaces';
+
 export interface ProductSpecification {
     processor: {
         description: string;
@@ -21,23 +23,23 @@ export interface ProductSpecification {
         type: number;
         speed: number;
     };
-    screen_diagonal: object;
-    resolution: object;
-    graphics_card: object;
-    communication: object[];
-    ports: object[];
-    battery_capacity: object;
-    color: object;
-    operating_system: object;
-    additional_information: object[];
-    height: object;
-    width: object;
-    depth: object;
-    weigth: object;
-    supplied_accessories: object;
-    guarantees: object;
-    producent_code: object;
-    Xigi_code: object;
+    screen_diagonal: { description: string };
+    resolution: { description: string; width: number; height: number };
+    graphics_card: { brand: string; description: string; memory_size: number };
+    communication: { com: string }[];
+    ports: { port: string }[];
+    battery_capacity: { description: string; capacity: number };
+    color: { description: string };
+    operating_system: { description: string };
+    additional_information: { info: string }[];
+    height: { description: string };
+    width: { description: string };
+    depth: { description: string };
+    weigth: { description: string };
+    supplied_accessories: { description: string };
+    guarantees: { description: string; duration: string };
+    producent_code: { description: string };
+    Xigi_code: { description: string };
     numberOfOpinions: number;
     averageScore: number;
     averageStars: number;
@@ -73,4 +75,41 @@ export interface ProductDataInterface {
     };
     description: ProductDescription[];
     specification: ProductSpecification;
+}
+
+export interface FiltersDropDownListInterface {
+    label: string;
+    value: string;
+    checked: boolean;
+}
+
+export interface FilterInitInterface {
+    searchTerm: string;
+    filters: {
+        discounts: boolean;
+        producers: string[];
+        processors: string[];
+        ram: {
+            min: string;
+            max: string;
+        };
+        disk: {
+            min: string;
+            max: string;
+        };
+    };
+    sortBy: string;
+}
+
+export interface InitialStateInterface {
+    data: ProductDataInterface[];
+    status: RequestState;
+    error: null | string;
+    filters: FilterInitInterface;
+    productById: ProductDataInterface | {};
+    productById_status: RequestState;
+    addedCommentFlag: boolean;
+    mayLikeProducts: ProductDataInterface[];
+    mayLikeStatus: RequestState;
+    refreshProducts: boolean;
 }

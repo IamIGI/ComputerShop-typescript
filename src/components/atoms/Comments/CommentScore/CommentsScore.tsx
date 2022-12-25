@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from 'features/products/productsSlice';
 import { refreshComments } from 'features/comments/commentsSlice';
 import { AuthContextInterface } from 'context/AuthProvider';
-import { Comment } from 'interfaces/comments.interfaces';
-import { ProductDataInterface } from 'interfaces/product.interfaces';
+import { Comment } from 'interfaces/Comments.interfaces';
+import { ProductDataInterface } from 'interfaces/Product.interfaces';
 
 interface CommentsScoreProps {
     comment: Comment;

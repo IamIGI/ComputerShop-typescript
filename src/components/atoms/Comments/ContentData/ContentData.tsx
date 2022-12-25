@@ -1,9 +1,9 @@
 import { Wrapper, StarsWrapper, Date, Dot } from './ContentData.style';
 import Star from 'components/atoms/Star/Star';
-import { Comment } from 'interfaces/comments.interfaces';
+import { CommentInterface } from 'interfaces/Comments.interfaces';
 
 interface ContentDataProps {
-    comment: Comment;
+    comment: CommentInterface;
 }
 
 const ContentData = ({ comment }: ContentDataProps) => {

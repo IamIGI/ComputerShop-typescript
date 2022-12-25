@@ -1,4 +1,3 @@
-import React from 'react';
 import { Wrapper, Home, Icon, Title } from './WebsiteLogo.style';
 import { VscVm } from 'react-icons/vsc';
 

@@ -5,8 +5,8 @@ import { ContentDescription, ContentTitle, IconTitle, Line, Wrapper } from './Se
 interface SectionDescriptionProps {
     title: string;
     icon: ReactNode;
-    description: string;
-    showTitle: boolean;
+    description?: string;
+    showTitle?: boolean;
 }
 
 const SectionDescription = ({ title, icon, description, showTitle = true }: SectionDescriptionProps) => {
