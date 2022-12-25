@@ -16,27 +16,6 @@ interface UserDataProps {
     comment: CommentInterface;
 }
 
-// const initCommentValues = {
-//     likes: {
-//         up: 0,
-//         down: 0,
-//     },
-//     content: {
-//         rating: 0,
-//         description: 'string',
-//     },
-//     image: {
-//         added: false,
-//         images: [''],
-//     },
-//     userId: '', // there could be error
-//     userName: '',
-//     date: '',
-//     confirmed: false,
-//     _id: '',
-//     usersWhoLiked: [],
-// };
-
 const UserData = ({ comment }: UserDataProps) => {
     return (
         <Wrapper>
