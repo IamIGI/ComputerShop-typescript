@@ -1,5 +1,5 @@
-export interface filtersSchemaDropDownMenu {
+export interface FiltersDropDownListInterface {
     label: string;
-    value: number | string;
+    value: string;
     checked: boolean;
 }

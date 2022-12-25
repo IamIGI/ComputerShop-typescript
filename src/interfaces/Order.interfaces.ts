@@ -1,3 +1,6 @@
+import { ProductDataInterface, ProductPrevDataInterface } from './Product.interfaces';
+import { RecipientTemplateSchema } from './RecipientTemplates.interfaces';
+
 export interface OrderDataInterface {
     transactionInfo: {
         recipientDetails: {
@@ -15,6 +18,20 @@ export interface OrderDataInterface {
     };
     _id: string;
     status: number;
+    products: ProductPrevDataInterface[];
+    __v: number;
+}
+
+export interface OrderHistoryInterface {
+    transactionInfo: {
+        recipientDetails: RecipientTemplateSchema;
+        date: string;
+        deliveryMethod: string;
+        paymentMethod: string;
+        price: number;
+    };
+    _id: string;
+    status: number;
     products: {
         name: string;
         prevImg: string;
@@ -24,5 +41,20 @@ export interface OrderDataInterface {
         quantity: number;
         _id: string;
     }[];
-    __v: number;
+
+    __v: 0;
+}
+
+export interface DeliveryOptionsInterface {
+    deliveryMan: boolean;
+    atTheSalon: boolean;
+    locker: boolean;
+}
+
+export interface PaymentOptionsInterface {
+    online: boolean;
+    card: boolean;
+    cash: boolean;
+    uponReceipt: boolean;
+    installment: boolean;
 }

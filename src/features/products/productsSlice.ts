@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import ProductsApi from 'api/products';
 import { getProduct } from 'api/products';
 import { RootState } from 'app/store';
-import { FiltersDropDownListInterface, InitialStateInterface, ProductDataInterface } from 'interfaces/Product.interfaces';
+import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
+import { InitialStateInterface, ProductDataInterface } from 'interfaces/Product.interfaces';
 
 import { filterInit } from './productsFilters';
 
