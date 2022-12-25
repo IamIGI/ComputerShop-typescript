@@ -4,11 +4,11 @@ import { Wrapper, Icon, BigIcon, LinkDescription } from './StyledLink.style';
 interface StyledLinkProps {
     target: string;
     icon: ReactNode;
-    description: string;
-    smallScreen: boolean;
+    description?: string;
+    smallScreen?: boolean;
 }
 
-const StyledLink = ({ target, icon, description = '', smallScreen }: StyledLinkProps) => {
+const StyledLink = ({ target, icon, description = '', smallScreen = false }: StyledLinkProps) => {
     return (
         <Wrapper to={target}>
             <span>{smallScreen ? <BigIcon>{icon}</BigIcon> : <Icon>{icon}</Icon>}</span>

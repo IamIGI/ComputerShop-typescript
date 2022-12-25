@@ -77,12 +77,6 @@ export interface ProductDataInterface {
     specification: ProductSpecification;
 }
 
-export interface FiltersDropDownListInterface {
-    label: string;
-    value: string;
-    checked: boolean;
-}
-
 export interface FilterInitInterface {
     searchTerm: string;
     filters: {
@@ -112,4 +106,14 @@ export interface InitialStateInterface {
     mayLikeProducts: ProductDataInterface[];
     mayLikeStatus: RequestState;
     refreshProducts: boolean;
+}
+
+export interface ProductPrevDataInterface {
+    name: string;
+    prevImg: string;
+    price: number;
+    priceBeforeDiscount: number;
+    isDiscount: boolean;
+    quantity: number;
+    _id: string;
 }

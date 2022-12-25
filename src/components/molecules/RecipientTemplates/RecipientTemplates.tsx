@@ -8,7 +8,7 @@ interface RecipientTemplatesProps {
     showOptions: boolean;
     recipientTemplates: RecipientTemplateInterface[];
     handlePreloadValues: (arg0: RecipientTemplateInterface) => void;
-    handleDelete: (arg0: string) => void;
+    handleDelete?: (arg0: string) => void;
 }
 
 const RecipientTemplates = ({

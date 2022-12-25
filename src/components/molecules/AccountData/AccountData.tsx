@@ -8,7 +8,7 @@ import { AccountInterface } from 'interfaces/Account.interfaces';
 
 interface AccountDataProps {
     accountInfo: AccountInterface;
-    handleRefresh: (arg0: boolean) => void;
+    handleRefresh: () => void;
 }
 
 const AccountData = ({ accountInfo, handleRefresh }: AccountDataProps) => {
@@ -64,8 +64,8 @@ const AccountData = ({ accountInfo, handleRefresh }: AccountDataProps) => {
 
                 <Modal open={isOpen} onClose={() => setIsOpen([false, {}])}>
                     <PopUpAccountSettings
-                        name={(isOpen[1] as { DataName: String; value: string }).DataName}
-                        value={(isOpen[1] as { DataName: String; value: string }).value}
+                        name={(isOpen[1] as { DataName: string; value: string }).DataName}
+                        value={(isOpen[1] as { DataName: string; value: string }).value}
                         onClose={() => setIsOpen([false, {}])}
                         handleRefresh={handleRefresh}
                     />

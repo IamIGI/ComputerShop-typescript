@@ -12,11 +12,11 @@ import {
 interface DropDownMenuSectionProps {
     icon: ReactNode;
     description: string;
-    smallScreen: boolean;
+    smallScreen?: boolean;
     children: ReactNode;
 }
 
-const DropDownMenuSection = ({ icon, description, smallScreen, children }: DropDownMenuSectionProps) => {
+const DropDownMenuSection = ({ icon, description, smallScreen = false, children }: DropDownMenuSectionProps) => {
     const [toggle, setToggle] = useState<boolean>(false);
 
     return (

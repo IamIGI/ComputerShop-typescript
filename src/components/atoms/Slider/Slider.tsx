@@ -3,7 +3,7 @@ import { Input } from './Slider.style';
 interface SliderProps {
     max: number;
     value: number;
-    handleValue: (arg0: string) => void;
+    handleValue: (arg0: number) => void;
 }
 
 const Slider = ({ max, value, handleValue }: SliderProps) => {
@@ -17,7 +17,7 @@ const Slider = ({ max, value, handleValue }: SliderProps) => {
             type="range"
             min="0"
             max={max}
-            onChange={(e) => handleValue(e.target.value)}
+            onChange={(e) => handleValue(Number(e.target.value))}
             style={getBackgroundSize()}
             value={value}
         />
