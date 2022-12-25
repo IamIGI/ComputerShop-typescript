@@ -6,7 +6,7 @@ interface ProductByHintProps {
     icon: ReactNode;
     title: string;
     ask: string;
-    popUp: ReactNode;
+    popUp?: ReactNode;
 }
 
 const ProductBuyHint = ({ icon, title, ask, popUp }: ProductByHintProps) => {

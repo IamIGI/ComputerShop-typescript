@@ -21,7 +21,7 @@ interface PromoCodesResponseInterface {
     priceBeforeDiscount: number; // to fix
 }
 
-interface PromoCodesContextInterface {
+export interface PromoCodesContextInterface {
     successfullyUsedPromoCode: boolean;
     promoCode: string;
     promoCodeAlert: string;

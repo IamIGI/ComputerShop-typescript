@@ -1,6 +1,5 @@
-import axios, { AxiosError } from 'axios';
+import axios from 'axios';
 import { BASE_URL } from 'data/URL';
-import { ErrorInfo } from 'react';
 
 const articlesApi = axios.create({
     baseURL: `${BASE_URL}/articles/`,

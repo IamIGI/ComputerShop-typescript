@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
+import { ArticleApiResponse, InitialState } from 'interfaces/Articles.interfaces';
 import articlesApi from '../../api/articles';
-import { ArticleApiResponse, InitialState } from './articleInterfaces';
 
 const initialState: InitialState = {
     data: [],

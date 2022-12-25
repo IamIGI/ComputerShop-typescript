@@ -1,4 +1,4 @@
-import React, { ChangeEvent } from 'react';
+import { ChangeEvent } from 'react';
 import { InputSection, InputDescription, InputField } from './InputWithDescription.style';
 
 interface InputWithDescriptionProps {

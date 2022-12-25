@@ -10,11 +10,32 @@ import {
 } from './UserData.style';
 import { BsPerson, BsCheckCircle } from 'react-icons/bs';
 import capitalizeFirstLetter from 'helpers/capitalizeFirstLetter';
-import { Comment } from 'interfaces/comments.interfaces';
+import { CommentInterface } from 'interfaces/Comments.interfaces';
 
 interface UserDataProps {
-    comment: Comment;
+    comment: CommentInterface;
 }
+
+// const initCommentValues = {
+//     likes: {
+//         up: 0,
+//         down: 0,
+//     },
+//     content: {
+//         rating: 0,
+//         description: 'string',
+//     },
+//     image: {
+//         added: false,
+//         images: [''],
+//     },
+//     userId: '', // there could be error
+//     userName: '',
+//     date: '',
+//     confirmed: false,
+//     _id: '',
+//     usersWhoLiked: [],
+// };
 
 const UserData = ({ comment }: UserDataProps) => {
     return (

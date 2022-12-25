@@ -1,4 +1,4 @@
-export interface Comment {
+export interface CommentInterface {
     likes: {
         up: number;
         down: number;
@@ -20,8 +20,8 @@ export interface Comment {
 }
 
 export interface CommentsResponseInterface {
-    comments: Comment[] | {};
-    images: string[] | [];
+    comments: CommentInterface[] | {};
+    images: string[];
     length: number;
     length_AllComments: number;
 }
@@ -30,4 +30,5 @@ export interface AverageScoreData {
     averageScore_Stars: number;
     averageScore_View: number;
     eachScore: { number: number; percentage: number }[];
+    numberOfComments?: number;
 }
