@@ -62,7 +62,7 @@ export const getProductAverageScore = async (productId: string) => {
     }
 };
 //you sending FormData
-export const sendCommentAPI = async (data: object) => {
+export const sendCommentAPI = async (data: FormData) => {
     try {
         const response = await commentApi.post('/add', data);
         return response.data;

@@ -15,5 +15,5 @@ export interface RecipientTemplateInterface extends RecipientTemplateSchema {
 
 export interface RecipientFormDataInterface extends RecipientTemplateSchema {
     comment: string;
-    recipientId: string;
+    recipientId?: string;
 }

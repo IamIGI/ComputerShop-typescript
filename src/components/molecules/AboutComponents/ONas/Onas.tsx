@@ -7,7 +7,11 @@ import { BsGear, BsLaptop, BsCart2 } from 'react-icons/bs';
 import { MdTagFaces } from 'react-icons/md';
 import { OnasInterface } from 'interfaces/AboutUs.interfaces';
 
-const Onas = ({ description }: OnasInterface) => {
+interface OnasProps {
+    description: OnasInterface;
+}
+
+const Onas = ({ description }: OnasProps) => {
     const dataShortIcons = [<HiOutlineOfficeBuilding />, <BsGear />, <MdTagFaces />, <BsLaptop />, <BsCart2 />];
 
     return (

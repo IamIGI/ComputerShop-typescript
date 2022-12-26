@@ -4,7 +4,11 @@ import { AboutMe, PageSection, PageImage, PageDescription } from './GdzieMnieZna
 import { RiContactsLine } from 'react-icons/ri';
 import { GdzieMnieZnajdzieszInterface } from 'interfaces/AboutUs.interfaces';
 
-const GdzieMnieZnajdziesz = ({ description }: GdzieMnieZnajdzieszInterface) => {
+interface GdzieMnieZnajdzieszProps {
+    description: GdzieMnieZnajdzieszInterface;
+}
+
+const GdzieMnieZnajdziesz = ({ description }: GdzieMnieZnajdzieszProps) => {
     return (
         <>
             <Title>

@@ -1,19 +1,12 @@
 import axios from 'axios';
 import { BASE_URL } from 'data/URL';
 
-interface sendContactAPI {
-    name: string;
-    email: string;
-    category: number;
-    message: string;
-}
-
 const contactApi = axios.create({
     baseURL: `${BASE_URL}/contact/`,
     headers: { 'Content-Type': 'multipart/form-data' },
 });
 
-export const sendContactAPI = async (data: sendContactAPI) => {
+export const sendContactAPI = async (data: FormData) => {
     try {
         const response = await contactApi.post('/sendmessage', data);
         return response.data;
