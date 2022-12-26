@@ -7,7 +7,11 @@ import { TbShoppingCartDiscount } from 'react-icons/tb';
 import { HiOutlineLightBulb } from 'react-icons/hi';
 import { DlaczegoMyInterface } from 'interfaces/AboutUs.interfaces';
 
-const DlaczegoMy = ({ description }: DlaczegoMyInterface) => {
+interface DlaczegoMyProps {
+    description: DlaczegoMyInterface;
+}
+
+const DlaczegoMy = ({ description }: DlaczegoMyProps) => {
     const InfoIcons = [<FiThumbsUp />, <HiOutlineLightBulb />, <TbShoppingCartDiscount />];
     return (
         <>

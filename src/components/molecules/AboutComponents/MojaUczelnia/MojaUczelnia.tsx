@@ -10,7 +10,11 @@ import {
 } from './MojaUczelnia.style';
 import { MojaUczelniaInterface } from 'interfaces/AboutUs.interfaces';
 
-const MojaUczelnia = ({ description }: MojaUczelniaInterface) => {
+interface MojaUczelniaProps {
+    description: MojaUczelniaInterface;
+}
+
+const MojaUczelnia = ({ description }: MojaUczelniaProps) => {
     return (
         <>
             <Title>

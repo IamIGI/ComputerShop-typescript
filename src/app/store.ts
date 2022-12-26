@@ -4,6 +4,7 @@ import productsReducer from 'features/products/productsSlice';
 import basketReducer from 'features/basket/basketSlice';
 import commentsReducer from 'features/comments/commentsSlice';
 import { listenerMiddleware } from './middleware';
+import { TypedUseSelectorHook } from 'react-redux';
 
 export const store = configureStore({
     reducer: {

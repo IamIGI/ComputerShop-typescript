@@ -17,7 +17,11 @@ import { BsPersonBoundingBox } from 'react-icons/bs';
 import { useState } from 'react';
 import { OAutorzeStronyInterface } from 'interfaces/AboutUs.interfaces';
 
-const OAutorzeStrony = ({ description }: OAutorzeStronyInterface) => {
+interface OAutorzeStronyProps {
+    description: OAutorzeStronyInterface;
+}
+
+const OAutorzeStrony = ({ description }: OAutorzeStronyProps) => {
     type displayPopUpType = string | number;
     const [displayPopUp, setDisplayPopUp] = useState<displayPopUpType>('');
     const openPopUp = (index: displayPopUpType) => {

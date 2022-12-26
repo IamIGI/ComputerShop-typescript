@@ -45,9 +45,13 @@ const ArticlesList = () => {
             </>
         );
     } else if (articleStatus === 'failed') {
-        content = <p>{error}</p>;
+        content = (
+            <>
+                <p>{error}</p>
+            </>
+        );
     }
 
-    return content;
+    return content as JSX.Element;
 };
 export default ArticlesList;

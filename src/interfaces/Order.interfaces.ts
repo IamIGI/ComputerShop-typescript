@@ -1,5 +1,6 @@
-import { ProductDataInterface, ProductPrevDataInterface } from './Product.interfaces';
-import { RecipientTemplateSchema } from './RecipientTemplates.interfaces';
+import { BasketItemsInterface } from 'features/basket/basketInterfaces';
+import { ProductPrevDataInterface } from './Product.interfaces';
+import { RecipientFormDataInterface, RecipientTemplateSchema } from './RecipientTemplates.interfaces';
 
 export interface OrderDataInterface {
     transactionInfo: {
@@ -57,4 +58,17 @@ export interface PaymentOptionsInterface {
     cash: boolean;
     uponReceipt: boolean;
     installment: boolean;
+}
+
+export interface OrderTemplateDocumentInterface {
+    status: number; //all orders have to start from "In realization" status // for now
+    products: BasketItemsInterface[];
+    transactionInfo: {
+        deliveryMethod: string;
+        paymentMethod: string;
+        price: number;
+        recipientDetails: RecipientFormDataInterface;
+    };
+    user: string;
+    usedPromoCode: { isUsed: boolean; code: string };
 }
