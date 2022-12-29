@@ -14,7 +14,7 @@ export const StyledButton = styled.button`
     border: none;
     cursor: pointer;
 
-    display: flex; //comment it
+    display: flex; //comment it 2
     justify-content: center;
     align-items: center;
 
