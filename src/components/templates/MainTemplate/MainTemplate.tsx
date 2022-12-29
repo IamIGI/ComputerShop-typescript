@@ -12,9 +12,6 @@ import { BrowserRouter } from 'react-router-dom';
 import ChangeHotShootTimer from 'data/ChangeHotShootTimer';
 import { Toaster } from 'react-hot-toast';
 
-import { Provider } from 'react-redux';
-import { store } from 'app/store';
-
 interface MainTemplateProps {
     children: ReactNode;
 }
@@ -28,17 +25,15 @@ const MainTemplate = ({ children }: MainTemplateProps) => {
             <Wrapper>
                 <BrowserRouter>
                     <ThemeProvider theme={theme}>
-                        <Provider store={store}>
-                            {/* <ChangeHotShootTimer /> */}
-                            <AuthProvider>
-                                <NavBar />
-                                <InsideWrapper>
-                                    {children}
-                                    <AccountPreviewSection />
-                                </InsideWrapper>
-                                <Footer />
-                            </AuthProvider>
-                        </Provider>
+                        {/* <ChangeHotShootTimer /> */}
+                        <AuthProvider>
+                            <NavBar />
+                            <InsideWrapper>
+                                {children}
+                                <AccountPreviewSection />
+                            </InsideWrapper>
+                            <Footer />
+                        </AuthProvider>
                     </ThemeProvider>
                 </BrowserRouter>
             </Wrapper>

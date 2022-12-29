@@ -10,7 +10,7 @@ import {
 import ProductPreview from '../ProductPreview/ProductPreview';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import { AiOutlineHeart } from 'react-icons/ai';
-import { filterInit } from 'data/Products';
+import WelcomeImg from '../../../data/WelcomeIMG_resize.jpg';
 
 const HomeTopContent = () => {
     return (
@@ -19,7 +19,7 @@ const HomeTopContent = () => {
                 <HotShootContent />
                 <RightTopWrapper>
                     <Advertisement>
-                        <img src={require('../../../data/WelcomeIMG_resize.jpg')} alt="What's my purpose" />
+                        <img src={WelcomeImg} alt="What's my purpose" />
                     </Advertisement>
                     <Recommended>
                         <SectionDescription title={'Polecane'} icon={<AiOutlineHeart />} />
@@ -31,7 +31,7 @@ const HomeTopContent = () => {
             </NormalScreenSize>
             <SmallScreenSize>
                 <Advertisement>
-                    <img src={require('../../../data/WelcomeIMG_resize.jpg')} alt="What's my purpose" />
+                    <img src={WelcomeImg} alt="What's my purpose" />
                 </Advertisement>
                 <HotShootContent />
                 <RightTopWrapper>

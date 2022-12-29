@@ -8,13 +8,13 @@ export const StyledButton = styled.button`
     width: 40px;
     height: 40px;
     background-color: white;
-    font-size: ${({ theme }) => theme.fontSize.xxl};
+    font-size: ${({ theme }) => theme.fontSize.xl};
     color: ${({ theme }) => theme.colors.darkGrey};
     border-radius: 50%;
     border: none;
     cursor: pointer;
 
-    display: flex;
+    display: flex; //comment it 2
     justify-content: center;
     align-items: center;
 

@@ -36,9 +36,7 @@ const ProductPreview = ({ allProducts = false, limitTheNumber = false }: Product
     }, [productFilters, refresh]);
 
     useEffect(() => {
-        if (limitTheNumber) {
-            setNumberOfProducts(productsPreviewLogic.handleNumberOfProducts(windowSize));
-        }
+        setNumberOfProducts(productsPreviewLogic.handleNumberOfProducts(windowSize, limitTheNumber, products.length));
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowSize, products]);

@@ -26,9 +26,9 @@ import BasketContextWrapper from 'components/templates/Basket/BasketContextWrapp
 import Register from 'components/templates/Mobile/Register/Register';
 
 const ROLES = {
-    User: Number(process.env.REACT_APP_USER_ROLE),
-    Editor: Number(process.env.REACT_APP_EDITOR_ROLE),
-    Admin: Number(process.env.REACT_APP_ADMIN_ROLE),
+    User: Number(import.meta.env.REACT_APP_USER_ROLE),
+    Editor: Number(import.meta.env.REACT_APP_EDITOR_ROLE),
+    Admin: Number(import.meta.env.REACT_APP_ADMIN_ROLE),
 };
 
 const Root = () => {
