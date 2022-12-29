@@ -1,8 +1,16 @@
+import MainTemplate from 'components/templates/MainTemplate/MainTemplate';
+import { Provider } from 'react-redux';
+import { store } from 'app/store';
+import Root from 'views/Root';
+
 function App() {
+    console.log(import.meta.env.DEV);
     return (
-        <>
-            <h1>App</h1>
-        </>
+        <Provider store={store}>
+            <MainTemplate>
+                <Root />
+            </MainTemplate>
+        </Provider>
     );
 }
 

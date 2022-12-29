@@ -3,7 +3,7 @@ import { Title, Description } from 'components/templates/About/About.styles';
 import { DataShortSection, Data, Icon, Numbers, Desc } from './ONas.style';
 import { FaPeopleCarry } from 'react-icons/fa';
 import { HiOutlineOfficeBuilding } from 'react-icons/hi';
-import { BsGear, BsLaptop, BsCart2 } from 'react-icons/bs';
+import { BsGear, BsLaptop, BsCart2, BsCartPlus } from 'react-icons/bs';
 import { MdTagFaces } from 'react-icons/md';
 import { OnasInterface } from 'interfaces/AboutUs.interfaces';
 
@@ -19,6 +19,7 @@ const Onas = ({ description }: OnasProps) => {
             <Title>
                 <SectionDescription title={description.title} icon={<FaPeopleCarry />} />
             </Title>
+            <BsCartPlus />
             <DataShortSection>
                 {description.extras.map((extra, index) => (
                     <Data key={index}>

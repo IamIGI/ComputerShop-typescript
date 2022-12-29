@@ -1,4 +1,9 @@
-const handleNumberOfProducts = (windowSize: { width: number; height: number }): number => {
+const handleNumberOfProducts = (
+    windowSize: { width: number; height: number },
+    limitTheNumber: boolean,
+    numberOfProducts: number
+): number => {
+    if (!limitTheNumber) return numberOfProducts;
     if (windowSize.width <= 1640 && windowSize.width > 1100) {
         return 2;
     } else if (windowSize.width <= 964 && windowSize.width > 685) {

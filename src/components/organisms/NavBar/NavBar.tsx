@@ -32,8 +32,8 @@ import { useSelector } from 'react-redux';
 import { getBasket } from 'features/basket/basketSlice';
 import { AuthContextInterface } from 'context/AuthProvider';
 
-const Admin_entitlements = Number(process.env.REACT_APP_ADMIN_ROLE);
-const Editor_entitlements = Number(process.env.REACT_APP_EDITOR_ROLE);
+const Admin_entitlements = Number(import.meta.env.REACT_APP_ADMIN_ROLE);
+const Editor_entitlements = Number(import.meta.env.REACT_APP_EDITOR_ROLE);
 const MenuInitPosition = '-270px';
 
 const NavBar = () => {

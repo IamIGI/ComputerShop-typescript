@@ -1,13 +1,58 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>HotShoot</title>
+    </head>
+    <body>
+        <div id="root"></div>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
+</html> -->
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React + TS</title>
-  </head>
-  <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+    <head>
+        <meta charset="utf-8" />
+        <meta charset="UTF-8" />
+        <meta
+            name="description"
+            content="Computer store, the website is one of the projects for the author's portfolio. Site built by Igor Klusek."
+        />
+        <meta
+            name="keywords"
+            content="Computer Shop, portfolio, project website, react, JavaScript, Shop, Electronic shop"
+        />
+        <meta name="author" content="Igor Kłusek" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="theme-color" content="#000000" />
+
+        <link rel="icon" href="/barIcon.JPG" />
+        <link rel="manifest" href="/manifest.json" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+        <script src="https://kit.fontawesome.com/6a98594bec.js" crossorigin="anonymous"></script>
+
+        <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Poppins:wght@400;700&display=swap"
+            rel="stylesheet"
+        />
+        <title>HotShoot</title>
+    </head>
+    <body>
+        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <div id="root"></div>
+        <div id="portal"></div>
+        <script type="module">
+            import RefreshRuntime from '/@react-refresh';
+            RefreshRuntime.injectIntoGlobalHook(window);
+            window.$RefreshReg$ = () => {};
+            window.$RefreshSig$ = () => (type) => type;
+            window.__vite_plugin_react_preamble_installed__ = true;
+        </script>
+        <script type="module" src="/src/main.tsx"></script>
+    </body>
 </html>

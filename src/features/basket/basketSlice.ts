@@ -4,9 +4,11 @@ import { toast } from 'react-hot-toast';
 import { BasketItemsInterface, InitialStateInterface } from './basketInterfaces';
 
 const basketItems: BasketItemsInterface[] =
-    JSON.parse(localStorage.getItem('basketItems') || '') === null
+    //@ts-ignore
+    JSON.parse(localStorage.getItem('basketItems')) === null
         ? []
-        : JSON.parse(localStorage.getItem('basketItems') || '');
+        : //@ts-ignore
+          JSON.parse(localStorage.getItem('basketItems'));
 
 const initialState: InitialStateInterface = {
     data: basketItems,
