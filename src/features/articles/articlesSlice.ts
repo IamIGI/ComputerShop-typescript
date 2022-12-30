@@ -7,6 +7,7 @@ const initialState: InitialState = {
     data: [],
     status: 'idle',
     error: null,
+    articleByIdStatus: 'idle',
 };
 
 export const fetchArticles = createAsyncThunk(
@@ -16,6 +17,11 @@ export const fetchArticles = createAsyncThunk(
         return response;
     }
 );
+
+export const fetchArticleById = createAsyncThunk('articles/fetchArticleById', async (articleId: string) => {
+    const response = await articlesApi.getArticleById(articleId);
+    return [response];
+});
 
 export const fetchArticlesForHomePage = createAsyncThunk(
     'articles/homepage',
@@ -38,9 +44,20 @@ const articlesSlice = createSlice({
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
-            .addCase(fetchArticles.rejected, (state, action: PayloadAction<any>) => {
+            .addCase(fetchArticles.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.payload;
+                state.error = action.error.message;
+            })
+            .addCase(fetchArticleById.pending, (state) => {
+                state.articleByIdStatus = 'loading';
+            })
+            .addCase(fetchArticleById.fulfilled, (state, action: PayloadAction<ArticleApiResponse[]>) => {
+                state.articleByIdStatus = 'succeeded';
+                state.data = action.payload;
+            })
+            .addCase(fetchArticleById.rejected, (state, action) => {
+                state.articleByIdStatus = 'failed';
+                state.error = action.error.message;
             })
             .addCase(fetchArticlesForHomePage.pending, (state) => {
                 state.status = 'loading';
@@ -61,5 +78,6 @@ export const getArticlesStatus = (state: RootState) => state.articles.status;
 export const getArticlesErrors = (state: RootState) => state.articles.error;
 export const getArticleById = (state: RootState, articleId: string) =>
     state.articles.data.find((article) => article._id === articleId);
+export const getArticlesByIdStatus = (state: RootState) => state.articles.articleByIdStatus;
 
 export default articlesSlice.reducer;

@@ -17,18 +17,38 @@ import {
 } from './Article.style';
 import { useParams } from 'react-router-dom';
 import articlesUtils from '../Articles/Articles.utils';
-import { getArticleById } from 'features/articles/articlesSlice';
+import {
+    fetchArticleById,
+    getArticleById,
+    getArticlesByIdStatus,
+    getArticlesErrors,
+} from 'features/articles/articlesSlice';
 import { useAppSelector } from 'app/hooks';
+import { useEffect } from 'react';
+import { store } from 'app/store';
+import { LoadingWrapper } from 'components/organisms/ArticlesList/ArticlesList.style';
+import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 
 const Article = () => {
     const articleId = useParams().id;
+
+    useEffect(() => {
+        if (articleId !== undefined) store.dispatch(fetchArticleById(articleId));
+    }, [articleId]);
+
     let article = undefined;
     if (articleId !== undefined) article = useAppSelector((state) => getArticleById(state, articleId));
+    const articleStatus = useAppSelector(getArticlesByIdStatus);
+    const articleErrors = useAppSelector(getArticlesErrors);
 
     return (
-        <Wrapper>
-            {article !== undefined && (
-                <>
+        <>
+            {articleStatus === 'loading' ? (
+                <LoadingWrapper>
+                    <LoadingAnimation loadingSize={15} />
+                </LoadingWrapper>
+            ) : articleStatus === 'succeeded' && article !== undefined ? (
+                <Wrapper>
                     <ArticleWrapper id="top">
                         <BigScreen>
                             <Legend>
@@ -92,9 +112,13 @@ const Article = () => {
                         </InfoWrapper>
                         <p>{article.prevDescription}</p>
                     </SmallScreen>
+                </Wrapper>
+            ) : (
+                <>
+                    {articleStatus === 'failed'} <p>{articleErrors}</p>
                 </>
             )}
-        </Wrapper>
+        </>
     );
 };
 
