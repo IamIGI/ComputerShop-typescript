@@ -13,9 +13,18 @@ import {
 interface OrderFormProps {
     accountRecipientTemplate: boolean;
     handlePreloadValues?: (arg0: RecipientTemplateInterface) => void;
-    handleOrderData: (arg0: RecipientFormDataInterface) => void;
-    comment: string;
-    handleOrderComment: (arg0: string) => void;
+    handleOrderData: (
+        name: string,
+        street: string,
+        zipCode: string,
+        place: string,
+        email: string,
+        phone: string,
+        comment: string,
+        recipientId: string
+    ) => void;
+    comment?: string;
+    handleOrderComment?: (arg0: string) => void;
     preloadedValues: RecipientTemplateInterface | {};
 }
 
@@ -45,17 +54,27 @@ const OrderForm = ({
 
     //there could be issue with that (data)
     const onSubmit = (data: RecipientTemplateSchema) => {
-        const orderObject = {
-            name: data.name,
-            street: data.street,
-            zipCode: data.zipCode,
-            place: data.place,
-            email: data.email,
-            phone: data.phone,
-            comment: comment,
-            recipientId: (preloadedValues as RecipientTemplateInterface)._id,
-        };
-        handleOrderData(orderObject);
+        // const orderObject = {
+        //     name: data.name,
+        //     street: data.street,
+        //     zipCode: data.zipCode,
+        //     place: data.place,
+        //     email: data.email,
+        //     phone: data.phone,
+        //     comment: comment,
+        //     recipientId: (preloadedValues as RecipientTemplateInterface)._id,
+        // };
+        // console.log(orderObject);
+        handleOrderData(
+            data.name,
+            data.street,
+            data.zipCode,
+            data.place,
+            data.email,
+            data.phone,
+            comment,
+            (preloadedValues as RecipientTemplateInterface)._id
+        );
         //clear data
         reset({ name: '', street: '', zipCode: '', place: '', email: '', phone: '' });
         if (accountRecipientTemplate) {
@@ -70,7 +89,7 @@ const OrderForm = ({
             });
         }
 
-        handleOrderComment('');
+        handleOrderComment!('');
     };
 
     return (

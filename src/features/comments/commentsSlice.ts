@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getAllCommentsAPI, getProductAverageScore } from 'api/comments';
 import { RootState } from 'app/store.js';
-import { RequestState } from 'features/articles/articleInterfaces.js';
+import { RequestState } from 'interfaces/Articles.interfaces.js';
 import { AverageScoreData, CommentsResponseInterface } from 'interfaces/Comments.interfaces.js';
 import { ProductDataInterface } from 'interfaces/Product.interfaces.js';
 import { ACTIONS as ACTIONS_COMMENT_FILTERS } from './commentFiltersActions.js';

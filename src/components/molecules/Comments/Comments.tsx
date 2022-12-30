@@ -45,7 +45,7 @@ const Comments = () => {
     const refreshComments = useSelector(isRefreshComments);
 
     useEffect(() => {
-        store.dispatch < fetchComments();
+        store.dispatch(fetchComments());
     }, [commentFilters, refreshComments]);
 
     const { comments: commentsArray, length: displayedComments } = comments as CommentsResponseInterface;

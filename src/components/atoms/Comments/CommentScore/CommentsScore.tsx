@@ -8,11 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from 'features/products/productsSlice';
 import { refreshComments } from 'features/comments/commentsSlice';
 import { AuthContextInterface } from 'context/AuthProvider';
-import { Comment } from 'interfaces/Comments.interfaces';
 import { ProductDataInterface } from 'interfaces/Product.interfaces';
+import { CommentInterface } from 'interfaces/Comments.interfaces';
 
 interface CommentsScoreProps {
-    comment: Comment;
+    comment: CommentInterface;
 }
 
 const CommentsScore = ({ comment }: CommentsScoreProps) => {
@@ -22,7 +22,7 @@ const CommentsScore = ({ comment }: CommentsScoreProps) => {
     const { auth } = useAuth() as AuthContextInterface;
     const [notLoggedIn, setNotLoggedIn] = useState<[boolean, string, string]>([false, '', '']);
 
-    const onLikeComment = async (value: [boolean, Comment]) => {
+    const onLikeComment = async (value: [boolean, CommentInterface]) => {
         const data = {
             productId: (product as ProductDataInterface)._id,
             commentId: value[1]._id,
@@ -34,9 +34,10 @@ const CommentsScore = ({ comment }: CommentsScoreProps) => {
 
         try {
             const response = await addLike(data);
-            if (response === 403) {
+            console.log(response);
+            if (response.statusCode === '001') {
                 setNotLoggedIn([true, value[1]._id, 'Musisz być zalogowany']);
-            } else if (response === 405) {
+            } else if (response.statusCode === '002') {
                 setNotLoggedIn([true, value[1]._id, 'Możesz tylko zmienić swój wybór']);
             } else {
                 setNotLoggedIn([false, '', '']);

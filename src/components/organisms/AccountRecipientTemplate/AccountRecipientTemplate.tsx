@@ -99,7 +99,7 @@ const AccountRecipientTemplate = () => {
                     userId: auth.id,
                     recipientTemplate: recipientFormData,
                 };
-
+                console.log(addData);
                 addAccountRecipientTemplate(addData);
             } else {
                 const editData = {
@@ -162,7 +162,6 @@ const AccountRecipientTemplate = () => {
                                 accountRecipientTemplate={true}
                                 handlePreloadValues={handlePreloadValues}
                                 preloadedValues={preloadValues}
-                                //@ts-ignore
                                 handleOrderData={handleRecipientFormData}
                             />
                         </FormWrapper>
