@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 
-const getLocalValue = (key: string, initValue: string | (() => void)) => {
+const getLocalValue = (key: string, initValue: string | number | (() => void)) => {
     //SSR Next.js
     if (typeof window === 'undefined') return initValue;
 
     // if a value is already store
-    const localValue = JSON.parse(localStorage.getItem(key) || '{}');
+    const localValue = JSON.parse(localStorage.getItem(key)!);
     if (localValue) return localValue;
 
     // return result of a function
@@ -14,7 +14,7 @@ const getLocalValue = (key: string, initValue: string | (() => void)) => {
     return initValue;
 };
 
-const useLocalStorage = (key: string, initValue: any) => {
+const useLocalStorage = (key: string, initValue: string | number) => {
     const [value, setValue] = useState(() => {
         return getLocalValue(key, initValue);
     });

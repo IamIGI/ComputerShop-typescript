@@ -1,7 +1,14 @@
 import { ChangeEvent } from 'react';
 import useLocalStorage from './useLocalStorage';
 
-const useInput = (key: string, initValue: string) => {
+const useInput = (
+    key: string,
+    initValue: string
+): [
+    value: string,
+    reset: () => void,
+    attributeObj: { value: string; onChange: (arg0: ChangeEvent<HTMLInputElement>) => void }
+] => {
     const [value, setValue] = useLocalStorage(key, initValue);
 
     const reset = () => {
