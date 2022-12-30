@@ -34,7 +34,6 @@ const CommentsScore = ({ comment }: CommentsScoreProps) => {
 
         try {
             const response = await addLike(data);
-            console.log(response);
             if (response.statusCode === '001') {
                 setNotLoggedIn([true, value[1]._id, 'Musisz być zalogowany']);
             } else if (response.statusCode === '002') {

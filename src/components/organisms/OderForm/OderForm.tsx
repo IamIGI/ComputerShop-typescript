@@ -54,17 +54,6 @@ const OrderForm = ({
 
     //there could be issue with that (data)
     const onSubmit = (data: RecipientTemplateSchema) => {
-        // const orderObject = {
-        //     name: data.name,
-        //     street: data.street,
-        //     zipCode: data.zipCode,
-        //     place: data.place,
-        //     email: data.email,
-        //     phone: data.phone,
-        //     comment: comment,
-        //     recipientId: (preloadedValues as RecipientTemplateInterface)._id,
-        // };
-        // console.log(orderObject);
         handleOrderData(
             data.name,
             data.street,
