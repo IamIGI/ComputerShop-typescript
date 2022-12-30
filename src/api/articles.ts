@@ -44,7 +44,7 @@ const getArticlesForHomePage = async () => {
     }
 };
 
-const getArticle = async (id: string) => {
+const getArticleById = async (id: string) => {
     try {
         const response = await articlesApi.get(`/${id}`);
         return response.data;
@@ -64,4 +64,4 @@ const getArticle = async (id: string) => {
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { getAllArticles, getArticle, getArticlesForHomePage };
+export default { getAllArticles, getArticleById, getArticlesForHomePage };

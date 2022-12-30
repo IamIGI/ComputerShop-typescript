@@ -25,5 +25,6 @@ export type RequestState = 'idle' | 'loading' | 'succeeded' | 'failed';
 export interface InitialState {
     data: ArticleApiResponse[];
     status: RequestState;
-    error: null | string; // ?
+    articleByIdStatus: RequestState;
+    error: undefined | string | null; // ?
 }
