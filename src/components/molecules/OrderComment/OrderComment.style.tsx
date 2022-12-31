@@ -10,9 +10,17 @@ export const Wrapper = styled.div`
     width: 47%;
     padding: 10px;
 
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 1150px) {
         width: 90%;
         margin: auto;
+    }
+
+    @media screen and (max-width: 950px) {
+        width: 47%;
+    }
+
+    @media screen and (max-width: 750px) {
+        width: 90%;
     }
 `;
 
@@ -78,7 +86,7 @@ export const TextArea = styled.textarea`
     margin-top: 10px;
     padding: 12px 20px;
     border: 1px solid lightgrey;
-    font-size: ${({ theme }) => theme.fontSize.l_plus};
+    font-size: ${({ theme }) => theme.fontSize.l};
     color: grey;
     border-radius: 20px;
     resize: none;
@@ -93,8 +101,13 @@ export const TextArea = styled.textarea`
         /* box-shadow: 0 0 10px #719ece; */
     }
 
+    @media screen and (max-width: 1250px) {
+        min-height: 150px;
+        font-size: ${({ theme }) => theme.fontSize.m};
+    }
+
     @media screen and (max-width: 450px) {
         min-height: 150px;
-        font-size: ${({ theme }) => theme.fontSize.m_plus};
+        font-size: ${({ theme }) => theme.fontSize.m};
     }
 `;

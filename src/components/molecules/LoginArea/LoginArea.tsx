@@ -26,7 +26,7 @@ function LoginArea({ mobileView }: LoginAreaProps) {
     const from = location.pathname || '/';
 
     const [expanded, setExpanded] = useState<boolean>(false);
-    const errRef = useRef<any>();
+    const errRef = useRef<HTMLDivElement>(null);
 
     const [email, resetEmail, emailAttribs] = useInput('email', '');
     const [validEmail, setValidEmail] = useState<boolean>(false);
@@ -90,7 +90,7 @@ function LoginArea({ mobileView }: LoginAreaProps) {
             }
 
             setWaitForLogIn(false);
-            errRef.current!.focus();
+            (errRef.current as HTMLDivElement).focus();
         }
     };
 

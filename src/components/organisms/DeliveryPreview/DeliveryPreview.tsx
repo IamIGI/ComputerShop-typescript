@@ -15,7 +15,6 @@ interface DeliveryPreviewProps {
 const DeliveryPreview = ({ deliveryCheckboxesPay, deliveryCheckboxesOpt, orderStreet }: DeliveryPreviewProps) => {
     let deliveryDescriptionPay = showPaymentMethod(deliveryCheckboxesPay);
     let deliveryDescriptionOpt = showDeliveryMethod(deliveryCheckboxesOpt);
-    const deliveryDate = getDeliveryDate();
 
     return (
         <Wrapper>
@@ -61,7 +60,7 @@ const DeliveryPreview = ({ deliveryCheckboxesPay, deliveryCheckboxesOpt, orderSt
                 </Icon>
                 <Description>
                     <h5>Data dostarczenia:</h5>
-                    <p>{deliveryDate}</p>
+                    <p>{getDeliveryDate(true)}</p>
                 </Description>
             </Section>
         </Wrapper>

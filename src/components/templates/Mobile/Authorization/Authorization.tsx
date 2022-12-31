@@ -27,7 +27,7 @@ const Authorization = () => {
 
     const navigate = useNavigate();
 
-    const errRef = useRef<any>();
+    const errRef = useRef<HTMLDivElement>(null);
 
     const [email, resetEmail, emailAttribs] = useInput('email', '');
     const [validEmail, setValidEmail] = useState<boolean>(false);
@@ -86,7 +86,7 @@ const Authorization = () => {
                 }
             }
             setWaitForLogIn(false);
-            errRef.current.focus();
+            (errRef.current as HTMLDivElement).focus();
         }
     };
 

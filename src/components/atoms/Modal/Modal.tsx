@@ -5,7 +5,7 @@ import { GrClose } from 'react-icons/gr';
 import { Close, InsideWrapper, Overlay, OutsideWrapper } from './Modal.styles';
 
 interface ModalProps {
-    open: [boolean, any?];
+    open: [boolean, unknown?];
     children: ReactNode;
     onClose: () => void;
 }

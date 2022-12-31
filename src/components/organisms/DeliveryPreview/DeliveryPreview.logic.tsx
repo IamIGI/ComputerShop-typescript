@@ -1,7 +1,12 @@
 import { DeliveryOptionsInterface, PaymentOptionsInterface } from 'interfaces/Order.interfaces';
 
-export function getDeliveryDate() {
-    const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' } as const;
+export function getDeliveryDate(getWeekDay?: boolean) {
+    let options = {
+        year: 'numeric',
+        month: 'long',
+        day: 'numeric',
+    } as const;
+    if (getWeekDay) (options as { year: string; month: string; day: string; weekday: string }).weekday = 'long';
     let deliveryDate = new Date();
     const deliveryDay = deliveryDate.getDay() + 2;
 

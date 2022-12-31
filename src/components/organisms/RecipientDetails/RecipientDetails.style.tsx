@@ -20,7 +20,15 @@ export const Wrapper = styled.div`
     padding: 20px 15px 20px 15px;
     margin-bottom: 50px;
 
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 1150px) {
+        flex-direction: column;
+    }
+
+    @media screen and (max-width: 950px) {
+        flex-direction: row;
+    }
+
+    @media screen and (max-width: 750px) {
         flex-direction: column;
     }
 
