@@ -32,24 +32,14 @@ const CommentsScore = ({ comment }: CommentsScoreProps) => {
             },
         };
 
-        try {
-            const response = await addLike(data);
-            if (response.statusCode === '001') {
-                setNotLoggedIn([true, value[1]._id, 'Musisz być zalogowany']);
-            } else if (response.statusCode === '002') {
-                setNotLoggedIn([true, value[1]._id, 'Możesz tylko zmienić swój wybór']);
-            } else {
-                setNotLoggedIn([false, '', '']);
-                dispatchStore(refreshComments());
-            }
-        } catch (err: any) {
-            if (err.response) {
-                console.log(err.response.data);
-                console.log(err.response.status);
-                console.log(err.response.headers);
-            } else {
-                console.log(`Error: ${err.message}`);
-            }
+        const response = await addLike(data);
+        if (response.statusCode === '001') {
+            setNotLoggedIn([true, value[1]._id, 'Musisz być zalogowany']);
+        } else if (response.statusCode === '002') {
+            setNotLoggedIn([true, value[1]._id, 'Możesz tylko zmienić swój wybór']);
+        } else {
+            setNotLoggedIn([false, '', '']);
+            dispatchStore(refreshComments());
         }
 
         setTimeout(() => {

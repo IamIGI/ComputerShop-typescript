@@ -34,7 +34,7 @@ const RecipientTemplates = ({
                         {showOptions ? 'Zmień' : 'Użyj'}
                     </ChangeRecipient>
                     {showOptions && (
-                        <DeleteRecipient onClick={() => handleDelete(template._id)}>
+                        <DeleteRecipient onClick={() => handleDelete!(template._id)}>
                             <MdOutlineDeleteOutline />
                         </DeleteRecipient>
                     )}

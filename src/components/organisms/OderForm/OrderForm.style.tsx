@@ -6,9 +6,17 @@ export const Wrapper = styled.div`
     justify-content: flex-start;
     height: fit-content;
     width: 47%;
-    @media screen and (max-width: 550px) {
+    @media screen and (max-width: 1150px) {
         width: 90%;
         margin: auto;
+    }
+
+    @media screen and (max-width: 950px) {
+        width: 47%;
+    }
+
+    @media screen and (max-width: 750px) {
+        width: 90%;
     }
 `;
 
@@ -21,7 +29,7 @@ export const InputLocal = styled.input`
     text-align: center;
     display: block;
     width: 90%;
-    font-size: 16px;
+    font-size: 15px;
 
     @media screen and (max-width: 1000px) {
         font-size: 14px;

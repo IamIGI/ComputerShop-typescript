@@ -20,7 +20,7 @@ function RegisterArea() {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.pathname === '/basket' ? location.pathname : '/accountSettings/Settings';
-    const errRef = useRef<any>();
+    const errRef = useRef<HTMLDivElement>(null);
 
     const [expanded, setExpanded] = useState<boolean>(false);
     //form values
@@ -83,9 +83,9 @@ function RegisterArea() {
             dispatch({ type: ACTIONS.WAIT_FOR_REGISTER, payload: false });
             //clear
             setExpanded(!expanded);
-            resetFirstName('');
-            resetLastName('');
-            resetEmail('');
+            resetFirstName();
+            resetLastName();
+            resetEmail();
             setPwd('');
             setMatchPwd('');
             setAgreeToShopRules('false');
@@ -115,7 +115,7 @@ function RegisterArea() {
             }
 
             dispatch({ type: ACTIONS.WAIT_FOR_REGISTER, payload: false });
-            errRef.current.focus();
+            (errRef.current as HTMLDivElement).focus();
         }
     };
 

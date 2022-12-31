@@ -49,7 +49,7 @@ const Basket = () => {
     const { street } = orderData;
     const [finishOrder, setFinishOrder] = useState<boolean>(false);
     const [priceForDelivery, setPriceForDelivery] = useState<number>(0);
-    const [isOpen, setIsOpen] = useState<[boolean, any?]>([false]);
+    const [isOpen, setIsOpen] = useState<[boolean, unknown?]>([false]);
     const [orderId, setOrderId] = useState<string>('');
     const [orderTemplateData, setOrderTemplateData] = useLocalStorage('orderData', '');
     const [orderReady, setOrderReady] = useState(false);

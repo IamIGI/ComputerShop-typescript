@@ -66,9 +66,9 @@ const articlesSlice = createSlice({
                 state.status = 'succeeded';
                 state.data = action.payload;
             })
-            .addCase(fetchArticlesForHomePage.rejected, (state, action: PayloadAction<any>) => {
+            .addCase(fetchArticlesForHomePage.rejected, (state, action) => {
                 state.status = 'failed';
-                state.error = action.payload;
+                state.error = action.error.message;
             });
     },
 });

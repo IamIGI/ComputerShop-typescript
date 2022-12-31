@@ -4,6 +4,7 @@ import { FaRegBuilding } from 'react-icons/fa';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import { MdOutlineDeliveryDining } from 'react-icons/md';
 import { DeliveryOptionsInterface } from 'interfaces/Order.interfaces';
+import { getDeliveryDate } from '../DeliveryPreview/DeliveryPreview.logic';
 
 interface DeliveryOptionsProps {
     initDeliveryCheckboxesOpt: DeliveryOptionsInterface;
@@ -43,7 +44,7 @@ const DeliveryOptions = ({
                     />
                     <Description>
                         <h4>Kurier – InPost, UPS, FedEx, DTS bezpłatnie</h4>
-                        <p>Zamówienie dostaniesz: wtorek, 7.06</p>
+                        <p>Zamówienie dostaniesz: {getDeliveryDate()}</p>
                     </Description>
                     <Icon>
                         <BsTruck />

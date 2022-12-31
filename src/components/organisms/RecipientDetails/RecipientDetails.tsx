@@ -13,7 +13,16 @@ import { RecipientFormDataInterface, RecipientTemplateInterface } from 'interfac
 import { AuthContextInterface } from 'context/AuthProvider';
 
 interface RecipientDetailsProps {
-    handleOrderData: (arg0: RecipientFormDataInterface) => void;
+    handleOrderData: (
+        name: string,
+        street: string,
+        zipCode: string,
+        place: string,
+        email: string,
+        phone: string,
+        comment: string,
+        recipientId: string
+    ) => void;
 }
 
 const RecipientDetails = ({ handleOrderData }: RecipientDetailsProps) => {
