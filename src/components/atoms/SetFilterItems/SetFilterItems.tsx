@@ -1,4 +1,4 @@
-import { filtersSchemaDropDownMenu } from 'interfaces/GLOBAL.interfaces';
+import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
 import { useEffect, useState } from 'react';
 import {
     ApproveButton,
@@ -16,8 +16,8 @@ import {
 interface SetFilterItemsProps {
     width: string;
     description: string;
-    filterData: filtersSchemaDropDownMenu[];
-    handleItems: (arg0: filtersSchemaDropDownMenu[]) => void; // may be like that
+    filterData: FiltersDropDownListInterface[];
+    handleItems: (arg0: FiltersDropDownListInterface[]) => void; // maybe like that
     clearItems?: boolean;
     handleClearItems?: () => void;
     OneTimeChoice: boolean;
@@ -45,7 +45,7 @@ const SetFilterItems = ({
     reset,
 }: SetFilterItemsProps) => {
     const [toggle, setToggle] = useState<boolean>(false);
-    const [check, setCheck] = useState<filtersSchemaDropDownMenu[]>(filterData); // to think
+    const [check, setCheck] = useState<FiltersDropDownListInterface[]>(filterData); // to think
     const [quantity, setQuantity] = useState<number>(0);
     const [placeholder, setPlaceHolder] = useState<string>(OneTimeChoice ? filterData[0].label : '');
 

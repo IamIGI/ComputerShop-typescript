@@ -27,7 +27,7 @@ import { getProductById } from 'features/products/productsSlice';
 import { addProductToBasket } from 'features/basket/basketSlice';
 import { AppDispatch } from 'app/store';
 import { ProductDataInterface } from 'interfaces/Product.interfaces';
-import { filtersSchemaDropDownMenu } from 'interfaces/GLOBAL.interfaces';
+import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
 
 const ProductBuyContent = () => {
     const dispatchBasket = useDispatch<AppDispatch>();
@@ -59,7 +59,7 @@ const ProductBuyContent = () => {
         }
     };
 
-    const handleQuantity = (data: filtersSchemaDropDownMenu[]) => {
+    const handleQuantity = (data: FiltersDropDownListInterface[]) => {
         for (let i = 0; i < data.length; i++) {
             if (data[i].checked) {
                 setQuantity(data[i].value as number);

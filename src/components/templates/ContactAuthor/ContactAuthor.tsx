@@ -27,7 +27,7 @@ import { sendContactAPI } from 'api/contact';
 import { BiMessageAltCheck, BiCommentError } from 'react-icons/bi';
 import { formReducer, ACTIONS, INITIAL_STATE, MESSAGE_OPTIONS } from './formReducer';
 import toast from 'react-hot-toast';
-import { FiltersDropDownListNumberInterface } from 'interfaces/GLOBAL.interfaces';
+import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
 import axios from 'axios';
 
 const ContactAuthor = () => {
@@ -38,7 +38,7 @@ const ContactAuthor = () => {
             duration: 2000,
         });
 
-    const handleMessageType = (data: FiltersDropDownListNumberInterface[]) => {
+    const handleMessageType = (data: FiltersDropDownListInterface[]) => {
         for (let i = 0; i < data.length; i++) {
             if (data[i].checked) {
                 dispatch({ type: ACTIONS.MESSAGE_CATEGORY, payload: data[i].value });

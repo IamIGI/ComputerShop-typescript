@@ -66,7 +66,7 @@ const AccountDangerSection = () => {
                     </div>
                 </Section>
             </Wrapper>
-            <Modal width={300} open={isOpen} onClose={() => setIsOpen([false, {}])}>
+            <Modal open={isOpen} onClose={() => setIsOpen([false, {}])}>
                 <PopUpAccountDelete
                     signOut={signOut}
                     name={(isOpen[1] as { DataName: string; value: string }).DataName}

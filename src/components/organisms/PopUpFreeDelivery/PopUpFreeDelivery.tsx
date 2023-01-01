@@ -10,10 +10,10 @@ import {
     Wrapper,
 } from './PopUpFreeDelivery.style';
 import toast from 'react-hot-toast';
-import { ProductPrevDataInterface } from 'interfaces/Product.interfaces';
+import { ProductDataInterface } from 'interfaces/Product.interfaces';
 
 interface PopUpFreeDeliveryProps {
-    product: ProductPrevDataInterface;
+    product: ProductDataInterface;
 }
 
 const PopUpFreeDelivery = ({ product }: PopUpFreeDeliveryProps) => {

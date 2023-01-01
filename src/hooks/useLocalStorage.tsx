@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-const getLocalValue = (key: string, initValue: string | number | (() => void)) => {
+const getLocalValue = (key: string, initValue: string | number | boolean | (() => void)) => {
     //SSR Next.js
     if (typeof window === 'undefined') return initValue;
 
@@ -14,7 +14,7 @@ const getLocalValue = (key: string, initValue: string | number | (() => void)) =
     return initValue;
 };
 
-const useLocalStorage = (key: string, initValue: string | number) => {
+const useLocalStorage = (key: string, initValue: string | number | boolean) => {
     const [value, setValue] = useState(() => {
         return getLocalValue(key, initValue);
     });

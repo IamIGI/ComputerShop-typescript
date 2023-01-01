@@ -29,6 +29,7 @@ const HotShootContent = () => {
 
     useEffect(() => {
         const fetchHotShoot = async () => {
+            console.log(import.meta.env.DEV);
             setIsFetchHotShoot(true);
             const response = await getHotShootPromotion();
             setHotShoot(response);

@@ -1,11 +1,5 @@
 export interface FiltersDropDownListInterface {
     label: string;
-    value: string;
-    checked: boolean;
-}
-
-export interface FiltersDropDownListNumberInterface {
-    label: string;
-    value: number;
+    value: string | number;
     checked: boolean;
 }

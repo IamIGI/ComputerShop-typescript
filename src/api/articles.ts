@@ -7,6 +7,7 @@ const articlesApi = axios.create({
 });
 
 const getAllArticles = async (type: string) => {
+    console.log(import.meta.env.DEV);
     try {
         const response = await articlesApi.get(`/all/${type}`);
         return response.data;
