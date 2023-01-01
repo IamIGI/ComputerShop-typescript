@@ -93,9 +93,25 @@ const Basket = () => {
         setIsOpen([false]);
     };
 
-    const handleOrderData = (recipientFormData: RecipientFormDataInterface) => {
+    const handleOrderData = (
+        name: string,
+        street: string,
+        zipCode: string,
+        place: string,
+        email: string,
+        phone: string,
+        comment: string,
+        recipientId: string
+    ) => {
         setOrderData({
-            ...recipientFormData,
+            name,
+            street,
+            zipCode,
+            place,
+            email,
+            phone,
+            comment,
+            recipientId,
         });
     };
 

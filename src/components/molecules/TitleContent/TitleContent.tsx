@@ -1,6 +1,5 @@
 import { getProductById } from 'features/products/productsSlice';
 import { ProductDataInterface } from 'interfaces/Product.interfaces';
-import React from 'react';
 import { useSelector } from 'react-redux';
 import { Wrapper } from './TitleContent.style';
 

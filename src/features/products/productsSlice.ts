@@ -58,14 +58,18 @@ const productsSlice = createSlice({
 
                     for (let i = 0; i < (value as FiltersDropDownListInterface[]).length; i++) {
                         if ((value as FiltersDropDownListInterface[])[i].checked)
-                            state.filters.filters.producers.push((value as FiltersDropDownListInterface[])[i].value);
+                            state.filters.filters.producers.push(
+                                (value as FiltersDropDownListInterface[])[i].value as string
+                            );
                     }
                     break;
                 case 'processors':
                     state.filters.filters.processors = [];
                     for (let i = 0; i < (value as FiltersDropDownListInterface[]).length; i++) {
                         if ((value as FiltersDropDownListInterface[])[i].checked)
-                            state.filters.filters.processors.push((value as FiltersDropDownListInterface[])[i].value);
+                            state.filters.filters.processors.push(
+                                (value as FiltersDropDownListInterface[])[i].value as string
+                            );
                     }
                     break;
                 case 'ram.min':
@@ -92,7 +96,7 @@ const productsSlice = createSlice({
                 case 'sortBy':
                     for (let i = 0; i < (value as FiltersDropDownListInterface[]).length; i++) {
                         if ((value as FiltersDropDownListInterface[])[i].checked)
-                            state.filters.sortBy = (value as FiltersDropDownListInterface[])[i].value;
+                            state.filters.sortBy = (value as FiltersDropDownListInterface[])[i].value as string;
                     }
                     break;
                 default:

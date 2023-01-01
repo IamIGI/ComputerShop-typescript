@@ -1,4 +1,4 @@
-import { RequestState } from 'features/articles/articleInterfaces';
+import { RequestState } from 'interfaces/Articles.interfaces';
 import { AverageScoreData, CommentsResponseInterface } from 'interfaces/Comments.interfaces';
 
 export interface FilterInitInterface {

@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getAllCommentsData, getCommentsFiltersIsConfirmed, handleFilters } from 'features/comments/commentsSlice';
 import { ACTIONS as ACTIONS_COMMENT_FILTERS } from 'features/comments/commentFiltersActions';
 import { CommentsResponseInterface } from 'interfaces/Comments.interfaces';
-import { filtersSchemaDropDownMenu } from 'interfaces/GLOBAL.interfaces';
+import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
 
 const CommentFilters = () => {
     const dispatch = useDispatch();
@@ -24,11 +24,11 @@ const CommentFilters = () => {
 
     const { length: commentsSize, length_AllComments: totalNumberOfComments } = comments;
 
-    const handleSortBy = (data: filtersSchemaDropDownMenu[]) => {
+    const handleSortBy = (data: FiltersDropDownListInterface[]) => {
         dispatch(handleFilters({ name: ACTIONS_COMMENT_FILTERS.SORT_BY, value: data }));
     };
 
-    const handleRating = (data: filtersSchemaDropDownMenu[]) => {
+    const handleRating = (data: FiltersDropDownListInterface[]) => {
         dispatch(handleFilters({ name: ACTIONS_COMMENT_FILTERS.RATING, value: data }));
     };
 
