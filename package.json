@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build",
-        "preview": "npm run build && vite preview"
+        "preview": "npm run build && vite preview",
+        "prevRun": "vite preview"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^6.1.2",
@@ -29,6 +30,7 @@
         "react-router-dom": "^6.3.0",
         "styled-components": "^5.3.6",
         "vite-plugin-babel-macros": "^1.0.6",
+        "vite-plugin-html": "^3.2.0",
         "vite-tsconfig-paths": "^4.0.3",
         "yup": "^0.32.11"
     },

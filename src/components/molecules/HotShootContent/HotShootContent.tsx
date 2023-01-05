@@ -66,8 +66,10 @@ const HotShootContent = () => {
                             </p>
                             <h3>
                                 {formatPrices(
-                                    (hotShoot as HotShootDataInterface).productData.price -
+                                    (
+                                        (hotShoot as HotShootDataInterface).productData.price -
                                         (hotShoot as HotShootDataInterface).discount
+                                    ).toFixed(2)
                                 )}{' '}
                                 zł
                             </h3>
