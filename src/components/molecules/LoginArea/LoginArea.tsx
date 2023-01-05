@@ -94,6 +94,11 @@ function LoginArea({ mobileView }: LoginAreaProps) {
         }
     };
 
+    const isButtonDisabled = (validEmail: boolean, pwd: string): boolean => {
+        if (validEmail && pwd.length !== 0) return false;
+        return true;
+    };
+
     //Check if capsLock is up
     const checkCapsLock = (event: KeyboardEvent<HTMLInputElement>) => {
         if (event.getModifierState('CapsLock')) {
@@ -150,7 +155,7 @@ function LoginArea({ mobileView }: LoginAreaProps) {
                                     <Checkbox type="checkbox" checked={check} readOnly={true} />
                                     <div>Zaufaj temu urządzeniu</div>
                                 </BottomLogin>
-                                <Button> Zaloguj sie </Button>
+                                <Button disabled={isButtonDisabled(validEmail, pwd)}> Zaloguj sie </Button>
                                 <WrapButton onClick={() => setExpanded(!expanded)}>
                                     <BsFillCaretUpFill />
                                 </WrapButton>

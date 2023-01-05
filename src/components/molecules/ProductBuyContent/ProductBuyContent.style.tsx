@@ -85,6 +85,11 @@ export const BuyButton = styled(Button)`
         background-color: ${({ theme }) => theme.colors.success};
     }
 
+    &:disabled {
+        cursor: auto;
+        background-color: ${({ theme }) => theme.colors.success};
+    }
+
     @media screen and (max-width: 1400px) {
         font-size: ${({ theme }) => theme.fontSize.l};
     }

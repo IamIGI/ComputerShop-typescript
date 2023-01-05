@@ -15,4 +15,9 @@ export const Button = styled.button`
         cursor: pointer;
         background-color: ${({ theme }) => theme.colors.darkPurple};
     }
+
+    &:disabled {
+        cursor: auto;
+        background-color: ${({ theme }) => theme.colors.lightPurple};
+    }
 `;

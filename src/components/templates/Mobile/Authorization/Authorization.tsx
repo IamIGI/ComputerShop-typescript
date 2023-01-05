@@ -42,6 +42,15 @@ const Authorization = () => {
 
     const [check, toggleCheck] = useToggle('persist', false);
 
+    const isButtonDisabled = (validEmail: boolean, pwd: string): boolean => {
+        if (validEmail && pwd.length !== 0) return false;
+        return true;
+    };
+
+    useEffect(() => {
+        isButtonDisabled(validEmail, pwd);
+    }, [validEmail, pwd]);
+
     //clearErrors
     useEffect(() => {
         setErrMsg('');
@@ -150,7 +159,7 @@ const Authorization = () => {
                                 <Checkbox type="checkbox" checked={check} readOnly={true} />
                                 <div>Zaufaj temu urządzeniu</div>
                             </BottomLogin>
-                            <GreenButton disabled={false}>Zaloguj się</GreenButton>
+                            <GreenButton disabled={isButtonDisabled(validEmail, pwd)}>Zaloguj się</GreenButton>
                         </form>
                         <RegisterSection>
                             <p>Nie masz konta? </p>
