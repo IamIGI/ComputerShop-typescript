@@ -18,8 +18,12 @@ export const GreenButton = styled(Button)`
 
     &:hover {
         cursor: ${({ disabled }) => (disabled ? 'auto' : 'pointer')};
-        /* background-color: ${({ theme }) => theme.colors.success}; */
-        background-color: ${({ disabled }) => (disabled ? 'green' : '#8FCB81')};
+        background-color: ${({ theme }) => theme.colors.success};
+        /* background-color: ${({ disabled }) => (disabled ? 'green' : '#8FCB81')}; */
+    }
+
+    &:disabled {
+        background-color: #8fcb81;
     }
 
     @media screen and (max-width: 1400px) {

@@ -141,6 +141,11 @@ const ContactAuthor = () => {
         }
     };
 
+    const isButtonDisabled = (name: string, validEmail: boolean, message: string): boolean => {
+        if (name.length !== 0 && validEmail && message.length !== 0) return false;
+        return true;
+    };
+
     useEffect(() => {
         setTimeout(() => {
             handleSuccess(false);
@@ -215,7 +220,10 @@ const ContactAuthor = () => {
                             <InputDescription>Wiadomość</InputDescription>
                         </TextAreaSection>
                         <ButtonSection>
-                            <BuyButton name="Submit">
+                            <BuyButton
+                                name="Submit"
+                                disabled={isButtonDisabled(state.input.name, state.validEmail, state.input.message)}
+                            >
                                 <p>Wyślij</p>
                             </BuyButton>
                             {state.errMsg[0] ? (

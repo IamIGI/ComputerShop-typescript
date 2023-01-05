@@ -1,6 +1,6 @@
 import ProductAverageScore from 'components/molecules/ProductAverageScore/ProductAverageScore';
 import ProductEachScore from 'components/molecules/ProductEachScore/ProductEachScore';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { NoComments, Wrapper, InsideWrapper } from './ProductSummary.style';
 import { useState } from 'react';
 import ProductAddComment from 'components/molecules/ProductAddComment/ProductAddComment';
@@ -13,7 +13,7 @@ import {
     fetchAverageScore,
     getAllCommentsData,
     getAverageScoreStatus,
-    getCommentsErrors,
+    // getCommentsErrors,
     getCommentsStatus,
 } from 'features/comments/commentsSlice';
 import { store } from 'app/store';
@@ -23,7 +23,7 @@ const ProductSummary = () => {
     const comments = useSelector(getAllCommentsData) as CommentsResponseInterface;
     const commentsStatus = useSelector(getCommentsStatus);
     const averageScoreStatus = useSelector(getAverageScoreStatus);
-    const errors = useSelector(getCommentsErrors);
+    // const errors = useSelector(getCommentsErrors);
     const [isOpen, setIsOpen] = useState<[boolean]>([false]);
 
     const handleOpen = () => {
@@ -57,7 +57,7 @@ const ProductSummary = () => {
                     )}
                 </>
             ) : (
-                <>{console.log(errors)}</>
+                <></>
             )}
             <ProductAddComment handleOpen={handleOpen} />
             <Modal open={isOpen} onClose={() => setIsOpen([false])}>
