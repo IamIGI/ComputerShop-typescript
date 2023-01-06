@@ -34,8 +34,8 @@ Functionality allows to search given product or filter all products to given cri
 User can manage his account through account settings
 
 ### Managing user orders
-![image](https://user-images.githubusercontent.com/84968638/210663782-82e7b9e2-e05d-4b32-a625-41332333ddf8.png)
- 
+![image](https://user-images.githubusercontent.com/84968638/210991789-0197105d-c598-4d6a-9f05-d13c3a0a9a61.png)
+
  User can see his list of orders, see it's status and also data provided to given order. User can also print PDF about given order
  
 ### PDF Documents
