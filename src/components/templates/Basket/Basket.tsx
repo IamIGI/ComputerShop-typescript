@@ -22,7 +22,6 @@ import { getBasket, getPriceToPay, removeBasket } from 'features/basket/basketSl
 import { PromoCodesContextInterface } from 'context/PromoCodesProvider';
 import { AuthContextInterface } from 'context/AuthProvider';
 import { OrderTemplateDocumentInterface } from 'interfaces/Order.interfaces';
-import { RecipientFormDataInterface } from 'interfaces/RecipientTemplates.interfaces';
 
 const Basket = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -188,6 +187,7 @@ const Basket = () => {
             if (finishOrder === true) {
                 const sendUserOrder = async () => {
                     try {
+                        //Stripe payment logic
                         if (
                             (orderTemplateDocument as OrderTemplateDocumentInterface).transactionInfo.paymentMethod ===
                             'card'

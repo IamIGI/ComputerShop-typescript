@@ -269,6 +269,9 @@ export const NoOrderDescription = styled.div`
 `;
 
 export const Quantity = styled.div<Props>`
+    position: absolute;
+    right: -10px;
+    bottom: -10px;
     border-radius: 50%;
     height: ${({ height }) => `${height}px`};
     width: ${({ width }) => `${width}px`};
@@ -277,9 +280,13 @@ export const Quantity = styled.div<Props>`
     font-size: 15px;
     font-weight: 700;
     padding-top: 5px;
+`;
+
+export const DiscountMark = styled.div`
     position: absolute;
     right: -10px;
-    bottom: -10px;
+    top: -10px;
+    font-size: 25px;
 `;
 
 export const GetPDF = styled.div`

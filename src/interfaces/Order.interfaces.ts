@@ -2,21 +2,16 @@ import { BasketItemsInterface } from 'features/basket/basketInterfaces';
 import { ProductPrevDataInterface } from './Product.interfaces';
 import { RecipientFormDataInterface, RecipientTemplateSchema } from './RecipientTemplates.interfaces';
 
+interface TransactionInfoInterface {
+    recipientDetails: RecipientTemplateSchema;
+    date: string;
+    deliveryMethod: string;
+    isDiscount?: boolean;
+    paymentMethod: string;
+    price: number;
+}
 export interface OrderDataInterface {
-    transactionInfo: {
-        recipientDetails: {
-            name: string;
-            street: string;
-            zipCode: string;
-            place: string;
-            email: string;
-            phone: number;
-        };
-        date: string;
-        deliveryMethod: string;
-        paymentMethod: string;
-        price: number;
-    };
+    transactionInfo: TransactionInfoInterface;
     _id: string;
     status: number;
     products: ProductPrevDataInterface[];
@@ -24,13 +19,7 @@ export interface OrderDataInterface {
 }
 
 export interface OrderHistoryInterface {
-    transactionInfo: {
-        recipientDetails: RecipientTemplateSchema;
-        date: string;
-        deliveryMethod: string;
-        paymentMethod: string;
-        price: number;
-    };
+    transactionInfo: TransactionInfoInterface;
     _id: string;
     status: number;
     products: {
@@ -63,12 +52,7 @@ export interface PaymentOptionsInterface {
 export interface OrderTemplateDocumentInterface {
     status: number; //all orders have to start from "In realization" status // for now
     products: BasketItemsInterface[];
-    transactionInfo: {
-        deliveryMethod: string;
-        paymentMethod: string;
-        price: number;
-        recipientDetails: RecipientFormDataInterface;
-    };
+    transactionInfo: TransactionInfoInterface;
     user: string;
     usedPromoCode: { isUsed: boolean; code: string };
 }

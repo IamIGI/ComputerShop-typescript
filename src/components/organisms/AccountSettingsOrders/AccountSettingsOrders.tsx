@@ -21,6 +21,7 @@ import {
     DescriptionPDF,
     IconPDF,
     InsideWrapper,
+    DiscountMark,
 } from './AccountSettingsOrders.style';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
@@ -40,6 +41,7 @@ import PageMenu from 'components/molecules/PageMenu/PageMenu';
 import formatPrices from 'helpers/formatPrices';
 import { AuthContextInterface } from 'context/AuthProvider';
 import { OrderHistoryInterface } from 'interfaces/Order.interfaces';
+import { TbDiscount } from 'react-icons/tb';
 
 const AccountSettingsOrders = () => {
     const { auth } = useAuth() as AuthContextInterface;
@@ -119,12 +121,20 @@ const AccountSettingsOrders = () => {
                                             nr {item._id}
                                             <br />
                                             <h4>{formatPrices(item.transactionInfo.price.toFixed(2))} zł</h4>
+                                            {item.transactionInfo.isDiscount && (
+                                                <TbDiscount style={{ color: 'green' }} />
+                                            )}
                                         </OrderDescription>
                                         <OrderProducts>
                                             {item.products.map((product, index) => (
                                                 <>
                                                     {item.products.length > 1 ? (
                                                         <ProductImageSmall key={index}>
+                                                            {product.isDiscount && (
+                                                                <DiscountMark>
+                                                                    <TbDiscount style={{ color: 'green' }} />
+                                                                </DiscountMark>
+                                                            )}
                                                             <Quantity height={30} width={30}>
                                                                 {product.quantity}
                                                             </Quantity>
@@ -133,6 +143,11 @@ const AccountSettingsOrders = () => {
                                                     ) : (
                                                         <>
                                                             <ProductImage key={index}>
+                                                                {product.isDiscount && (
+                                                                    <DiscountMark>
+                                                                        <TbDiscount style={{ color: 'green' }} />
+                                                                    </DiscountMark>
+                                                                )}
                                                                 <Quantity height={30} width={30}>
                                                                     {product.quantity}
                                                                 </Quantity>
