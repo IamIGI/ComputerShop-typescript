@@ -13,11 +13,13 @@ interface PopUpGalleryProps {
 const PopUpGallery = ({ images, addServerPrefix = false, initIndex }: PopUpGalleryProps) => {
     const [index, setIndex] = useState<number>(initIndex);
     const sumOfElementsWidth = images.length * 90 + (images.length - 1) * 20;
-
     const [divWidth, setDivWidth] = useState(10000);
+
     useEffect(() => {
         const timer = setInterval(async () => {
-            setDivWidth(document.getElementById('containerBigImage')!.offsetWidth);
+            if (document.getElementById('containerBigImage') !== null) {
+                setDivWidth(document.getElementById('containerBigImage')!.offsetWidth);
+            }
         }, 2000);
 
         return () => {
