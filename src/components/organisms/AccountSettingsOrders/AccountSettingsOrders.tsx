@@ -27,7 +27,7 @@ import {
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from 'hooks/useAuth';
-import { useEffect, useState } from 'react';
+import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { BsBox } from 'react-icons/bs';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
@@ -54,7 +54,16 @@ const AccountSettingsOrders = () => {
     const [pageNr, setPageNr] = useState<number>(1);
     const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
     const [showHandyOptions, setShowHandyOptions] = useState<string>('');
-    const [isActiveLink, setIsActiveLink] = useState<boolean>(true);
+
+    const closeMenuPDF = () => {
+        const timer = setTimeout(() => {
+            setShowHandyOptions('');
+        }, 4000);
+    };
+
+    const openMenuPDF = (id: string) => {
+        setShowHandyOptions(id);
+    };
 
     useEffect(() => {
         let data = {};
@@ -110,9 +119,7 @@ const AccountSettingsOrders = () => {
                         <>
                             {orderHistory.map((item, index) => (
                                 <InsideWrapper key={item._id}>
-                                    <OrderContent
-                                        to={isActiveLink ? `/accountSettings/orders/history/${item._id}` : ''}
-                                    >
+                                    <OrderContent to={`/accountSettings/orders/history/${item._id}`}>
                                         <OrderDescription>
                                             <h4>{getStatus(item.status)}</h4>
                                             <DateDecorator>
@@ -162,27 +169,21 @@ const AccountSettingsOrders = () => {
                                             ))}
                                         </OrderProducts>
                                         <GetPDF
-                                            onMouseOver={() => {
-                                                setShowHandyOptions(item._id);
-                                                setIsActiveLink(false);
-                                            }}
+                                            onMouseOver={() => openMenuPDF(item._id)}
+                                            onMouseLeave={() => closeMenuPDF()}
                                         >
                                             <HiDotsVertical />
                                         </GetPDF>
                                     </OrderContent>
-                                    {showHandyOptions === item._id ? (
-                                        <>
-                                            <a href={`${BASE_URL}/order/pdf/${item._id}`}>
-                                                <HandyMenu>
-                                                    <IconPDF>
-                                                        <GrDocumentPdf />
-                                                    </IconPDF>
-                                                    <DescriptionPDF>Dokument faktury</DescriptionPDF>
-                                                </HandyMenu>
-                                            </a>
-                                        </>
-                                    ) : (
-                                        <></>
+                                    {showHandyOptions === item._id && (
+                                        <a href={`${BASE_URL}/order/pdf/${item._id}`}>
+                                            <HandyMenu onMouseOver={() => openMenuPDF(item._id)}>
+                                                <IconPDF>
+                                                    <GrDocumentPdf />
+                                                </IconPDF>
+                                                <DescriptionPDF>Dokument faktury</DescriptionPDF>
+                                            </HandyMenu>
+                                        </a>
                                     )}
                                 </InsideWrapper>
                             ))}
