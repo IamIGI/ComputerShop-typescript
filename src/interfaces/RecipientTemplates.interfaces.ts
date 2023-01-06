@@ -1,5 +1,3 @@
-import RecipientTemplates from 'components/molecules/RecipientTemplates/RecipientTemplates';
-
 export interface RecipientTemplateSchema {
     name: string;
     street: string;

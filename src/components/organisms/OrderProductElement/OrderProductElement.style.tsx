@@ -21,6 +21,7 @@ export const Wrapper = styled(NavLink)`
 `;
 
 export const ProductImage = styled.div`
+    position: relative;
     height: 120px;
     width: auto;
     img {
@@ -39,6 +40,13 @@ export const ProductImage = styled.div`
     @media screen and (max-width: 450px) {
         height: 80px;
     }
+`;
+
+export const DiscountMark = styled.div`
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    font-size: 25px;
 `;
 
 export const ProductDescription = styled.div`
