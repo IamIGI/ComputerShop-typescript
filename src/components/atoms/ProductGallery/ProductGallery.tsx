@@ -19,10 +19,11 @@ const ProductGallery = ({ addServerPrefix = false }) => {
     const [divWidth, setDivWidth] = useState<number>(10000);
     useEffect(() => {
         setInterval(async () => {
-            setDivWidth(
-                // document.getElementById('containerProductGallery') !== null && // probably this will throw errors
-                document.getElementById('containerProductGallery')!.offsetWidth
-            );
+            if (document.getElementById('containerProductGallery') !== null) {
+                setDivWidth(
+                    document.getElementById('containerProductGallery')!.offsetWidth // probably this will throw errors
+                );
+            }
         }, 2000);
     }, []);
 
