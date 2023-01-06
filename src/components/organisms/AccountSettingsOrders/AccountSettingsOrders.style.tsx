@@ -66,8 +66,9 @@ export const InsideWrapper = styled.div`
 `;
 
 export const OrderContent = styled(NavLink)`
-    text-decoration: none;
+    z-index: 1;
     position: relative;
+    text-decoration: none;
     height: 175px;
     width: 90%;
     margin: 10px 5%;
@@ -290,10 +291,11 @@ export const DiscountMark = styled.div`
 `;
 
 export const GetPDF = styled.div`
+    z-index: 2;
     position: absolute;
-    top: 20px;
-    right: 20px;
-    padding: 5px 6px 1px 6px;
+    top: 10px;
+    right: 10px;
+    padding: 10px 11px 6px 11px;
     border: 1px solid transparent;
     border-radius: 50%;
 
@@ -305,7 +307,7 @@ export const GetPDF = styled.div`
 export const HandyMenu = styled.div`
     z-index: 100;
     position: absolute;
-    top: 60px;
+    top: 50px;
     right: 5%;
     padding: 15px 10px;
     width: fit-content;
@@ -318,6 +320,11 @@ export const HandyMenu = styled.div`
     border: 1px solid ${({ theme }) => theme.colors.lightGrey};
     border-radius: 5px;
     box-shadow: 4px 4px 8px 1px ${({ theme }) => theme.colors.grey};
+    transform: scale(1, 1);
+    transition: transform, 0.5s ease;
+    :hover {
+        transform: scale(1.05, 1.05);
+    }
 `;
 
 export const IconPDF = styled.div``;
