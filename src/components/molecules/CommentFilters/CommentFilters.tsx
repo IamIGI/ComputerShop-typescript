@@ -16,11 +16,12 @@ import { getAllCommentsData, getCommentsFiltersIsConfirmed, handleFilters } from
 import { ACTIONS as ACTIONS_COMMENT_FILTERS } from 'features/comments/commentFiltersActions';
 import { CommentsResponseInterface } from 'interfaces/Comments.interfaces';
 import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
+import CommentsFilterRating from '../CommentsFilterRating/CommentsFilterRating';
 
 const CommentFilters = () => {
     const dispatch = useDispatch();
     const comments = useSelector(getAllCommentsData) as CommentsResponseInterface;
-    const isConfirmed = useSelector(getCommentsFiltersIsConfirmed);
+    const isConfirmed = useSelector(getCommentsFiltersIsConfirmed) as boolean;
 
     const { length: commentsSize, length_AllComments: totalNumberOfComments } = comments;
 
@@ -47,13 +48,7 @@ const CommentFilters = () => {
                             Wyniki: {commentsSize} z {totalNumberOfComments}
                         </NumberOfComments>
                         <Filters>
-                            <SetFilterItems
-                                OneTimeChoice={true}
-                                width="230px"
-                                description={'Oceny'}
-                                filterData={ratingOptions}
-                                handleItems={handleRating}
-                            />
+                            <CommentsFilterRating width="230px" filterData={ratingOptions} handleItems={handleRating} />
                         </Filters>
                         <BigScreen>
                             <Confirmed>
