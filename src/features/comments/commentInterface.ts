@@ -1,5 +1,6 @@
 import { RequestState } from 'interfaces/Articles.interfaces';
 import { AverageScoreData, CommentsResponseInterface } from 'interfaces/Comments.interfaces';
+import { FiltersDropDownListInterface } from 'interfaces/GLOBAL.interfaces';
 
 export interface FilterInitInterface {
     productId: string;
@@ -13,6 +14,7 @@ export interface InitialStateInterface {
     status: RequestState;
     error: null | string;
     filters: FilterInitInterface;
+    filterRatingOptions: FiltersDropDownListInterface[];
     images: {
         isOpenGallery: [boolean];
         chosenImageIndex: number;

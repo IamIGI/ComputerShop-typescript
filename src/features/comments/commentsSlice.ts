@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { getAllCommentsAPI, getProductAverageScore } from 'api/comments';
 import { RootState } from 'app/store.js';
+import { ratingOptions } from 'components/molecules/CommentFilters/CommentFilters.logic.js';
 import { RequestState } from 'interfaces/Articles.interfaces.js';
 import { AverageScoreData, CommentsResponseInterface } from 'interfaces/Comments.interfaces.js';
 import { ProductDataInterface } from 'interfaces/Product.interfaces.js';
@@ -19,6 +20,7 @@ const initialState: InitialStateInterface = {
     status: 'idle',
     error: null,
     filters: filterInit,
+    filterRatingOptions: ratingOptions,
     images: {
         isOpenGallery: [false],
         chosenImageIndex: 0,
@@ -57,7 +59,10 @@ const commentsSlice = createSlice({
                     break;
                 case ACTIONS_COMMENT_FILTERS.RATING:
                     for (let i = 0; i < value.length; i++) {
-                        if (value[i].checked) state.filters.filters.rating = value[i].value;
+                        if (value[i].checked) {
+                            state.filterRatingOptions = value;
+                            state.filters.filters.rating = value[i].value;
+                        }
                     }
                     break;
                 case ACTIONS_COMMENT_FILTERS.CONFIRMED:
@@ -125,6 +130,7 @@ export const getNumberOfCommentsWithoutFilters = (state: RootState) =>
 
 export const getCommentsFilters = (state: RootState) => state.comments.filters;
 export const getCommentsFiltersIsConfirmed = (state: RootState) => state.comments.filters.filters.confirmed;
+export const getCommentsFiltersRating = (state: RootState) => state.comments.filterRatingOptions;
 
 export const getAverageScore = (state: RootState) => state.comments.averageScore.data;
 export const getAverageScoreStatus = (state: RootState) => state.comments.averageScore.status;

@@ -12,15 +12,16 @@ export const Wrapper = styled.div`
     justify-content: center;
 `;
 
-export const QuantityOfGivenScore = styled.div`
+export const QuantityOfGivenScore = styled.div<{ activeChoice: boolean }>`
     display: grid;
     grid-template-columns: 40px 1fr 30px;
     justify-content: center;
     margin-top: 10px;
     font-size: ${({ theme }) => theme.fontSize.l_plus};
-    color: grey;
+    color: ${(props) => (props.activeChoice ? 'orange' : 'gray')};
     font-weight: 500;
     :hover {
+        cursor: pointer;
         color: orange;
     }
 
