@@ -13,7 +13,7 @@ import {
     XmarkLink,
     XmarkIcon,
 } from './NavBar.styles';
-import { VscMilestone, VscInspect } from 'react-icons/vsc';
+import { VscMilestone, VscInspect, VscCommentDiscussion } from 'react-icons/vsc';
 import { BsEnvelope, BsFillPersonLinesFill } from 'react-icons/bs';
 import useAuth from 'hooks/useAuth';
 import useLogout from 'hooks/useLogout';
@@ -89,6 +89,11 @@ const NavBar = () => {
                                     target={'/accountSettings/recipientTemplates'}
                                     icon={<BsFillPersonLinesFill />}
                                     description={'Odbiorcy'}
+                                />
+                                <StyledLink
+                                    target={'accountSettings/opinions'}
+                                    icon={<VscCommentDiscussion />}
+                                    description={'Opinie'}
                                 />
                                 <div onClick={signOut}>
                                     <StyledLink target={''} icon={<RiLogoutCircleLine />} description={'Wyloguj się'} />
