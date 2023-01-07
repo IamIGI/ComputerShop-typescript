@@ -31,15 +31,21 @@ export const Nav = styled.nav`
 
     @media screen and (max-width: 1050px) {
         flex-direction: row;
+        justify-content: center;
+        gap: 25px;
     }
 
     @media screen and (max-width: 850px) {
-        gap: 5px;
+        gap: 15px;
         justify-content: center;
         align-items: center;
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 625px) {
+        gap: 8px;
+    }
+
+    @media screen and (max-width: 600px) {
         justify-content: space-evenly;
         align-items: flex-start;
     }
@@ -54,11 +60,12 @@ export const StyledLink = styled(NavLink)`
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
+    align-items: flex-start;
+    border-bottom: 1px solid transparent;
 
     div {
         margin-right: 10px;
     }
-    border-bottom: 1px solid transparent;
 
     :hover {
         border-bottom: 1px solid ${({ theme }) => theme.colors.success};
@@ -79,7 +86,8 @@ export const StyledLink = styled(NavLink)`
     }
 
     @media screen and (max-width: 1050px) {
-        width: 250px;
+        width: 160px;
+        margin-right: 0%;
     }
 
     @media screen and (max-width: 850px) {
@@ -87,11 +95,12 @@ export const StyledLink = styled(NavLink)`
         justify-content: center;
     }
 
-    @media screen and (max-width: 560px) {
+    @media screen and (max-width: 700px) {
+        width: 135px;
         font-size: ${({ theme }) => theme.fontSize.l};
     }
 
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 600px) {
         align-items: center;
         height: 40px;
         width: 100%;
@@ -113,7 +122,7 @@ export const StyledLink = styled(NavLink)`
 
 export const Description = styled.div`
     display: flex;
-    @media screen and (max-width: 500px) {
+    @media screen and (max-width: 600px) {
         display: none;
     }
 `;
