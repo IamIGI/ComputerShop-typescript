@@ -24,6 +24,7 @@ import Article from 'components/templates/Article/Article';
 import AccountRecipientTemplate from 'components/organisms/AccountRecipientTemplate/AccountRecipientTemplate';
 import BasketContextWrapper from 'components/templates/Basket/BasketContextWrapper';
 import Register from 'components/templates/Mobile/Register/Register';
+import AccountOpinions from 'components/templates/AccountOpinions/AccountOpinions';
 
 const ROLES = {
     User: Number(import.meta.env.VITE_REACT_APP_USER_ROLE),
@@ -64,6 +65,7 @@ const Root = () => {
                             <Route path="orders" element={<AccountSettingsOrders />} />
                             <Route path="orders/history/:orderId" element={<AccountOrderHistoryItem />} />
                             <Route path="recipientTemplates" element={<AccountRecipientTemplate />} />
+                            <Route path="opinions" element={<AccountOpinions />} />
                         </Route>
                     </Route>
 

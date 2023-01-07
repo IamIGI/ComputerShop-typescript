@@ -1,6 +1,7 @@
 import { Wrapper, Nav, StyledLink, Description } from './AccountMenu.style';
 import { FiSettings, FiPackage } from 'react-icons/fi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
+import { VscCommentDiscussion } from 'react-icons/vsc';
 
 const AccountMenu = () => {
     return (
@@ -32,6 +33,15 @@ const AccountMenu = () => {
                         </span>
                     </div>
                     <Description>Odbiorcy</Description>
+                </StyledLink>
+
+                <StyledLink to="/accountSettings/opinions">
+                    <div>
+                        <span>
+                            <VscCommentDiscussion />
+                        </span>
+                    </div>
+                    <Description>Opinie</Description>
                 </StyledLink>
             </Nav>
         </Wrapper>
