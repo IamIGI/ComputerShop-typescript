@@ -16,6 +16,10 @@ The jwt token is used for user authentication, where account information such as
 
 User can choose one of the options to choose from when placing an order while seeing it in dynamic basket preview.
  User can choose delivery method, payment method, and set recipients data 
+ 
+### Stripe payment
+![image](https://user-images.githubusercontent.com/84968638/211223117-fede5d38-c3b3-47c3-8715-7db35a0abd2b.png)
+
 
 ### Support for promotions
 ![image](https://user-images.githubusercontent.com/84968638/210662166-81a3a3c1-059a-463c-94f6-6c0c6cc22305.png)
