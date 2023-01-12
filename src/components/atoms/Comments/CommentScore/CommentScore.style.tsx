@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+interface Props {
+    userComments: boolean;
+}
+
 export const Wrapper = styled.div`
     margin-top: 10px;
     display: flex;
@@ -33,14 +37,16 @@ export const ScoreDescription = styled.div`
     }
 `;
 
-export const Icon3 = styled.div`
+export const Icon3 = styled.div<Props>`
     padding-top: 4px;
     margin-left: 15px;
     font-size: ${({ theme }) => theme.fontSize.xl};
 
     :hover {
         cursor: pointer;
+        cursor: ${(props) => (props.userComments ? 'auto' : 'pointer')};
         color: ${({ theme }) => theme.colors.successDark};
+        color: ${(props) => (props.userComments ? '#737C8E' : '#0f9922')};
     }
 
     @media screen and (max-width: 860px) {

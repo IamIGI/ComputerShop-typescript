@@ -1,3 +1,18 @@
+import { CommentInterface } from './Comments.interfaces';
+
+export interface GetAccountOpinions {
+    message: string;
+    commentsData: UserAccountComments[];
+    sumOfLikes: number;
+    commentsCount: number;
+}
+
+export interface UserAccountComments {
+    _id: string;
+    productId: string;
+    comment: CommentInterface[];
+}
+
 export interface AccountEntitlementsInterface {
     shopRules: boolean;
     email: boolean;

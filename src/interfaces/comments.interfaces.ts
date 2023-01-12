@@ -1,4 +1,9 @@
 export interface CommentInterface {
+    _id: string;
+    userId: string;
+    userName: string;
+    date: string;
+    confirmed: boolean;
     likes: {
         up: number;
         down: number;
@@ -11,12 +16,8 @@ export interface CommentInterface {
         added: boolean;
         images: string[];
     };
-    userId: string; // there could be error
-    userName: string;
-    date: string;
-    confirmed: boolean;
-    _id: string;
     usersWhoLiked: { userId: string; likeUp: boolean; _id: string }[] | [];
+    length?: number;
 }
 
 export interface CommentsResponseInterface {
