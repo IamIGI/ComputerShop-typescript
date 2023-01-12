@@ -35,6 +35,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, store } from 'app/store';
 import { BASE_URL } from 'data/URL';
 import { CommentInterface, CommentsResponseInterface } from 'interfaces/Comments.interfaces';
+import ViewComment from '../ViewComment/ViewComment';
 
 const Comments = () => {
     const dispatch = useDispatch<AppDispatch>();
@@ -88,37 +89,11 @@ const Comments = () => {
                             {(commentsArray as CommentInterface[])
                                 .slice(0, limitViewedComments)
                                 .map((comment, index) => (
-                                    <CommentSection key={index}>
-                                        <BigScreen>
-                                            <UserData comment={comment} />
-                                        </BigScreen>
-                                        <ContentSection>
-                                            <UserDataWhenSmallScreen>
-                                                <SmallScreen>
-                                                    <UserData comment={comment} />
-                                                </SmallScreen>
-                                                <ContentData comment={comment} />
-                                            </UserDataWhenSmallScreen>
-                                            <Opinion comment={comment} />
-                                            <ImagesSection>
-                                                {comment.image.added ? (
-                                                    <>
-                                                        {comment.image.images.map((url, index) => (
-                                                            <Image
-                                                                src={`${BASE_URL}/${url}`}
-                                                                key={index}
-                                                                alt="comment"
-                                                                onClick={() => findImage(url)}
-                                                            />
-                                                        ))}
-                                                    </>
-                                                ) : (
-                                                    <></>
-                                                )}
-                                            </ImagesSection>
-                                            <CommentsScore comment={comment} />
-                                        </ContentSection>
-                                    </CommentSection>
+                                    <ViewComment
+                                        key={index}
+                                        comment={comment}
+                                        images={(comments as CommentsResponseInterface).images}
+                                    />
                                 ))}
                             {limitViewedComments < displayedComments ? (
                                 <NoOpinionsLeft>
