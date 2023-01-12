@@ -7,8 +7,9 @@ import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { GetAccountOpinions } from 'interfaces/Account.interfaces';
 import { useEffect, useState } from 'react';
+import { BiCommentX } from 'react-icons/bi';
 import AccountSettings from '../AccountSettings/AccountSettings';
-import { TitleSection, UserOpinionSection, Wrapper } from './AccountOpinions.style';
+import { NoOpinions, NoOpinionsIcon, TitleSection, UserOpinionSection, Wrapper } from './AccountOpinions.style';
 
 const AccountOpinions = () => {
     const { auth } = useAuth() as AuthContextInterface;
@@ -43,30 +44,32 @@ const AccountOpinions = () => {
 
     return (
         <AccountSettings>
-            <Wrapper>
-                {waitForFetch ? (
-                    <LoadingAnimation loadingSize={15} />
-                ) : userComments.commentsData.length === 0 ? (
+            {waitForFetch ? (
+                <LoadingAnimation loadingSize={15} />
+            ) : userComments.commentsData.length === 0 ? (
+                <NoOpinions>
+                    <NoOpinionsIcon>
+                        <BiCommentX />
+                    </NoOpinionsIcon>
                     <p>Uzytkownik nie ma zadnych komentarzy</p>
-                ) : (
-                    <>
-                        <TitleSection>
-                            <h1>Twoje opinie ({userComments.commentsCount})</h1>
-                        </TitleSection>
-                        <UserOpinionSection>
-                            {userComments.commentsData.slice(0, 5).map((comment, index) => (
-                                <ViewComment
-                                    key={index}
-                                    comment={comment.comment[0]}
-                                    images={comment.comment[0].image.images}
-                                    userComments={{ isTrue: true, productId: comment.productId }}
-                                />
-                            ))}
-                        </UserOpinionSection>
-                        {console.log(userComments)}
-                    </>
-                )}
-            </Wrapper>
+                </NoOpinions>
+            ) : (
+                <Wrapper>
+                    <TitleSection>
+                        <h1>Twoje opinie ({userComments.commentsCount})</h1>
+                    </TitleSection>
+                    <UserOpinionSection>
+                        {userComments.commentsData.slice(0, 5).map((comment, index) => (
+                            <ViewComment
+                                key={index}
+                                comment={comment.comment[0]}
+                                images={comment.comment[0].image?.images}
+                                userComments={{ isTrue: true, productId: comment.productId }}
+                            />
+                        ))}
+                    </UserOpinionSection>
+                </Wrapper>
+            )}
         </AccountSettings>
     );
 };
