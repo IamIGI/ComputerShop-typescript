@@ -6,6 +6,7 @@ export const Wrapper = styled.div`
     justify-content: flex-start;
     align-items: flex-start;
     margin-left: 2%;
+    gap: 20px;
 `;
 
 export const TitleSection = styled.div`
@@ -47,4 +48,12 @@ export const NoOpinions = styled.div`
 
 export const NoOpinionsIcon = styled.div`
     font-size: ${({ theme }) => theme.fontSize.xl};
+`;
+
+export const GeneralSection = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
 `;

@@ -1,10 +1,17 @@
 import { CommentInterface } from './Comments.interfaces';
+import { OrderedProductData } from './Order.interfaces';
 
-export interface GetAccountOpinions {
+export interface newCommentsInterface {
+    product: OrderedProductData;
+    orderDate: string;
+}
+
+export interface GetAccountOpinionsInterface {
     message: string;
     commentsData: UserAccountComments[];
     sumOfLikes: number;
     commentsCount: number;
+    newComments: newCommentsInterface[];
 }
 
 export interface UserAccountComments {

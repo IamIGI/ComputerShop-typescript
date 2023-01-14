@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Props {
@@ -22,7 +23,7 @@ export const CommentSection = styled.div`
 export const ContentSection = styled.div<Props>`
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: ${(props) => (props.userComments ? 'space-between' : 'flex-start')};
     flex-wrap: nowrap;
 
     width: ${(props) => (props.userComments ? '95%' : '80%')};
@@ -126,7 +127,9 @@ export const ProductImage = styled.div`
     }
 `;
 
-export const ProductWrapper = styled.div`
+export const ProductWrapper = styled(NavLink)`
+    text-decoration: none;
+    color: black;
     display: flex;
     flex-direction: column;
     justify-content: center;
