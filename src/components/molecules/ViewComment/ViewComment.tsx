@@ -37,14 +37,15 @@ const ViewComment = ({ comment, images, userComments }: ViewCommentInterface) =>
         const searchedElement_Index = images.indexOf(url, 0);
         dispatch(handleChooseImage(searchedElement_Index));
     };
+
     useEffect(() => {
         if (userComments?.isTrue) {
-            const fetchProductImage = async (product_id: string) => {
+            const fetchProduct = async (product_id: string) => {
                 const response = await getProduct(product_id);
 
                 setProduct(response);
             };
-            fetchProductImage(userComments.productId);
+            fetchProduct(userComments.productId);
         }
     }, []);
 
@@ -52,7 +53,7 @@ const ViewComment = ({ comment, images, userComments }: ViewCommentInterface) =>
         <CommentSection>
             <BigScreen userComments={userComments?.isTrue ? true : false}>
                 {userComments?.isTrue && Object.keys(product).length !== 0 ? (
-                    <ProductWrapper>
+                    <ProductWrapper to={`/product/${userComments.productId}`}>
                         <ProductImage>
                             <img src={(product as ProductDataInterface).prevImg} alt="Show product" />
                         </ProductImage>
@@ -66,7 +67,7 @@ const ViewComment = ({ comment, images, userComments }: ViewCommentInterface) =>
                 <UserDataWhenSmallScreen userComments={userComments?.isTrue ? true : false}>
                     <SmallScreen>
                         {userComments?.isTrue ? (
-                            <ProductWrapper>
+                            <ProductWrapper to={`/product/${userComments.productId}`}>
                                 <ProductImage>
                                     <img src={(product as ProductDataInterface).prevImg} alt="Show product" />
                                 </ProductImage>
@@ -80,7 +81,7 @@ const ViewComment = ({ comment, images, userComments }: ViewCommentInterface) =>
                 </UserDataWhenSmallScreen>
                 <Opinion comment={comment} />
                 <ImagesSection>
-                    {comment.image.added ? (
+                    {comment?.image?.added ? (
                         <>
                             {comment.image.images.map((url, index) => (
                                 <Image

@@ -14,7 +14,7 @@ import {
 import { BsTelephone, BsFacebook } from 'react-icons/bs';
 import { AiOutlineMail, AiOutlineInstagram } from 'react-icons/ai';
 import { FiYoutube, FiGithub, FiTwitter } from 'react-icons/fi';
-import { ContactInfoInterface } from 'interfaces/generalData.interface';
+import { ContactInfoInterface } from 'interfaces/GeneralData.interface';
 import { useEffect, useState } from 'react';
 import { getGeneralDatas } from 'api/generalData';
 

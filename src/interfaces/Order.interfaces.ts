@@ -56,3 +56,14 @@ export interface OrderTemplateDocumentInterface {
     user: string;
     usedPromoCode: { isUsed: boolean; code: string };
 }
+
+export interface OrderedProductData {
+    _id: string;
+    name: string;
+    prevImg: string;
+    price: number;
+    priceBeforeDiscount: number;
+    isDiscount: boolean;
+    code?: number;
+    quantity: number;
+}

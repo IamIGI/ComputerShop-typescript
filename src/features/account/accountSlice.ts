@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { GetAccountOpinions } from 'interfaces/Account.interfaces';
+import { GetAccountOpinionsInterface } from 'interfaces/Account.interfaces';
 import { InitialState } from './accountInterface';
 
 /**IMPORTANT ---- SLICE WILL BE USED AFTER AUTHORIZATION REBUILD TO REDUX --------- DO NOT DELETE */
@@ -9,7 +9,7 @@ import { InitialState } from './accountInterface';
 const initialState: InitialState = {
     accountComments: {
         status: 'idle',
-        data: { message: 'User comments', commentsData: [], sumOfLikes: 0, commentsCount: 0 },
+        data: { message: 'User comments', commentsData: [], sumOfLikes: 0, commentsCount: 0, newComments: [] },
         error: null,
         commentByIdStatus: 'idle',
     },
@@ -17,7 +17,7 @@ const initialState: InitialState = {
 
 export const fetchUserComments = createAsyncThunk(
     'user/comments',
-    async (fetchData: { userId: string; pageNr: number }): Promise<GetAccountOpinions> => {
+    async (fetchData: { userId: string; pageNr: number }): Promise<GetAccountOpinionsInterface> => {
         console.log('fetchUserCommentsReducer-------begin---------');
         console.log(fetchData);
         const axiosPrivate = useAxiosPrivate();
@@ -25,7 +25,7 @@ export const fetchUserComments = createAsyncThunk(
         const { userId, pageNr } = fetchData;
         const data = { userId, pageNr };
         console.log(data);
-        const response = (await axiosPrivate.post('user/comments', data)) as GetAccountOpinions;
+        const response = (await axiosPrivate.post('user/comments', data)) as GetAccountOpinionsInterface;
 
         console.log(response);
         console.log('fetchUserCommentsReducer-------end---------');
@@ -43,7 +43,7 @@ const accountSlice = createSlice({
             .addCase(fetchUserComments.pending, (state) => {
                 state.accountComments.status = 'loading';
             })
-            .addCase(fetchUserComments.fulfilled, (state, action: PayloadAction<GetAccountOpinions>) => {
+            .addCase(fetchUserComments.fulfilled, (state, action: PayloadAction<GetAccountOpinionsInterface>) => {
                 state.accountComments.status = 'succeeded';
                 state.accountComments.data = action.payload;
             })
