@@ -34,11 +34,11 @@ import { sendCommentAPI } from 'api/comments';
 import { BiCommentError } from 'react-icons/bi';
 import { ACTIONS, INITIAL_STATE, reducerFunction } from './reducerLogic';
 import toast from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProductById, handleAddedComment } from 'features/products/productsSlice';
+import { useDispatch } from 'react-redux';
+import { handleAddedComment } from 'features/products/productsSlice';
 import { refreshComments } from 'features/comments/commentsSlice';
 import { AuthContextInterface } from 'context/AuthProvider';
-import { ProductDataInterface } from 'interfaces/Product.interfaces';
+
 import axios from 'axios';
 
 interface PopUpAddCommentProps {
@@ -49,7 +49,7 @@ interface PopUpAddCommentProps {
 
 const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommentProps) => {
     const dispatchStore = useDispatch();
-    // const product = useSelector(getProductById);
+
     const { auth } = useAuth() as AuthContextInterface;
     const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE);
     const [userName, setUserName] = useState<string>(Boolean(auth.userName) ? auth.userName : '');
@@ -92,7 +92,7 @@ const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommen
 
         if (userName.length !== 0 && state.opinion.length > 10 && state.rating !== 0) {
             const formData = new FormData();
-            //check is it working
+
             Object.keys(state.files).forEach((key) => {
                 formData.append(
                     (state.files as unknown as FileList).item(key as unknown as number)!.name,
