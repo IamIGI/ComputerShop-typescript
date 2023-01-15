@@ -9,6 +9,7 @@ import { Wrapper } from './AccountSettingsSettings.style';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { AuthContextInterface } from 'context/AuthProvider';
 import { AccountInterface } from 'interfaces/Account.interfaces';
+import AccountNotifications from 'components/molecules/AccountNotifications/AccountNotifications';
 
 const AccountSettingsSettings = () => {
     const { auth } = useAuth() as AuthContextInterface;
@@ -49,6 +50,7 @@ const AccountSettingsSettings = () => {
                     <>
                         <AccountData accountInfo={accountInfo as AccountInterface} handleRefresh={handleRefresh} />
                         <AccountEntitlements accountEntitlements={(accountInfo as AccountInterface).Enlistments} />
+                        <AccountNotifications accountInfo={accountInfo as AccountInterface} />
                         <AccountDangerSection />
                     </>
                 )}
