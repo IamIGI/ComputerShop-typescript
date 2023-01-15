@@ -34,20 +34,22 @@ import { sendCommentAPI } from 'api/comments';
 import { BiCommentError } from 'react-icons/bi';
 import { ACTIONS, INITIAL_STATE, reducerFunction } from './reducerLogic';
 import toast from 'react-hot-toast';
-import { useDispatch, useSelector } from 'react-redux';
-import { getProductById, handleAddedComment } from 'features/products/productsSlice';
+import { useDispatch } from 'react-redux';
+import { handleAddedComment } from 'features/products/productsSlice';
 import { refreshComments } from 'features/comments/commentsSlice';
 import { AuthContextInterface } from 'context/AuthProvider';
-import { ProductDataInterface } from 'interfaces/Product.interfaces';
+
 import axios from 'axios';
 
 interface PopUpAddCommentProps {
     onClose: () => void;
+    productData: { _id: string; name: string; prevImg: string };
+    handleRefresh?: () => void;
 }
 
-const PopUpAddComment = ({ onClose }: PopUpAddCommentProps) => {
+const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommentProps) => {
     const dispatchStore = useDispatch();
-    const product = useSelector(getProductById);
+
     const { auth } = useAuth() as AuthContextInterface;
     const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE);
     const [userName, setUserName] = useState<string>(Boolean(auth.userName) ? auth.userName : '');
@@ -90,14 +92,14 @@ const PopUpAddComment = ({ onClose }: PopUpAddCommentProps) => {
 
         if (userName.length !== 0 && state.opinion.length > 10 && state.rating !== 0) {
             const formData = new FormData();
-            //check is it working
+
             Object.keys(state.files).forEach((key) => {
                 formData.append(
                     (state.files as unknown as FileList).item(key as unknown as number)!.name,
                     (state.files as unknown as FileList).item(key as unknown as number)!
                 );
             });
-            formData.append('productId', (product as ProductDataInterface)._id);
+            formData.append('productId', productData._id);
             formData.append('userId', Boolean(auth.id) ? auth.id : '');
             formData.append('userName', userName);
             formData.append('rating', state.rating as unknown as string); // formData accepts just string values
@@ -133,6 +135,7 @@ const PopUpAddComment = ({ onClose }: PopUpAddCommentProps) => {
                     dispatchStore(refreshComments());
                     dispatchStore(handleAddedComment(true));
                     notify();
+                    if (handleRefresh) handleRefresh();
                 }
             } catch (err) {
                 if (axios.isAxiosError(err)) {
@@ -166,10 +169,10 @@ const PopUpAddComment = ({ onClose }: PopUpAddCommentProps) => {
                 <form onSubmit={handleSubmit}>
                     <ProductDescription>
                         <Image>
-                            <img src={(product as ProductDataInterface).prevImg} alt="Prev product" />
+                            <img src={productData.prevImg} alt="Prev product" />
                         </Image>
                         <ProductName>
-                            <p>{(product as ProductDataInterface).name}</p>
+                            <p>{productData.name}</p>
                         </ProductName>
                     </ProductDescription>
 

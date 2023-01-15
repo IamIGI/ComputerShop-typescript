@@ -29,7 +29,7 @@ const AccountOpinions = () => {
         commentsCount: 0,
         newComments: [],
     });
-
+    const [refresh, setRefresh] = useState<boolean>(false);
     useEffect(() => {
         const fetchAccountComments = async (data: { userId: string; pageNr: number }) => {
             try {
@@ -48,46 +48,54 @@ const AccountOpinions = () => {
 
         fetchAccountComments(data);
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [refresh]);
+
+    const handleRefresh = () => {
+        setRefresh(!refresh);
+    };
 
     return (
         <AccountSettings>
             {waitForFetch ? (
                 <LoadingAnimation loadingSize={15} />
-            ) : userComments.commentsData.length === 0 ? (
-                <NoOpinions>
-                    <NoOpinionsIcon>
-                        <BiCommentX />
-                    </NoOpinionsIcon>
-                    <p>Uzytkownik nie ma zadnych komentarzy</p>
-                </NoOpinions>
             ) : (
                 <Wrapper>
-                    <GeneralSection>
-                        <TitleSection>
-                            <h1>Wystaw opinie ({userComments.newComments.length})</h1>{' '}
-                        </TitleSection>
-                        {userComments.newComments.length !== 0 ? (
-                            <NewCommentNotification newCommentProducts={userComments.newComments} />
-                        ) : (
-                            <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
-                        )}
-                    </GeneralSection>
-                    <GeneralSection>
-                        <TitleSection>
-                            <h1>Twoje opinie ({userComments.commentsCount})</h1>
-                        </TitleSection>
-                        <UserOpinionSection>
-                            {userComments.commentsData.slice(0, 5).map((comment, index) => (
-                                <ViewComment
-                                    key={index}
-                                    comment={comment.comment[0]}
-                                    images={comment.comment[0].image?.images}
-                                    userComments={{ isTrue: true, productId: comment.productId }}
+                    <TitleSection>
+                        <h1>Wystaw opinie ({userComments.newComments.length})</h1>{' '}
+                    </TitleSection>
+                    {userComments.newComments.length === 0 ? (
+                        <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
+                    ) : (
+                        <GeneralSection>
+                            {userComments.newComments.length !== 0 ? (
+                                <NewCommentNotification
+                                    newCommentProducts={userComments.newComments}
+                                    handleRefresh={handleRefresh}
                                 />
-                            ))}
-                        </UserOpinionSection>
-                    </GeneralSection>
+                            ) : (
+                                <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
+                            )}
+                        </GeneralSection>
+                    )}
+                    <TitleSection>
+                        <h1>Twoje opinie ({userComments.commentsCount})</h1>
+                    </TitleSection>
+                    {userComments.commentsData.length === 0 ? (
+                        <p>Uzytkownik nie ma zadnych komentarzy</p>
+                    ) : (
+                        <GeneralSection>
+                            <UserOpinionSection>
+                                {userComments.commentsData.slice(0, 5).map((comment, index) => (
+                                    <ViewComment
+                                        key={index}
+                                        comment={comment.comment[0]}
+                                        images={comment.comment[0].image?.images}
+                                        userComments={{ isTrue: true, productId: comment.productId }}
+                                    />
+                                ))}
+                            </UserOpinionSection>
+                        </GeneralSection>
+                    )}
                 </Wrapper>
             )}
         </AccountSettings>
