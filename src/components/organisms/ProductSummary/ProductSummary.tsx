@@ -18,11 +18,14 @@ import {
 } from 'features/comments/commentsSlice';
 import { store } from 'app/store';
 import { CommentsResponseInterface } from 'interfaces/Comments.interfaces';
+import { getProductById } from 'features/products/productsSlice';
+import { ProductDataInterface } from 'interfaces/Product.interfaces';
 
 const ProductSummary = () => {
     const comments = useSelector(getAllCommentsData) as CommentsResponseInterface;
     const commentsStatus = useSelector(getCommentsStatus);
     const averageScoreStatus = useSelector(getAverageScoreStatus);
+    const product = useSelector(getProductById);
     // const errors = useSelector(getCommentsErrors);
     const [isOpen, setIsOpen] = useState<[boolean]>([false]);
 
@@ -61,7 +64,14 @@ const ProductSummary = () => {
             )}
             <ProductAddComment handleOpen={handleOpen} />
             <Modal open={isOpen} onClose={() => setIsOpen([false])}>
-                <PopUpAddComment onClose={() => setIsOpen([false])} />
+                <PopUpAddComment
+                    onClose={() => setIsOpen([false])}
+                    productData={{
+                        _id: (product as ProductDataInterface)._id,
+                        name: (product as ProductDataInterface).name,
+                        prevImg: (product as ProductDataInterface).prevImg,
+                    }}
+                />
             </Modal>
         </Wrapper>
     );
