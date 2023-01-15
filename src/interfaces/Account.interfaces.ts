@@ -1,6 +1,14 @@
 import { CommentInterface } from './Comments.interfaces';
 import { OrderedProductData } from './Order.interfaces';
 
+export interface AccountNotifications {
+    newComment: {
+        showNotification: boolean;
+        allowNotification: boolean;
+        productIds: string[];
+        orderIds: string[];
+    };
+}
 export interface newCommentsInterface {
     product: OrderedProductData;
     orderDate: string;
@@ -29,13 +37,14 @@ export interface AccountEntitlementsInterface {
 }
 
 export interface AccountInterface {
-    Enlistments: AccountEntitlementsInterface;
     roles: { User?: number; Editor?: number; Admin?: number };
     _id: string;
     firstName: string;
     lastName: string;
     email: string;
     hashedPassword: string;
+    Enlistments: AccountEntitlementsInterface;
+    notifications: AccountNotifications;
     refreshToken: string;
     __v?: number;
     userOrders: [string][];
