@@ -10,13 +10,11 @@ import {
     SavedInfo,
     SavedIcon,
     SavedDescription,
-} from './AccountNotifications.style';
+} from '../AccountEntitlements/AccountEntitlements.style';
 import { Button } from 'components/atoms/Button/Button';
-import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { AiOutlineSave } from 'react-icons/ai';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { MdNotificationsNone } from 'react-icons/md';
 import { AccountInterface } from 'interfaces/Account.interfaces';
 
