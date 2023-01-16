@@ -1,4 +1,5 @@
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
+import SumOfLikes from 'components/atoms/SumOfLikes/SumOfLikes';
 import ViewComment from 'components/molecules/ViewComment/ViewComment';
 import NewCommentNotification from 'components/organisms/NewCommentNotification/NewCommentNotification';
 import { AuthContextInterface } from 'context/AuthProvider';
@@ -84,6 +85,7 @@ const AccountOpinions = () => {
                         <p>Uzytkownik nie ma zadnych komentarzy</p>
                     ) : (
                         <GeneralSection>
+                            <SumOfLikes number={userComments.sumOfLikes} />
                             <UserOpinionSection>
                                 {userComments.commentsData.slice(0, 5).map((comment, index) => (
                                     <ViewComment
