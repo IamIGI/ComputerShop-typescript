@@ -16,18 +16,18 @@ import {
     NoOrderIcon,
     NoOrderDescription,
     Quantity,
-    GetPDF,
+    AdditionalHoverMenu,
     HandyMenu,
-    DescriptionPDF,
-    IconPDF,
     InsideWrapper,
     DiscountMark,
+    IconHandyMenu,
+    DescriptionHandyMenu,
 } from './AccountSettingsOrders.style';
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useAuth from 'hooks/useAuth';
-import { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { BsBox } from 'react-icons/bs';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
@@ -59,6 +59,11 @@ const AccountSettingsOrders = () => {
         const timer = setTimeout(() => {
             setShowHandyOptions('');
         }, 4000);
+
+        return () => {
+            //clear timeouts and intervals, otherwise it is still working. Even if you close component
+            clearInterval(timer);
+        };
     };
 
     const openMenuPDF = (id: string) => {
@@ -168,20 +173,20 @@ const AccountSettingsOrders = () => {
                                                 </>
                                             ))}
                                         </OrderProducts>
-                                        <GetPDF
+                                        <AdditionalHoverMenu
                                             onMouseOver={() => openMenuPDF(item._id)}
                                             onMouseLeave={() => closeMenuPDF()}
                                         >
                                             <HiDotsVertical />
-                                        </GetPDF>
+                                        </AdditionalHoverMenu>
                                     </OrderContent>
                                     {showHandyOptions === item._id && (
                                         <a href={`${BASE_URL}/order/pdf/${item._id}`}>
                                             <HandyMenu onMouseOver={() => openMenuPDF(item._id)}>
-                                                <IconPDF>
+                                                <IconHandyMenu>
                                                     <GrDocumentPdf />
-                                                </IconPDF>
-                                                <DescriptionPDF>Dokument faktury</DescriptionPDF>
+                                                </IconHandyMenu>
+                                                <DescriptionHandyMenu>Dokument faktury</DescriptionHandyMenu>
                                             </HandyMenu>
                                         </a>
                                     )}

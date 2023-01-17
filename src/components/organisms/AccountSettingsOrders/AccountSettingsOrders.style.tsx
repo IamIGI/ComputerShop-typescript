@@ -290,7 +290,7 @@ export const DiscountMark = styled.div`
     font-size: 25px;
 `;
 
-export const GetPDF = styled.div`
+export const AdditionalHoverMenu = styled.div`
     z-index: 2;
     position: absolute;
     top: 10px;
@@ -300,6 +300,7 @@ export const GetPDF = styled.div`
     border-radius: 50%;
 
     :hover {
+        cursor: pointer;
         background-color: ${({ theme }) => theme.colors.lightLightGrey};
     }
 `;
@@ -323,13 +324,14 @@ export const HandyMenu = styled.div`
     transform: scale(1, 1);
     transition: transform, 0.5s ease;
     :hover {
+        cursor: pointer;
         transform: scale(1.05, 1.05);
     }
 `;
 
-export const IconPDF = styled.div``;
+export const IconHandyMenu = styled.div``;
 
-export const DescriptionPDF = styled.div`
+export const DescriptionHandyMenu = styled.div`
     margin-left: 5px;
 `;
 
