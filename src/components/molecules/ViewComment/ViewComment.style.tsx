@@ -5,7 +5,13 @@ interface Props {
     userComments: boolean;
 }
 
+export const InsideWrapper = styled.div`
+    position: relative;
+`;
+
 export const CommentSection = styled.div`
+    z-index: 1;
+    position: relative;
     width: 91%;
     display: flex;
     flex-direction: row;

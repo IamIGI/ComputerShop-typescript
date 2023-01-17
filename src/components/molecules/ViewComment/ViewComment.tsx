@@ -8,6 +8,7 @@ import {
     ContentSection,
     Image,
     ImagesSection,
+    InsideWrapper,
     ProductImage,
     ProductWrapper,
     SmallScreen,
@@ -21,17 +22,32 @@ import { handleChooseImage } from 'features/comments/commentsSlice';
 import { useEffect, useState } from 'react';
 import { getProduct } from 'api/products';
 import { ProductDataInterface } from 'interfaces/Product.interfaces';
+import {
+    AdditionalHoverMenu,
+    DescriptionHandyMenu,
+    HandyMenu,
+    IconHandyMenu,
+} from 'components/organisms/AccountSettingsOrders/AccountSettingsOrders.style';
+import { HiDotsVertical } from 'react-icons/hi';
+import { MdOutlineDeleteSweep } from 'react-icons/md';
+import useAxiosPrivate from 'hooks/useAxiosPrivate';
+import useAuth from 'hooks/useAuth';
+import { AuthContextInterface } from 'context/AuthProvider';
 
 interface ViewCommentInterface {
     comment: CommentInterface;
     images: string[];
     userComments?: { isTrue: boolean; productId: string };
+    handleRefresh?: () => void;
 }
 
-const ViewComment = ({ comment, images, userComments }: ViewCommentInterface) => {
+const ViewComment = ({ comment, images, userComments, handleRefresh }: ViewCommentInterface) => {
     const dispatch = useDispatch<AppDispatch>();
+    const axiosPrivate = useAxiosPrivate();
+    const { auth } = useAuth() as AuthContextInterface;
 
     const [product, setProduct] = useState<ProductDataInterface | {}>({});
+    const [showHandyOptions, setShowHandyOptions] = useState<string>('');
 
     const findImage = (url: string) => {
         const searchedElement_Index = images.indexOf(url, 0);
@@ -49,56 +65,101 @@ const ViewComment = ({ comment, images, userComments }: ViewCommentInterface) =>
         }
     }, []);
 
+    const openMenuDeleteComment = (id: string) => {
+        setShowHandyOptions(id);
+    };
+
+    const closeInstantMenuDeleteComment = () => {
+        setShowHandyOptions('');
+    };
+
+    const deleteComment = async () => {
+        closeInstantMenuDeleteComment();
+
+        const object = {
+            data: {
+                userId: comment.userId,
+                commentId: comment._id,
+                productId: (
+                    userComments as {
+                        isTrue: boolean;
+                        productId: string;
+                    }
+                ).productId,
+            },
+        };
+
+        const deletedComment = await axiosPrivate.delete('user/comments/deleteComment', object);
+        if (handleRefresh) handleRefresh();
+    };
+
     return (
-        <CommentSection>
-            <BigScreen userComments={userComments?.isTrue ? true : false}>
-                {userComments?.isTrue && Object.keys(product).length !== 0 ? (
-                    <ProductWrapper to={`/product/${userComments.productId}`}>
-                        <ProductImage>
-                            <img src={(product as ProductDataInterface).prevImg} alt="Show product" />
-                        </ProductImage>
-                        <p>{(product as ProductDataInterface).name}</p>
-                    </ProductWrapper>
-                ) : (
-                    <UserData comment={comment} />
-                )}
-            </BigScreen>
-            <ContentSection userComments={userComments?.isTrue ? true : false}>
-                <UserDataWhenSmallScreen userComments={userComments?.isTrue ? true : false}>
-                    <SmallScreen>
-                        {userComments?.isTrue ? (
-                            <ProductWrapper to={`/product/${userComments.productId}`}>
-                                <ProductImage>
-                                    <img src={(product as ProductDataInterface).prevImg} alt="Show product" />
-                                </ProductImage>
-                                <p>{(product as ProductDataInterface).name}</p>
-                            </ProductWrapper>
-                        ) : (
-                            <UserData comment={comment} />
-                        )}
-                    </SmallScreen>
-                    <ContentData comment={comment} />
-                </UserDataWhenSmallScreen>
-                <Opinion comment={comment} />
-                <ImagesSection>
-                    {comment?.image?.added ? (
-                        <>
-                            {comment.image.images.map((url, index) => (
-                                <Image
-                                    src={`${BASE_URL}/${url}`}
-                                    key={index}
-                                    alt="comment"
-                                    onClick={() => findImage(url)}
-                                />
-                            ))}
-                        </>
+        <InsideWrapper>
+            <CommentSection onMouseLeave={() => closeInstantMenuDeleteComment()}>
+                <BigScreen userComments={userComments?.isTrue ? true : false}>
+                    {userComments?.isTrue && Object.keys(product).length !== 0 ? (
+                        <ProductWrapper to={`/product/${userComments.productId}`}>
+                            <ProductImage>
+                                <img src={(product as ProductDataInterface).prevImg} alt="Show product" />
+                            </ProductImage>
+                            <p>{(product as ProductDataInterface).name}</p>
+                        </ProductWrapper>
                     ) : (
-                        <></>
+                        <UserData comment={comment} />
                     )}
-                </ImagesSection>
-                <CommentsScore comment={comment} userComments={userComments?.isTrue} />
-            </ContentSection>
-        </CommentSection>
+                </BigScreen>
+                <ContentSection userComments={userComments?.isTrue ? true : false}>
+                    <UserDataWhenSmallScreen userComments={userComments?.isTrue ? true : false}>
+                        <SmallScreen>
+                            {userComments?.isTrue ? (
+                                <ProductWrapper to={`/product/${userComments.productId}`}>
+                                    <ProductImage>
+                                        <img src={(product as ProductDataInterface).prevImg} alt="Show product" />
+                                    </ProductImage>
+                                    <p>{(product as ProductDataInterface).name}</p>
+                                </ProductWrapper>
+                            ) : (
+                                <UserData comment={comment} />
+                            )}
+                        </SmallScreen>
+                        <ContentData comment={comment} />
+                    </UserDataWhenSmallScreen>
+                    <Opinion comment={comment} />
+                    <ImagesSection>
+                        {comment?.image?.added ? (
+                            <>
+                                {comment.image.images.map((url, index) => (
+                                    <Image
+                                        src={`${BASE_URL}/${url}`}
+                                        key={index}
+                                        alt="comment"
+                                        onClick={() => findImage(url)}
+                                    />
+                                ))}
+                            </>
+                        ) : (
+                            <></>
+                        )}
+                    </ImagesSection>
+                    <CommentsScore comment={comment} userComments={userComments?.isTrue} />
+                </ContentSection>
+                {auth.id === comment.userId && userComments?.isTrue && (
+                    <AdditionalHoverMenu onClick={() => openMenuDeleteComment(comment._id)}>
+                        <HiDotsVertical />
+                    </AdditionalHoverMenu>
+                )}
+            </CommentSection>
+            {showHandyOptions === comment._id ? (
+                <HandyMenu onMouseOver={() => openMenuDeleteComment(comment._id)} onClick={() => deleteComment()}>
+                    <IconHandyMenu>
+                        <MdOutlineDeleteSweep />
+                    </IconHandyMenu>
+                    <DescriptionHandyMenu>Usuń komentarz</DescriptionHandyMenu>
+                </HandyMenu>
+            ) : (
+                <></>
+            )}
+        </InsideWrapper>
     );
 };
 

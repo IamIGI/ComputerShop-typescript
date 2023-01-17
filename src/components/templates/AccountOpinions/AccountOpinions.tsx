@@ -8,16 +8,8 @@ import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { GetAccountOpinionsInterface } from 'interfaces/Account.interfaces';
 import { useEffect, useState } from 'react';
-import { BiCommentX } from 'react-icons/bi';
 import AccountSettings from '../AccountSettings/AccountSettings';
-import {
-    GeneralSection,
-    NoOpinions,
-    NoOpinionsIcon,
-    TitleSection,
-    UserOpinionSection,
-    Wrapper,
-} from './AccountOpinions.style';
+import { GeneralSection, TitleSection, UserOpinionSection, Wrapper } from './AccountOpinions.style';
 
 const AccountOpinions = () => {
     const { auth } = useAuth() as AuthContextInterface;
@@ -89,6 +81,7 @@ const AccountOpinions = () => {
                             <UserOpinionSection>
                                 {userComments.commentsData.slice(0, 5).map((comment, index) => (
                                     <ViewComment
+                                        handleRefresh={handleRefresh}
                                         key={index}
                                         comment={comment.comment[0]}
                                         images={comment.comment[0].image?.images}
