@@ -78,18 +78,20 @@ const AccountSettingsOrders = () => {
                 pageNr,
             };
             try {
+                setWaitForFetch(true);
                 const response = await axiosPrivate.post('user/orderhistory', data);
 
                 setOrderHistory(response.data.orderData);
                 setCountOrders(response.data.orderCount);
+                setWaitForFetch(false);
             } catch (err) {
                 console.log(err);
                 navigate('/', { state: { from: location }, replace: true });
             }
         };
-        setWaitForFetch(true);
+
         getUserOrderHistory();
-        setWaitForFetch(false);
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [pageNr]);
 

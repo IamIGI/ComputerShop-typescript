@@ -11,8 +11,15 @@ import ProductPreview from '../ProductPreview/ProductPreview';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import { AiOutlineHeart } from 'react-icons/ai';
 import WelcomeImg from '../../../data/WelcomeIMG_resize.jpg';
+import { store } from 'app/store';
+import { useEffect } from 'react';
+import { fetchProductsForHomePage } from 'features/products/productsSlice';
 
 const HomeTopContent = () => {
+    useEffect(() => {
+        store.dispatch(fetchProductsForHomePage());
+    }, []);
+
     return (
         <>
             <NormalScreenSize>

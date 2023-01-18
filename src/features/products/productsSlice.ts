@@ -8,6 +8,7 @@ import { InitialStateInterface, ProductDataInterface } from 'interfaces/Product.
 import { filterInit } from './productsFilters';
 
 const initialState: InitialStateInterface = {
+    dataForHomePage: [],
     data: [],
     status: 'idle',
     error: null,
@@ -19,6 +20,11 @@ const initialState: InitialStateInterface = {
     mayLikeStatus: 'idle',
     refreshProducts: false,
 };
+
+export const fetchProductsForHomePage = createAsyncThunk('products/home-page', async () => {
+    const response = await ProductsApi.get('/home-page');
+    return response.data;
+});
 
 export const fetchProducts = createAsyncThunk('products/all', async (arg, { getState }) => {
     const state = getState() as RootState;
@@ -148,6 +154,17 @@ const productsSlice = createSlice({
             .addCase(fetchMayLikeItems.rejected, (state, action) => {
                 state.mayLikeStatus = 'failed';
                 state.error = action.error.message as string;
+            })
+            .addCase(fetchProductsForHomePage.pending, (state) => {
+                state.status = 'loading';
+            })
+            .addCase(fetchProductsForHomePage.fulfilled, (state, action: PayloadAction<ProductDataInterface[]>) => {
+                state.status = 'succeeded';
+                state.dataForHomePage = action.payload;
+            })
+            .addCase(fetchProductsForHomePage.rejected, (state, action) => {
+                state.status = 'failed';
+                state.error = action.error.message as string;
             });
     },
 });
@@ -156,6 +173,8 @@ export const getAllProducts = (state: RootState) => state.products.data;
 export const getProductsStatus = (state: RootState) => state.products.status;
 export const getProductsErrors = (state: RootState) => state.products.error;
 export const getProductsFilters = (state: RootState) => state.products.filters;
+
+export const getProductsForHomePage = (state: RootState) => state.products.dataForHomePage;
 
 export const getProductById = (state: RootState) => state.products.productById;
 export const getProductByIdStatus = (state: RootState) => state.products.productById_status;

@@ -10,11 +10,13 @@ import {
     getAllProducts,
     getProductsErrors,
     getProductsFilters,
+    getProductsForHomePage,
     getProductsStatus,
     getRefreshProduct,
 } from 'features/products/productsSlice';
 import { useSelector } from 'react-redux';
 import productsPreviewLogic from './productsPreview.logic';
+import { ProductDataInterface } from 'interfaces/Product.interfaces';
 
 interface ProductPreviewProps {
     allProducts?: boolean;
@@ -26,7 +28,7 @@ const ProductPreview = ({ allProducts = false, limitTheNumber = false }: Product
     const windowSize = useWindowSize();
 
     const productFilters = useSelector(getProductsFilters);
-    const products = useSelector(getAllProducts);
+    const products = limitTheNumber ? useSelector(getProductsForHomePage) : useSelector(getAllProducts);
     const productsStatus = useSelector(getProductsStatus);
     const productsError = useSelector(getProductsErrors);
     const refresh = useSelector(getRefreshProduct);
