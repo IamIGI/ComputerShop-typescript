@@ -96,6 +96,7 @@ export interface FilterInitInterface {
 }
 
 export interface InitialStateInterface {
+    dataForHomePage: ProductDataInterface[];
     data: ProductDataInterface[];
     status: RequestState;
     error: null | string;
