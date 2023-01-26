@@ -1,16 +1,17 @@
 import { Outlet } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import useRefreshToken from 'hooks/useRefreshToken';
-import useAuth from 'hooks/useAuth';
 import useLocalStorage from 'hooks/useLocalStorage';
-
-import { AuthContextInterface } from 'context/AuthProvider';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
+import { useDispatch, useSelector } from 'react-redux';
+import { selectAuth } from 'features/auth/authSlice';
+import { removeBasket } from 'features/basket/basketSlice';
 
 const PersistLogin = () => {
     const [isLoading, setIsLoading] = useState(true);
     const refresh = useRefreshToken();
-    const { auth } = useAuth() as AuthContextInterface;
+    const dispatch = useDispatch();
+    const auth = useSelector(selectAuth);
     const [persist] = useLocalStorage('persist', false);
 
     useEffect(() => {
@@ -25,7 +26,12 @@ const PersistLogin = () => {
             }
         };
 
-        !auth.accessToken && persist ? verifyRefreshToken() : setIsLoading(false);
+        if (!auth.accessToken && persist) {
+            verifyRefreshToken();
+        } else {
+            setIsLoading(false);
+            dispatch(removeBasket());
+        }
 
         return () => {
             isMounted = false;

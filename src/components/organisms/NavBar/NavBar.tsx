@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import {
     Wrapper,
     NormalScreenSection,
@@ -15,7 +15,6 @@ import {
 } from './NavBar.styles';
 import { VscMilestone, VscInspect, VscCommentDiscussion } from 'react-icons/vsc';
 import { BsEnvelope, BsFillPersonLinesFill } from 'react-icons/bs';
-import useAuth from 'hooks/useAuth';
 import useLogout from 'hooks/useLogout';
 import NoRealWebsiteAlert from 'components/molecules/NoRealWebisteAlert/NoRealWebsiteAlert';
 import { GiHamburgerMenu } from 'react-icons/gi';
@@ -30,16 +29,18 @@ import WebsiteLogo from 'components/atoms/WebsiteLogo/WebsiteLogo';
 import DropDownMenuSection from 'components/atoms/DropDownMenuSection/DropDownMenuSection';
 import { useSelector } from 'react-redux';
 import { getBasket } from 'features/basket/basketSlice';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectAuth, selectCurrentToken } from 'features/auth/authSlice';
 
 const Admin_entitlements = Number(import.meta.env.REACT_APP_ADMIN_ROLE);
 const Editor_entitlements = Number(import.meta.env.REACT_APP_EDITOR_ROLE);
 const MenuInitPosition = '-270px';
 
 const NavBar = () => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
+    const token = useSelector(selectCurrentToken);
     const logout = useLogout();
     const basketItems = useSelector(getBasket);
+
     const [toggleMenu, setToggleMenu] = useState<string>(MenuInitPosition);
 
     const getQuantityOfItems = () => {
@@ -73,7 +74,7 @@ const NavBar = () => {
                         <StyledLink target={'/contact'} icon={<BsEnvelope />} description={'Kontakt'} />
                     </DropDownMenuSection>
                     <MediumScreenSection>
-                        {Object.keys(auth).length !== 0 ? (
+                        {token !== null ? (
                             <DropDownMenuSection icon={<VscAccount />} description={'Konto'}>
                                 <StyledLink
                                     target={'accountSettings/Settings'}
@@ -168,7 +169,7 @@ const NavBar = () => {
                             <StyledLink target={'/contact'} icon={<BsEnvelope />} description={'Kontakt'} />
                         </div>
 
-                        {Object.keys(auth).length !== 0 ? (
+                        {token !== null ? (
                             <>
                                 <div onClick={() => setToggleMenu(MenuInitPosition)}>
                                     <StyledLink

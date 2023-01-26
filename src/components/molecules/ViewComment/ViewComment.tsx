@@ -17,7 +17,7 @@ import {
 import { CommentInterface } from 'interfaces/Comments.interfaces';
 import { BASE_URL } from 'data/URL';
 import { AppDispatch } from 'app/store';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleChooseImage } from 'features/comments/commentsSlice';
 import { useEffect, useState } from 'react';
 import { getProduct } from 'api/products';
@@ -31,8 +31,7 @@ import {
 import { HiDotsVertical } from 'react-icons/hi';
 import { MdOutlineDeleteSweep } from 'react-icons/md';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import useAuth from 'hooks/useAuth';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
 
 interface ViewCommentInterface {
     comment: CommentInterface;
@@ -44,7 +43,7 @@ interface ViewCommentInterface {
 const ViewComment = ({ comment, images, userComments, handleRefresh }: ViewCommentInterface) => {
     const dispatch = useDispatch<AppDispatch>();
     const axiosPrivate = useAxiosPrivate();
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
 
     const [product, setProduct] = useState<ProductDataInterface | {}>({});
     const [showHandyOptions, setShowHandyOptions] = useState<string>('');

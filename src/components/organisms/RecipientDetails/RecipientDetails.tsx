@@ -4,13 +4,13 @@ import OrderComment from 'components/molecules/OrderComment/OrderComment';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import { CgUserList } from 'react-icons/cg';
 import { useState } from 'react';
-import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import RecipientTemplates from 'components/molecules/RecipientTemplates/RecipientTemplates';
 import { useEffect } from 'react';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
-import { RecipientFormDataInterface, RecipientTemplateInterface } from 'interfaces/RecipientTemplates.interfaces';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { RecipientTemplateInterface } from 'interfaces/RecipientTemplates.interfaces';
+import { selectAuth } from 'features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 interface RecipientDetailsProps {
     handleOrderData: (
@@ -26,7 +26,7 @@ interface RecipientDetailsProps {
 }
 
 const RecipientDetails = ({ handleOrderData }: RecipientDetailsProps) => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const axiosPrivate = useAxiosPrivate();
     const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
     const [recipientTemplates, setRecipientTemplates] = useState<RecipientTemplateInterface[] | []>([]);
@@ -53,10 +53,10 @@ const RecipientDetails = ({ handleOrderData }: RecipientDetailsProps) => {
             }
         };
         const data = {
-            userId: auth.id,
+            userId: auth.id as string,
         };
 
-        Boolean(auth.id) && getAccountRecipientTemplate(data);
+        auth.id !== null && getAccountRecipientTemplate(data);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [auth.id]);
 

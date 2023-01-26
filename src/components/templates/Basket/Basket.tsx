@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { Wrapper, Main, Prev, PrevWrapper } from './Basket.styles';
 import PaymentPreview from 'components/organisms/PaymentPreview/PaymentPreview';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import useAuth from '../../../hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
 import useLogout from 'hooks/useLogout';
 import useMultiCheckboxMemory from 'hooks/useMultiCheckboxMemory';
@@ -20,8 +19,8 @@ import usePromoCodes from 'hooks/usePromoCodes';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBasket, getPriceToPay, removeBasket } from 'features/basket/basketSlice';
 import { PromoCodesContextInterface } from 'context/PromoCodesProvider';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { OrderTemplateDocumentInterface } from 'interfaces/Order.interfaces';
+import { selectAuth } from 'features/auth/authSlice';
 
 const Basket = () => {
     const axiosPrivate = useAxiosPrivate();
@@ -34,7 +33,7 @@ const Basket = () => {
     const priceToPay = useSelector(getPriceToPay);
 
     const { successfullyUsedPromoCode, promoCode, resetPromoCode } = usePromoCodes() as PromoCodesContextInterface;
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
 
     const [deliveryCheckboxesOpt, setDeliveryCheckboxesOpt] = useMultiCheckboxMemory(
         'deliveryMethod',

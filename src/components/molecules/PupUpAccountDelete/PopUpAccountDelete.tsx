@@ -1,11 +1,11 @@
 import { ChangeEvent, KeyboardEvent, SyntheticEvent, useState } from 'react';
 import { ButtonLocal, InputLocal, Title, Wrapper, FormSection, OuterFormWrapper } from './PopUpAccountDelete.style';
-import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import toast from 'react-hot-toast';
 import { ACTIONS, INITIAL_STATE, popUpAccountDeleteReducer } from './PopUpAccountDelete.reducer';
 import { useReducer } from 'react';
-import { AuthContextInterface, AuthInterface } from 'context/AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 let viewedName = '';
 
@@ -16,7 +16,7 @@ interface PopUpAccountDeleteProps {
 
 const PopUpAccountDelete = ({ name, signOut }: PopUpAccountDeleteProps) => {
     const axiosPrivate = useAxiosPrivate();
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
 
     const [state, dispatch] = useReducer(popUpAccountDeleteReducer, INITIAL_STATE);
     const [isMatchPwd, setIsMatchPwd] = useState<boolean>(true);

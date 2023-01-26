@@ -1,5 +1,4 @@
 import useLogout from 'hooks/useLogout';
-import useAuth from 'hooks/useAuth';
 import {
     Wrapper,
     List,
@@ -15,10 +14,11 @@ import { VscAccount } from 'react-icons/vsc';
 import { BsPerson } from 'react-icons/bs';
 import { RiLogoutCircleLine } from 'react-icons/ri';
 import capitalizeFirstLetter from 'helpers/capitalizeFirstLetter';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectCurrentUser } from 'features/auth/authSlice';
+import { useAppSelector } from 'app/hooks';
 
 const UserLogged = () => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const userName = useAppSelector(selectCurrentUser);
 
     const logout = useLogout();
 
@@ -35,7 +35,7 @@ const UserLogged = () => {
                 <Title>Twoje Konto</Title>
             </TitleSection>
             <UserDescription>
-                <p>witaj {capitalizeFirstLetter(auth.userName)}</p>
+                <p>Witaj {capitalizeFirstLetter(userName as string)}</p>
             </UserDescription>
             <Line />
 
@@ -44,7 +44,6 @@ const UserLogged = () => {
                     <StyledLink to="accountSettings/Settings">
                         <div>
                             <span>
-                                {' '}
                                 <VscAccount />
                             </span>
                         </div>
@@ -55,7 +54,6 @@ const UserLogged = () => {
                     <StyledLink onClick={signOut} to="">
                         <div>
                             <span>
-                                {' '}
                                 <RiLogoutCircleLine />
                             </span>
                         </div>

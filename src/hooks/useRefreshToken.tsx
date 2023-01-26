@@ -1,22 +1,19 @@
-import { AuthContextInterface, AuthInterface } from 'context/AuthProvider';
+import { setCredentials } from 'features/auth/authSlice';
+import { useDispatch } from 'react-redux';
 import axios from '../api/axios';
-import useAuth from './useAuth';
 
 const useRefreshToken = () => {
-    const { setAuth } = useAuth() as AuthContextInterface;
-
+    const dispatch = useDispatch();
     const refresh = async () => {
         const response = await axios.get('/refresh', {
             withCredentials: true,
         });
-        setAuth((prev: AuthInterface) => {
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            const userName = response?.data?.userName;
-            const id = response?.data?.id;
-
-            return { ...prev, id, userName, roles, accessToken };
-        });
+        const accessToken = response?.data?.accessToken;
+        const roles = response?.data?.roles;
+        const userName = response?.data?.userName;
+        const id = response?.data?.id;
+        const email = response?.data?.email;
+        dispatch(setCredentials({ accessToken, roles, userName, id, email }));
         return response.data.accessToken;
     };
     return refresh;

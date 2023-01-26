@@ -6,12 +6,10 @@ import { GreenButtonLink } from 'components/atoms/GreenButtonLink/GreenButtonLin
 import DescriptionSection from './DescriptionSection/DescriptionSection';
 import { Checkbox } from 'components/atoms/Checkbox/Checkbox';
 import useToggle from 'hooks/useToggle';
-import useAuth from 'hooks/useAuth';
 import { KeyboardEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import useInput from 'hooks/useInput';
 import { testEmailRegex } from 'data/Regex';
 import { useNavigate } from 'react-router-dom';
-import axios from 'api/axios';
 import axiosInstance from 'axios';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { ErrMsg, ErrMsgContainer } from 'components/molecules/LoginArea/LoginArea.style';
@@ -20,11 +18,11 @@ import {
     InputField,
     InputSection,
 } from 'components/atoms/InputWithDescription/InputWithDescription.style';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { setCredentials } from 'features/auth/authSlice';
+import { useLoginMutation } from 'features/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
 
 const Authorization = () => {
-    const { setAuth } = useAuth() as AuthContextInterface;
-
     const navigate = useNavigate();
 
     const errRef = useRef<HTMLDivElement>(null);
@@ -41,6 +39,9 @@ const Authorization = () => {
     const [waitForLogIn, setWaitForLogIn] = useState<boolean>(false);
 
     const [check, toggleCheck] = useToggle('persist', false);
+
+    const [login, { isLoading }] = useLoginMutation();
+    const dispatch = useDispatch();
 
     const isButtonDisabled = (validEmail: boolean, pwd: string): boolean => {
         if (validEmail && pwd.length !== 0) return false;
@@ -64,19 +65,12 @@ const Authorization = () => {
     const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            setWaitForLogIn(true);
             resetEmail(); //working - fix, cuz get reset everytime...
-            const response = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            setWaitForLogIn(false);
-            //resetEmail(); //don't work
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            const userName = response?.data?.userName;
-            const id = response?.data?.id;
-            setAuth({ id, userName, email, roles, accessToken });
+
+            const userData = await login({ email, hashedPassword: pwd }).unwrap();
+
+            dispatch(setCredentials({ ...userData, email }));
+
             setPwd('');
             navigate('/', { replace: true });
         } catch (err) {
@@ -94,7 +88,7 @@ const Authorization = () => {
                     setErrMsg('Nieznany bład');
                 }
             }
-            setWaitForLogIn(false);
+
             (errRef.current as HTMLDivElement).focus();
         }
     };

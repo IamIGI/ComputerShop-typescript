@@ -1,12 +1,15 @@
 import axios from 'api/axios';
-import { AuthContextInterface } from 'context/AuthProvider';
-import useAuth from './useAuth';
+
+import { logOut } from 'features/auth/authSlice';
+import { removeBasket } from 'features/basket/basketSlice';
+import { useDispatch } from 'react-redux';
 
 const useLogout = () => {
-    const { setAuth } = useAuth() as AuthContextInterface;
+    const dispatch = useDispatch();
 
     const logout = async () => {
-        setAuth({});
+        dispatch(logOut());
+        dispatch(removeBasket());
         localStorage.clear();
 
         try {

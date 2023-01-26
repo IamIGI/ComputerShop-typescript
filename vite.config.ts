@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths'; // vitejs.dev/config
 import { viteCommonjs } from '@originjs/vite-plugin-commonjs';
-import { createHtmlPlugin } from 'vite-plugin-html';
 
 export default defineConfig({
     server: {

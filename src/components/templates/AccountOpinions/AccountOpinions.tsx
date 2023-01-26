@@ -2,17 +2,17 @@ import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation
 import SumOfLikes from 'components/atoms/SumOfLikes/SumOfLikes';
 import ViewComment from 'components/molecules/ViewComment/ViewComment';
 import NewCommentNotification from 'components/organisms/NewCommentNotification/NewCommentNotification';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
 
-import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { GetAccountOpinionsInterface } from 'interfaces/Account.interfaces';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import AccountSettings from '../AccountSettings/AccountSettings';
 import { GeneralSection, TitleSection, UserOpinionSection, Wrapper } from './AccountOpinions.style';
 
 const AccountOpinions = () => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const axiosPrivate = useAxiosPrivate();
     const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
     const [userComments, setUserComments] = useState<GetAccountOpinionsInterface>({
@@ -35,7 +35,7 @@ const AccountOpinions = () => {
             }
         };
         const data = {
-            userId: auth.id,
+            userId: auth.id as string,
             pageNr: 1,
         };
 

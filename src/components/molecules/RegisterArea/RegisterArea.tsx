@@ -8,15 +8,14 @@ import axios from '../../../api/axios';
 import useInput from 'hooks/useInput';
 import useToggle from 'hooks/useToggle';
 import { useNavigate, useLocation } from 'react-router-dom';
-import useAuth from '../../../hooks/useAuth';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { formReducer, ACTIONS, INITIAL_STATE } from './formReducer';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { AxiosError } from 'axios';
+import { useLoginMutation } from 'features/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from 'features/auth/authSlice';
 
 function RegisterArea() {
-    const { setAuth } = useAuth() as AuthContextInterface;
-
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.pathname === '/basket' ? location.pathname : '/accountSettings/Settings';
@@ -31,6 +30,9 @@ function RegisterArea() {
     const [matchPwd, setMatchPwd] = useState<string>('');
     const [shopRules, setAgreeToShopRules] = useToggle('ShopRulesRegister', false);
     const [state, dispatch] = useReducer(formReducer, INITIAL_STATE);
+
+    const [login, { isLoading }] = useLoginMutation();
+    const dispatchStore = useDispatch();
 
     useEffect(() => {
         dispatch({ type: ACTIONS.VALID.NAME, payload: { name: 'firstName', value: firstName } });
@@ -90,15 +92,8 @@ function RegisterArea() {
             setMatchPwd('');
             setAgreeToShopRules('false');
 
-            const auth = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            const accessToken = auth?.data?.accessToken;
-            const roles = auth?.data?.roles;
-            const userName = auth?.data?.userName;
-            const id = auth?.data?.id;
-            setAuth({ id, userName, email, roles, accessToken });
+            const userData = await login({ email, hashedPassword: pwd }).unwrap();
+            dispatchStore(setCredentials({ ...userData, email }));
             navigate(from, { replace: true });
         } catch (err) {
             if (err instanceof AxiosError) {

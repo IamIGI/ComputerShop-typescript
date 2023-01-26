@@ -3,24 +3,22 @@ import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
 import { BsFillCaretUpFill } from 'react-icons/bs';
 import { WrapButton, ErrMsg, Instructions, Wrapper, BottomLogin, ErrMsgContainer } from './LoginArea.style';
-import useAuth from 'hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'api/axios';
 import { Checkbox } from 'components/atoms/Checkbox/Checkbox';
 import useInput from 'hooks/useInput';
 import useToggle from 'hooks/useToggle';
 import { testEmailRegex } from 'data/Regex';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { AxiosError } from 'axios';
+import { useLoginMutation } from 'features/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
+import { setCredentials } from 'features/auth/authSlice';
 
 interface LoginAreaProps {
     mobileView?: boolean;
 }
 
 function LoginArea({ mobileView }: LoginAreaProps) {
-    const { setAuth } = useAuth() as AuthContextInterface;
-
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.pathname || '/';
@@ -37,9 +35,10 @@ function LoginArea({ mobileView }: LoginAreaProps) {
     const [errMsg, setErrMsg] = useState<string>('');
     const [isCapsLockOn, setIsCapsLockOn] = useState<boolean>(false);
 
-    const [waitForLogIn, setWaitForLogIn] = useState<boolean>(false);
-
     const [check, toggleCheck] = useToggle('persist', false);
+
+    const [login, { isLoading }] = useLoginMutation();
+    const dispatch = useDispatch();
 
     //clearErrors
     useEffect(() => {
@@ -54,19 +53,11 @@ function LoginArea({ mobileView }: LoginAreaProps) {
     const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            setWaitForLogIn(true);
             resetEmail(); //working - fix, cuz get reset everytime...
-            const response = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            setWaitForLogIn(false);
-            //resetEmail(); //don't work
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            const userName = response?.data?.userName;
-            const id = response?.data?.id;
-            setAuth({ id, userName, email, roles, accessToken });
+
+            const userData = await login({ email, hashedPassword: pwd }).unwrap();
+            dispatch(setCredentials({ ...userData, email }));
+
             setPwd('');
             if (!mobileView) {
                 navigate(from, { replace: true });
@@ -89,7 +80,6 @@ function LoginArea({ mobileView }: LoginAreaProps) {
                 }
             }
 
-            setWaitForLogIn(false);
             (errRef.current as HTMLDivElement).focus();
         }
     };
@@ -110,7 +100,7 @@ function LoginArea({ mobileView }: LoginAreaProps) {
 
     return (
         <>
-            {waitForLogIn ? (
+            {isLoading ? (
                 <LoadingAnimation loadingSize={10} />
             ) : (
                 <Wrapper>

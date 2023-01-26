@@ -16,12 +16,12 @@ import { Button } from 'components/atoms/Button/Button';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { accountSettingsEnlistments } from 'data/FormSchema';
-import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { AiOutlineSave } from 'react-icons/ai';
 import { AccountEntitlementsInterface } from 'interfaces/Account.interfaces';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 interface AccountEntitlementsProps {
     accountEntitlements: AccountEntitlementsInterface;
@@ -36,7 +36,7 @@ interface onSubmitInterface {
 }
 
 const AccountEntitlements = ({ accountEntitlements }: AccountEntitlementsProps) => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const axiosPrivate = useAxiosPrivate();
     const [enlistments, setEnlistments] = useState(accountEntitlements);
     const [isSaved, setIsSaved] = useState(false);
@@ -61,7 +61,7 @@ const AccountEntitlements = ({ accountEntitlements }: AccountEntitlementsProps) 
     };
 
     const onSubmit = async (data: onSubmitInterface) => {
-        data._id = auth.id;
+        data._id = auth.id as string;
         try {
             await axiosPrivate.put('user/enlistments', data);
 

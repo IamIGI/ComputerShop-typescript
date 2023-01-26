@@ -5,7 +5,6 @@ import { ReactNode } from 'react';
 import Footer from '../Footer/Footer';
 import { theme } from 'assets/styles/theme';
 import { ThemeProvider } from 'styled-components';
-import { AuthProvider } from 'context/AuthProvider';
 import { InsideWrapper, Wrapper } from './MainTemplate.styles';
 import { GlobalStyle } from 'assets/styles/GlobalStyle';
 import { BrowserRouter } from 'react-router-dom';
@@ -26,14 +25,12 @@ const MainTemplate = ({ children }: MainTemplateProps) => {
                 <BrowserRouter>
                     <ThemeProvider theme={theme}>
                         {/* <ChangeHotShootTimer /> */}
-                        <AuthProvider>
-                            <NavBar />
-                            <InsideWrapper>
-                                {children}
-                                <AccountPreviewSection />
-                            </InsideWrapper>
-                            <Footer />
-                        </AuthProvider>
+                        <NavBar />
+                        <InsideWrapper>
+                            {children}
+                            <AccountPreviewSection />
+                        </InsideWrapper>
+                        <Footer />
                     </ThemeProvider>
                 </BrowserRouter>
             </Wrapper>

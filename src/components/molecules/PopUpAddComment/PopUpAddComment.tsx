@@ -29,17 +29,16 @@ import {
 } from './PopUpAddComment.style';
 import { useState, useReducer, SyntheticEvent } from 'react';
 import StarRating from 'components/atoms/StarRating/StarRating';
-import useAuth from 'hooks/useAuth';
 import { sendCommentAPI } from 'api/comments';
 import { BiCommentError } from 'react-icons/bi';
 import { ACTIONS, INITIAL_STATE, reducerFunction } from './reducerLogic';
 import toast from 'react-hot-toast';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { handleAddedComment } from 'features/products/productsSlice';
 import { refreshComments } from 'features/comments/commentsSlice';
-import { AuthContextInterface } from 'context/AuthProvider';
 
 import axios from 'axios';
+import { selectAuth } from 'features/auth/authSlice';
 
 interface PopUpAddCommentProps {
     onClose: () => void;
@@ -50,9 +49,9 @@ interface PopUpAddCommentProps {
 const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommentProps) => {
     const dispatchStore = useDispatch();
 
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE);
-    const [userName, setUserName] = useState<string>(Boolean(auth.userName) ? auth.userName : '');
+    const [userName, setUserName] = useState<string>(auth.userName !== null ? auth.userName : '');
     const notify = () =>
         toast.success('Dodano komentarz', {
             icon: '🗨️',
@@ -100,7 +99,7 @@ const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommen
                 );
             });
             formData.append('productId', productData._id);
-            formData.append('userId', Boolean(auth.id) ? auth.id : '');
+            formData.append('userId', auth.id !== null ? auth.id : '');
             formData.append('userName', userName);
             formData.append('rating', state.rating as unknown as string); // formData accepts just string values
             formData.append('description', state.opinion.replace(/\n/g, '也'));
