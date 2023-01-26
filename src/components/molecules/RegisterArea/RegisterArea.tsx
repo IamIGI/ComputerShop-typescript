@@ -92,15 +92,6 @@ function RegisterArea() {
             setMatchPwd('');
             setAgreeToShopRules('false');
 
-            // const auth = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
-            //     headers: { 'Content-Type': 'application/json' },
-            //     withCredentials: true,
-            // });
-            // const accessToken = auth?.data?.accessToken;
-            // const roles = auth?.data?.roles;
-            // const userName = auth?.data?.userName;
-            // const id = auth?.data?.id;
-            // setAuth({ id, userName, email, roles, accessToken });
             const userData = await login({ email, hashedPassword: pwd }).unwrap();
             dispatchStore(setCredentials({ ...userData, email }));
             navigate(from, { replace: true });

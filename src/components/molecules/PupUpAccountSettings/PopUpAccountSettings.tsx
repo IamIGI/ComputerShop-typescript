@@ -97,12 +97,8 @@ const PopUpAccountSettings = ({ name, value, onClose, handleRefresh }: PopUpAcco
 
         try {
             const response = await axiosPrivate.put('user/accountData', data);
-            console.log(response);
             if (name === 'firstName') {
-                console.log({ ...auth, userName: state.input.editedField });
-                // dispatch(setCredentials({ ...auth, userName: state.input.editedField }));
                 dispatch(changeUserName({ userName: state.input.editedField }));
-                console.log('zmieniono nazwe uzytkownika');
             }
 
             handleRefresh();

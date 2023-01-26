@@ -8,8 +8,6 @@ import authReducer from 'features/auth/authSlice';
 import { authApi } from 'api/auth';
 import { listenerMiddleware } from './middleware';
 
-// let middleware = [listenerMiddleware.middleware, (middlewareFunction: any) => middlewareFunction().concat(authApi.middleware)]
-
 export const store = configureStore({
     reducer: {
         [authApi.reducerPath]: authApi.reducer,

@@ -12,7 +12,6 @@ import AccountSettingsOrders from 'components/organisms/AccountSettingsOrders/Ac
 import { Wrapper } from './Root.styles';
 
 import { Routes, Route } from 'react-router-dom';
-// import RequireAuth from 'components/molecules/RequireAuth/RequireAuth';
 
 import PersistLogin from 'providers/PersistLogin';
 
