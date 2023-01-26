@@ -15,7 +15,6 @@ const authSlice = createSlice({
     initialState,
     reducers: {
         setCredentials: (state, action) => {
-            console.log(action.payload);
             const { accessToken, email, id, roles, userName } = action.payload;
             state.accessToken = accessToken;
             state.email = email;
@@ -24,7 +23,6 @@ const authSlice = createSlice({
             state.userName = userName;
         },
         logOut: (state) => {
-            console.log('logOut');
             state.accessToken = null;
             state.email = null;
             state.id = null;

@@ -38,8 +38,6 @@ function LoginArea({ mobileView }: LoginAreaProps) {
     const [errMsg, setErrMsg] = useState<string>('');
     const [isCapsLockOn, setIsCapsLockOn] = useState<boolean>(false);
 
-    const [waitForLogIn, setWaitForLogIn] = useState<boolean>(false);
-
     const [check, toggleCheck] = useToggle('persist', false);
 
     const [login, { isLoading }] = useLoginMutation();
@@ -62,26 +60,11 @@ function LoginArea({ mobileView }: LoginAreaProps) {
     const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            // setWaitForLogIn(true);
             resetEmail(); //working - fix, cuz get reset everytime...
-            // const response = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
-            //     headers: { 'Content-Type': 'application/json' },
-            //     withCredentials: true,
-            // });
-            console.log('Login Area');
-            console.log(email, pwd);
+
             const userData = await login({ email, hashedPassword: pwd }).unwrap();
-            console.log('LogIn succesfully');
-            console.log(userData);
             dispatch(setCredentials({ ...userData, email }));
-            // console.log(response);
-            // setWaitForLogIn(false);
-            //resetEmail(); //don't work
-            // const accessToken = response?.data?.accessToken;
-            // const roles = response?.data?.roles;
-            // const userName = response?.data?.userName;
-            // const id = response?.data?.id;
-            // setAuth({ id, userName, email, roles, accessToken });
+
             setPwd('');
             if (!mobileView) {
                 navigate(from, { replace: true });
@@ -104,7 +87,6 @@ function LoginArea({ mobileView }: LoginAreaProps) {
                 }
             }
 
-            // setWaitForLogIn(false);
             (errRef.current as HTMLDivElement).focus();
         }
     };
