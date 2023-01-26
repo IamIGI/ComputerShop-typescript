@@ -1,4 +1,3 @@
-import React from 'react';
 import {
     FinishSection,
     List,
@@ -13,12 +12,11 @@ import {
     AlertDescription,
 } from './PaymentPreview.style';
 import { FiAlertCircle } from 'react-icons/fi';
-import useAuth from 'hooks/useAuth';
 import PromoSectionComponent from 'components/molecules/PromoSection/PromoSection';
 import { useSelector } from 'react-redux';
 import { getPriceToPay } from 'features/basket/basketSlice';
 import formatPrices from 'helpers/formatPrices';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
 
 interface PaymentPreviewProps {
     orderReady: boolean;
@@ -30,7 +28,7 @@ interface PaymentPreviewProps {
 const PaymentPreview = ({ orderReady, finishHandler, priceForDelivery, isUserLogIn }: PaymentPreviewProps) => {
     const priceToPay = useSelector(getPriceToPay);
 
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     return (
         <Wrapper>
             <Section>

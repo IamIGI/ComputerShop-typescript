@@ -1,13 +1,13 @@
 import { useLocation, Navigate, Outlet } from 'react-router-dom';
-import useAuth from 'hooks/useAuth';
-import { AuthContextInterface } from 'context/AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 interface RequireAuthProps {
     allowedRoles: number[];
 }
 
 const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
 
     const location = useLocation();
 

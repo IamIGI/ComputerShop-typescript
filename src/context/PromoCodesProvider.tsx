@@ -1,10 +1,9 @@
 import { createContext, useState, useEffect, ReactNode } from 'react';
-import useAuth from 'hooks/useAuth';
 import { axiosPrivate } from 'api/axios';
 import toast from 'react-hot-toast';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBasket, replaceBasket } from 'features/basket/basketSlice';
-import { AuthContextInterface } from './AuthProvider';
+import { selectAuth } from 'features/auth/authSlice';
 
 interface PromoCodesProviderProps {
     children: ReactNode;
@@ -45,7 +44,7 @@ export const PromoCodesProvider = ({ children }: PromoCodesProviderProps) => {
     const basketItems = useSelector(getBasket);
     const dispatchBasket = useDispatch();
 
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const [promoCodeInputDisabled, setPromoCodeInputDisabled] = useState<boolean>(false);
     const [successfullyUsedPromoCode, setSuccessfullyUsedPromoCode] = useState<boolean>(false);
     const [promoCode, setPromoCode] = useState<string>('');

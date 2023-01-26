@@ -1,7 +1,6 @@
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import AccountSettings from 'components/templates/AccountSettings/AccountSettings';
-import useAuth from 'hooks/useAuth';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { useEffect } from 'react';
 import { useState } from 'react';
@@ -11,15 +10,16 @@ import OrderForm from '../OderForm/OderForm';
 import { FormWrapper, LoadingWrapper, NoTemplates, Wrapper } from './AccountRecipientTemplate.style';
 import { initRecipientDetails } from 'components/templates/Basket/Basket.logic';
 import RecipientTemplates from 'components/molecules/RecipientTemplates/RecipientTemplates';
-import { AuthContextInterface } from 'context/AuthProvider';
 import {
     RecipientFormDataInterface,
     RecipientTemplateInterface,
     RecipientTemplateSchema,
 } from 'interfaces/RecipientTemplates.interfaces';
+import { selectAuth } from 'features/auth/authSlice';
+import { useSelector } from 'react-redux';
 
 const AccountRecipientTemplate = () => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const axiosPrivate = useAxiosPrivate();
     const [recipientTemplates, setRecipientTemplates] = useState<RecipientTemplateInterface[] | []>([]);
     const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
@@ -59,7 +59,7 @@ const AccountRecipientTemplate = () => {
         };
 
         const data = {
-            userId: auth.id,
+            userId: auth.id as string,
             recipientId,
         };
         deleteAccountRecipientTemplate(data);
@@ -96,13 +96,13 @@ const AccountRecipientTemplate = () => {
 
             if (!recipientFormData.recipientId) {
                 const addData = {
-                    userId: auth.id,
+                    userId: auth.id as string,
                     recipientTemplate: recipientFormData,
                 };
                 addAccountRecipientTemplate(addData);
             } else {
                 const editData = {
-                    userId: auth.id,
+                    userId: auth.id as string,
                     recipientId: recipientFormData.recipientId,
                     recipientTemplate: recipientFormData,
                 };
@@ -125,7 +125,7 @@ const AccountRecipientTemplate = () => {
             }
         };
         const data = {
-            userId: auth.id,
+            userId: auth.id as string,
         };
 
         getAccountRecipientTemplate(data);

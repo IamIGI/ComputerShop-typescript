@@ -2,14 +2,13 @@ import { Wrapper, InsideWrapper, ScoreDescription, Icon3, LikeNumber, Alert, Ico
 import { useState } from 'react';
 import { AiOutlineDislike, AiOutlineLike } from 'react-icons/ai';
 
-import useAuth from 'hooks/useAuth';
 import { addLike } from 'api/comments';
 import { useDispatch, useSelector } from 'react-redux';
 import { getProductById } from 'features/products/productsSlice';
 import { refreshComments } from 'features/comments/commentsSlice';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { ProductDataInterface } from 'interfaces/Product.interfaces';
 import { CommentInterface } from 'interfaces/Comments.interfaces';
+import { selectAuth } from 'features/auth/authSlice';
 
 interface CommentsScoreProps {
     comment: CommentInterface;
@@ -20,7 +19,7 @@ const CommentsScore = ({ comment, userComments }: CommentsScoreProps) => {
     const dispatchStore = useDispatch();
     const product = useSelector(getProductById);
 
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const [notLoggedIn, setNotLoggedIn] = useState<[boolean, string, string]>([false, '', '']);
 
     const onLikeComment = async (value: [boolean, CommentInterface]) => {
@@ -28,7 +27,7 @@ const CommentsScore = ({ comment, userComments }: CommentsScoreProps) => {
             const data = {
                 productId: (product as ProductDataInterface)._id,
                 commentId: value[1]._id,
-                userId: Boolean(auth.id) ? auth.id : '',
+                userId: Boolean(auth.id) ? (auth.id as string) : '',
                 likes: {
                     up: value[0],
                 },

@@ -2,17 +2,17 @@ import AccountDangerSection from 'components/molecules/AccountDangerSection/Acco
 import AccountData from 'components/molecules/AccountData/AccountData';
 import AccountEntitlements from 'components/molecules/AccountEntitlements/AccountEntitlements';
 import AccountSettings from 'components/templates/AccountSettings/AccountSettings';
-import useAuth from 'hooks/useAuth';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { useEffect, useState } from 'react';
 import { Wrapper } from './AccountSettingsSettings.style';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { AccountInterface } from 'interfaces/Account.interfaces';
 import AccountNotifications from 'components/molecules/AccountNotifications/AccountNotifications';
+import { useSelector } from 'react-redux';
+import { selectAuth } from 'features/auth/authSlice';
 
 const AccountSettingsSettings = () => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const axiosPrivate = useAxiosPrivate();
     const [accountInfo, setAccountInfo] = useState<AccountInterface | {}>({});
     const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
@@ -34,7 +34,7 @@ const AccountSettingsSettings = () => {
             }
         };
         const data = {
-            userId: auth.id,
+            userId: auth.id as string,
         };
 
         getAccountInfo(data);

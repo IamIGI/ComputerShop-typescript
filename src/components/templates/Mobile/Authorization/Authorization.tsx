@@ -21,10 +21,11 @@ import {
     InputSection,
 } from 'components/atoms/InputWithDescription/InputWithDescription.style';
 import { AuthContextInterface } from 'context/AuthProvider';
+import { setCredentials } from 'features/auth/authSlice';
+import { useLoginMutation } from 'features/auth/authApiSlice';
+import { useDispatch } from 'react-redux';
 
 const Authorization = () => {
-    const { setAuth } = useAuth() as AuthContextInterface;
-
     const navigate = useNavigate();
 
     const errRef = useRef<HTMLDivElement>(null);
@@ -41,6 +42,9 @@ const Authorization = () => {
     const [waitForLogIn, setWaitForLogIn] = useState<boolean>(false);
 
     const [check, toggleCheck] = useToggle('persist', false);
+
+    const [login, { isLoading }] = useLoginMutation();
+    const dispatch = useDispatch();
 
     const isButtonDisabled = (validEmail: boolean, pwd: string): boolean => {
         if (validEmail && pwd.length !== 0) return false;
@@ -64,19 +68,26 @@ const Authorization = () => {
     const handleSubmit = async (e: SyntheticEvent<HTMLFormElement>) => {
         e.preventDefault();
         try {
-            setWaitForLogIn(true);
+            // setWaitForLogIn(true);
             resetEmail(); //working - fix, cuz get reset everytime...
-            const response = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
-                headers: { 'Content-Type': 'application/json' },
-                withCredentials: true,
-            });
-            setWaitForLogIn(false);
+            // const response = await axios.post('/auth', JSON.stringify({ email, hashedPassword: pwd }), {
+            //     headers: { 'Content-Type': 'application/json' },
+            //     withCredentials: true,
+            // });
+
+            console.log('Authorization -  medium screen');
+            console.log(email, pwd);
+            const userData = await login({ email, hashedPassword: pwd }).unwrap();
+            console.log('Authorization -  medium screen: LogIn succesfully');
+            console.log(userData);
+            dispatch(setCredentials({ ...userData, email }));
+            // setWaitForLogIn(false);
             //resetEmail(); //don't work
-            const accessToken = response?.data?.accessToken;
-            const roles = response?.data?.roles;
-            const userName = response?.data?.userName;
-            const id = response?.data?.id;
-            setAuth({ id, userName, email, roles, accessToken });
+            // const accessToken = response?.data?.accessToken;
+            // const roles = response?.data?.roles;
+            // const userName = response?.data?.userName;
+            // const id = response?.data?.id;
+            // setAuth({ id, userName, email, roles, accessToken });
             setPwd('');
             navigate('/', { replace: true });
         } catch (err) {
@@ -94,7 +105,7 @@ const Authorization = () => {
                     setErrMsg('Nieznany bład');
                 }
             }
-            setWaitForLogIn(false);
+            // setWaitForLogIn(false);
             (errRef.current as HTMLDivElement).focus();
         }
     };

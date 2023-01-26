@@ -26,7 +26,6 @@ import {
 
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { useNavigate, useLocation } from 'react-router-dom';
-import useAuth from 'hooks/useAuth';
 import { useEffect, useState } from 'react';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { BsBox } from 'react-icons/bs';
@@ -39,16 +38,17 @@ import { BASE_URL } from 'data/URL';
 
 import PageMenu from 'components/molecules/PageMenu/PageMenu';
 import formatPrices from 'helpers/formatPrices';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { OrderHistoryInterface } from 'interfaces/Order.interfaces';
 import { TbDiscount } from 'react-icons/tb';
+import { useSelector } from 'react-redux';
+import { selectAuth } from 'features/auth/authSlice';
 
 const AccountSettingsOrders = () => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
     const location = useLocation();
-    //You finished There #JWT Authentication
+
     const [orderHistory, setOrderHistory] = useState<OrderHistoryInterface[] | []>([]);
     const [countOrders, setCountOrders] = useState<number>(0);
     const [pageNr, setPageNr] = useState<number>(1);

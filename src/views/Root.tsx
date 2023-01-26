@@ -12,7 +12,8 @@ import AccountSettingsOrders from 'components/organisms/AccountSettingsOrders/Ac
 import { Wrapper } from './Root.styles';
 
 import { Routes, Route } from 'react-router-dom';
-import RequireAuth from 'components/molecules/RequireAuth/RequireAuth';
+// import RequireAuth from 'components/molecules/RequireAuth/RequireAuth';
+
 import PersistLogin from 'providers/PersistLogin';
 
 import AccountOrderHistoryItem from 'components/organisms/AccountOrderHistoryItem/AccountOrderHistoryItem';
@@ -25,6 +26,7 @@ import AccountRecipientTemplate from 'components/organisms/AccountRecipientTempl
 import BasketContextWrapper from 'components/templates/Basket/BasketContextWrapper';
 import Register from 'components/templates/Mobile/Register/Register';
 import AccountOpinions from 'components/templates/AccountOpinions/AccountOpinions';
+import RequireAuth from 'features/auth/RequireAuth';
 
 const ROLES = {
     User: Number(import.meta.env.VITE_REACT_APP_USER_ROLE),

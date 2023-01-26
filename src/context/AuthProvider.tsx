@@ -5,12 +5,12 @@ interface AuthProps {
 }
 
 export interface AuthInterface {
-    id: string;
-    userName: string;
-    email: string;
-    roles: number[];
-    accessToken: string;
-    user?: boolean;
+    id: string | null;
+    userName: string | null;
+    email: string | null;
+    roles: number[] | null;
+    accessToken: string | null;
+    user?: boolean | null;
 }
 
 export interface AuthContextInterface {

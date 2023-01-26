@@ -1,21 +1,20 @@
 import { AddComment, Description, Wrapper, Icon } from './ProductAddComment.style';
 import { BuyButton } from '../ProductBuyContent/ProductBuyContent.style';
-import useAuth from 'hooks/useAuth';
 import { useEffect, useState } from 'react';
 import { FiThumbsUp } from 'react-icons/fi';
 import { useSelector } from 'react-redux';
 import { getProductById } from 'features/products/productsSlice';
 import { getAllCommentsData } from 'features/comments/commentsSlice';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { CommentInterface, CommentsResponseInterface } from 'interfaces/Comments.interfaces';
 import { ProductDataInterface } from 'interfaces/Product.interfaces';
+import { selectAuth } from 'features/auth/authSlice';
 
 interface ProductAddCommentProps {
     handleOpen: () => void;
 }
 
 const ProductAddComment = ({ handleOpen }: ProductAddCommentProps) => {
-    const { auth } = useAuth() as AuthContextInterface;
+    const auth = useSelector(selectAuth);
     const commentsData = useSelector(getAllCommentsData) as CommentsResponseInterface;
 
     const product = useSelector(getProductById);
