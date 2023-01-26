@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
-import { AuthInterface } from 'context/AuthProvider';
+import { AuthInterface } from 'interfaces/Auth.interfaces';
 
 const initialState: AuthInterface = {
     accessToken: null,
@@ -29,10 +29,13 @@ const authSlice = createSlice({
             state.roles = null;
             state.userName = null;
         },
+        changeUserName: (state, action) => {
+            state.userName = action.payload.userName;
+        },
     },
 });
 
-export const { setCredentials, logOut } = authSlice.actions;
+export const { setCredentials, logOut, changeUserName } = authSlice.actions;
 
 export default authSlice.reducer;
 

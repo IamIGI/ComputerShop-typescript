@@ -14,11 +14,11 @@ import { VscAccount } from 'react-icons/vsc';
 import { BsPerson } from 'react-icons/bs';
 import { RiLogoutCircleLine } from 'react-icons/ri';
 import capitalizeFirstLetter from 'helpers/capitalizeFirstLetter';
-import { selectAuth } from 'features/auth/authSlice';
-import { useSelector } from 'react-redux';
+import { selectCurrentUser } from 'features/auth/authSlice';
+import { useAppSelector } from 'app/hooks';
 
 const UserLogged = () => {
-    const auth = useSelector(selectAuth);
+    const userName = useAppSelector(selectCurrentUser);
 
     const logout = useLogout();
 
@@ -35,7 +35,7 @@ const UserLogged = () => {
                 <Title>Twoje Konto</Title>
             </TitleSection>
             <UserDescription>
-                <p>witaj {capitalizeFirstLetter(auth.userName as string)}</p>
+                <p>Witaj {capitalizeFirstLetter(userName as string)}</p>
             </UserDescription>
             <Line />
 

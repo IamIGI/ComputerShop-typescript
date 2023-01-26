@@ -6,12 +6,10 @@ import { GreenButtonLink } from 'components/atoms/GreenButtonLink/GreenButtonLin
 import DescriptionSection from './DescriptionSection/DescriptionSection';
 import { Checkbox } from 'components/atoms/Checkbox/Checkbox';
 import useToggle from 'hooks/useToggle';
-import useAuth from 'hooks/useAuth';
 import { KeyboardEvent, SyntheticEvent, useEffect, useRef, useState } from 'react';
 import useInput from 'hooks/useInput';
 import { testEmailRegex } from 'data/Regex';
 import { useNavigate } from 'react-router-dom';
-import axios from 'api/axios';
 import axiosInstance from 'axios';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { ErrMsg, ErrMsgContainer } from 'components/molecules/LoginArea/LoginArea.style';
@@ -20,7 +18,6 @@ import {
     InputField,
     InputSection,
 } from 'components/atoms/InputWithDescription/InputWithDescription.style';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { setCredentials } from 'features/auth/authSlice';
 import { useLoginMutation } from 'features/auth/authApiSlice';
 import { useDispatch } from 'react-redux';

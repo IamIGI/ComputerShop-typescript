@@ -3,15 +3,12 @@ import { Input } from 'components/atoms/Input/Input';
 import { Button } from 'components/atoms/Button/Button';
 import { BsFillCaretUpFill } from 'react-icons/bs';
 import { WrapButton, ErrMsg, Instructions, Wrapper, BottomLogin, ErrMsgContainer } from './LoginArea.style';
-import useAuth from 'hooks/useAuth';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'api/axios';
 import { Checkbox } from 'components/atoms/Checkbox/Checkbox';
 import useInput from 'hooks/useInput';
 import useToggle from 'hooks/useToggle';
 import { testEmailRegex } from 'data/Regex';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { AxiosError } from 'axios';
 import { useLoginMutation } from 'features/auth/authApiSlice';
 import { useDispatch } from 'react-redux';
@@ -42,10 +39,6 @@ function LoginArea({ mobileView }: LoginAreaProps) {
 
     const [login, { isLoading }] = useLoginMutation();
     const dispatch = useDispatch();
-
-    useEffect(() => {
-        console.log(`isLoading: ${isLoading}`);
-    }, [isLoading]);
 
     //clearErrors
     useEffect(() => {

@@ -15,7 +15,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import { formReducer, ACTIONS, INITIAL_STATE } from 'components/molecules/RegisterArea/formReducer';
 import axios from 'api/axios';
-import useAuth from 'hooks/useAuth';
 import DescriptionSection from '../Authorization/DescriptionSection/DescriptionSection';
 import { FaStopwatch20 } from 'react-icons/fa';
 import { TbFileInvoice, TbMapSearch, TbShoppingCartDiscount } from 'react-icons/tb';
@@ -25,7 +24,6 @@ import {
     InputSection,
 } from 'components/atoms/InputWithDescription/InputWithDescription.style';
 import { GreenButton } from 'components/atoms/GreenButton/GreenButton.style';
-import { AuthContextInterface } from 'context/AuthProvider';
 import { AxiosError } from 'axios';
 import { setCredentials } from 'features/auth/authSlice';
 import { useDispatch } from 'react-redux';
