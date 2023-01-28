@@ -1,8 +1,7 @@
-import { SerializedError } from '@reduxjs/toolkit';
-import { FetchBaseQueryError } from '@reduxjs/toolkit/dist/query';
 import { GetAccountOpinionsInterface } from 'interfaces/Account.interfaces';
+import { RecipientTemplateInterface } from 'interfaces/RecipientTemplates.interfaces';
 
-export interface InitialState {
+export interface InitialStateAccountOpinions {
     accountComments: {
         status: string;
         data: GetAccountOpinionsInterface;
@@ -10,4 +9,12 @@ export interface InitialState {
         commentByIdStatus: string;
         refreshComments: boolean;
     };
+}
+
+export interface InitialStateAccountTemplates {
+    status: string;
+    data: RecipientTemplateInterface[];
+    error: undefined | string;
+    templateByIdStatus: string;
+    refresh: boolean;
 }

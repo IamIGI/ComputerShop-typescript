@@ -1,7 +1,7 @@
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import AccountSettings from 'components/templates/AccountSettings/AccountSettings';
-import useAxiosPrivate from 'hooks/useAxiosPrivate';
+// import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { BsPersonLinesFill } from 'react-icons/bs';
@@ -10,29 +10,43 @@ import OrderForm from '../OderForm/OderForm';
 import { FormWrapper, LoadingWrapper, NoTemplates, Wrapper } from './AccountRecipientTemplate.style';
 import { initRecipientDetails } from 'components/templates/Basket/Basket.logic';
 import RecipientTemplates from 'components/molecules/RecipientTemplates/RecipientTemplates';
-import {
-    RecipientFormDataInterface,
-    RecipientTemplateInterface,
-    RecipientTemplateSchema,
-} from 'interfaces/RecipientTemplates.interfaces';
+import { RecipientFormDataInterface, RecipientTemplateInterface } from 'interfaces/RecipientTemplates.interfaces';
 import { selectAuth } from 'features/auth/authSlice';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+    accountTemplatesRefresh,
+    addAccountTemplate,
+    deleteAccountTemplate,
+    editAccountTemplate,
+    fetchAccountTemplates,
+    getUserTemplates,
+    getUserTemplatesError,
+    getUserTemplatesStatus,
+    refreshAccountTemplates,
+} from 'features/account/templates/accountTemplatesSlice';
+import { store } from 'app/store';
+import { useAppSelector } from 'app/hooks';
 
 const AccountRecipientTemplate = () => {
-    const auth = useSelector(selectAuth);
-    const axiosPrivate = useAxiosPrivate();
-    const [recipientTemplates, setRecipientTemplates] = useState<RecipientTemplateInterface[] | []>([]);
-    const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
-    const [refresh, setRefresh] = useState<boolean>(false);
+    const dispatch = useDispatch();
+
+    const refresh = useSelector(accountTemplatesRefresh);
+    useEffect(() => {
+        store.dispatch(fetchAccountTemplates());
+    }, [refresh]);
+
+    const auth = useAppSelector(selectAuth);
+    const recipientTemplates = useAppSelector(getUserTemplates);
+    const status = useAppSelector(getUserTemplatesStatus);
+    const error = useAppSelector(getUserTemplatesError);
+
     const [recipientFormData, setRecipientFormData] = useState<RecipientFormDataInterface>(initRecipientDetails);
+
+    //Do not move that state!!!
     const [preloadValues, setPreloadValues] = useState<RecipientTemplateInterface | {}>({});
 
     const handlePreloadValues = (values: RecipientTemplateInterface) => {
         setPreloadValues(values);
-    };
-
-    const handleRefresh = () => {
-        setRefresh(!refresh);
     };
 
     const handleRecipientFormData = (
@@ -48,97 +62,49 @@ const AccountRecipientTemplate = () => {
         setRecipientFormData({ name, street, zipCode, place, email, phone, comment, recipientId });
     };
 
-    const handleDelete = (recipientId: string) => {
-        const deleteAccountRecipientTemplate = async (data: { userId: string; recipientId: string }) => {
-            try {
-                await axiosPrivate.delete('/user/template/delete', { headers: {}, data });
-                handleRefresh();
-            } catch (err) {
-                console.log(err);
-            }
-        };
-
+    const handleDelete = async (recipientId: string) => {
         const data = {
             userId: auth.id as string,
             recipientId,
         };
-        deleteAccountRecipientTemplate(data);
+
+        await store.dispatch(deleteAccountTemplate(data));
+        dispatch(refreshAccountTemplates());
     };
 
     useEffect(() => {
-        if (recipientFormData.name !== '') {
-            const addAccountRecipientTemplate = async (data: {
-                userId: string;
-                recipientTemplate: RecipientTemplateSchema;
-            }) => {
-                try {
-                    await axiosPrivate.post('/user/template/add', data);
-                    setRecipientFormData(initRecipientDetails);
-                    handleRefresh();
-                } catch (err) {
-                    console.log(err);
+        const updateTemplates = async () => {
+            if (recipientFormData.name !== '') {
+                if (!recipientFormData.recipientId) {
+                    const addData = {
+                        userId: auth.id as string,
+                        recipientTemplate: recipientFormData,
+                    };
+                    await store.dispatch(addAccountTemplate(addData));
+                } else {
+                    const editData = {
+                        userId: auth.id as string,
+                        recipientId: recipientFormData.recipientId,
+                        recipientTemplate: recipientFormData,
+                    };
+                    await store.dispatch(editAccountTemplate(editData));
                 }
-            };
-
-            const editAccountRecipientTemplate = async (data: {
-                userId: string;
-                recipientId: string;
-                recipientTemplate: RecipientFormDataInterface;
-            }) => {
-                try {
-                    await axiosPrivate.post('/user/template/edit', data);
-                    setRecipientFormData(initRecipientDetails);
-                    handleRefresh();
-                } catch (err) {
-                    console.log(err);
-                }
-            };
-
-            if (!recipientFormData.recipientId) {
-                const addData = {
-                    userId: auth.id as string,
-                    recipientTemplate: recipientFormData,
-                };
-                addAccountRecipientTemplate(addData);
-            } else {
-                const editData = {
-                    userId: auth.id as string,
-                    recipientId: recipientFormData.recipientId,
-                    recipientTemplate: recipientFormData,
-                };
-
-                editAccountRecipientTemplate(editData);
+                dispatch(refreshAccountTemplates());
             }
-        }
+        };
+
+        updateTemplates();
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [recipientFormData]);
 
-    useEffect(() => {
-        const getAccountRecipientTemplate = async (data: { userId: string }) => {
-            try {
-                setWaitForFetch(true);
-                const response = await axiosPrivate.post('user/template/get', data);
-                setRecipientTemplates(response.data);
-                setWaitForFetch(false);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        const data = {
-            userId: auth.id as string,
-        };
-
-        getAccountRecipientTemplate(data);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refresh]);
-
     return (
         <AccountSettings>
-            {waitForFetch ? (
+            {status === 'loading' ? (
                 <LoadingWrapper>
                     <LoadingAnimation loadingSize={15} />
                 </LoadingWrapper>
-            ) : (
+            ) : status === 'succeeded' ? (
                 <Wrapper>
                     <SectionTitle>
                         <SectionDescription title={'Szablony odbiorców'} icon={<BsPersonLinesFill />} />
@@ -166,6 +132,8 @@ const AccountRecipientTemplate = () => {
                         </FormWrapper>
                     )}
                 </Wrapper>
+            ) : (
+                <p>{error}</p>
             )}
         </AccountSettings>
     );

@@ -32,7 +32,7 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { MdOutlineDeleteSweep } from 'react-icons/md';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { selectAuth } from 'features/auth/authSlice';
-import { refreshAccountComments } from 'features/account/accountSlice';
+import { refreshAccountComments } from 'features/account/opinions/accountOpinionsSlice';
 
 interface ViewCommentInterface {
     comment: CommentInterface;

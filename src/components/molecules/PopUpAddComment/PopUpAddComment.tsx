@@ -39,7 +39,7 @@ import { refreshComments } from 'features/comments/commentsSlice';
 
 import axios from 'axios';
 import { selectAuth } from 'features/auth/authSlice';
-import { refreshAccountComments } from 'features/account/accountSlice';
+import { refreshAccountComments } from 'features/account/opinions/accountOpinionsSlice';
 
 interface PopUpAddCommentProps {
     onClose: () => void;
