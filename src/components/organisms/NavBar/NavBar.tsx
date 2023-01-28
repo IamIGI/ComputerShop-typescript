@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Wrapper,
     NormalScreenSection,
@@ -31,8 +31,8 @@ import { useSelector } from 'react-redux';
 import { getBasket } from 'features/basket/basketSlice';
 import { selectAuth, selectCurrentToken } from 'features/auth/authSlice';
 
-const Admin_entitlements = Number(import.meta.env.REACT_APP_ADMIN_ROLE);
-const Editor_entitlements = Number(import.meta.env.REACT_APP_EDITOR_ROLE);
+const Admin_entitlements = Number(import.meta.env.VITE_REACT_APP_ADMIN_ROLE);
+const Editor_entitlements = Number(import.meta.env.VITE_REACT_APP_EDITOR_ROLE);
 const MenuInitPosition = '-270px';
 
 const NavBar = () => {
