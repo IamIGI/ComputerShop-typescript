@@ -2,14 +2,20 @@ import Modal from 'components/atoms/Modal/Modal';
 import PopUpAddComment from 'components/molecules/PopUpAddComment/PopUpAddComment';
 import { newCommentsInterface } from 'interfaces/Account.interfaces';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Wrapper, Section, PrevImg, Description, SetOpinion } from './NewCommentNotification.style';
 
 interface NewCommentNotificationProps {
     newCommentProducts: newCommentsInterface[];
-    handleRefresh: () => void;
+
+    refreshAccountOpinions?: boolean;
 }
 
-const NewCommentNotification = ({ newCommentProducts, handleRefresh }: NewCommentNotificationProps) => {
+const NewCommentNotification = ({
+    newCommentProducts,
+
+    refreshAccountOpinions,
+}: NewCommentNotificationProps) => {
     const [isOpen, setIsOpen] = useState<[boolean]>([false]);
     const [productData, setProductData] = useState<{ _id: string; name: string; prevImg: string }>({
         _id: '',
@@ -43,7 +49,7 @@ const NewCommentNotification = ({ newCommentProducts, handleRefresh }: NewCommen
             ))}
             <Modal open={isOpen} onClose={() => setIsOpen([false])}>
                 <PopUpAddComment
-                    handleRefresh={handleRefresh}
+                    refreshAccountOpinions={refreshAccountOpinions}
                     onClose={() => setIsOpen([false])}
                     productData={productData}
                 />

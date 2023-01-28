@@ -39,14 +39,15 @@ import { refreshComments } from 'features/comments/commentsSlice';
 
 import axios from 'axios';
 import { selectAuth } from 'features/auth/authSlice';
+import { refreshAccountComments } from 'features/account/accountSlice';
 
 interface PopUpAddCommentProps {
     onClose: () => void;
     productData: { _id: string; name: string; prevImg: string };
-    handleRefresh?: () => void;
+    refreshAccountOpinions?: boolean;
 }
 
-const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommentProps) => {
+const PopUpAddComment = ({ onClose, productData, refreshAccountOpinions }: PopUpAddCommentProps) => {
     const dispatchStore = useDispatch();
 
     const auth = useSelector(selectAuth);
@@ -134,7 +135,8 @@ const PopUpAddComment = ({ onClose, productData, handleRefresh }: PopUpAddCommen
                     dispatchStore(refreshComments());
                     dispatchStore(handleAddedComment(true));
                     notify();
-                    if (handleRefresh) handleRefresh();
+
+                    if (refreshAccountOpinions) dispatchStore(refreshAccountComments());
                 }
             } catch (err) {
                 if (axios.isAxiosError(err)) {
