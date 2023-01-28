@@ -4,7 +4,7 @@ import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { popUpAccountSettingsReducer, ACTIONS, INITIAL_STATE } from './PopUpAccountSettings.reducer';
 import toast from 'react-hot-toast';
 import { AxiosError } from 'axios';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeUserName, selectAuth, setCredentials } from 'features/auth/authSlice';
 
 interface PopUpAccountSettingsProps {
@@ -16,6 +16,7 @@ interface PopUpAccountSettingsProps {
 
 const PopUpAccountSettings = ({ name, value, onClose, handleRefresh }: PopUpAccountSettingsProps) => {
     const auth = useSelector(selectAuth);
+    const storeDispatch = useDispatch();
     const axiosPrivate = useAxiosPrivate();
     const [state, dispatch] = useReducer(popUpAccountSettingsReducer, INITIAL_STATE);
     const [isMatchPwd, setIsMatchPwd] = useState<boolean>(true);
@@ -96,9 +97,10 @@ const PopUpAccountSettings = ({ name, value, onClose, handleRefresh }: PopUpAcco
         };
 
         try {
-            const response = await axiosPrivate.put('user/accountData', data);
+            await axiosPrivate.put('user/accountData', data);
             if (name === 'firstName') {
                 dispatch(changeUserName({ userName: state.input.editedField }));
+                storeDispatch(setCredentials({ ...auth, userName: state.input.editedField }));
             }
 
             handleRefresh();
