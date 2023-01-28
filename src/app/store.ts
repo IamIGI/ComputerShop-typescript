@@ -20,7 +20,7 @@ export const store = configureStore({
     },
 
     middleware: (getDefaultMiddleware) => [
-        ...getDefaultMiddleware().concat(authApi.middleware),
+        ...getDefaultMiddleware({ serializableCheck: false }).concat(authApi.middleware),
         listenerMiddleware.middleware,
     ],
 

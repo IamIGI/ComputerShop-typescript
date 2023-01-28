@@ -32,15 +32,16 @@ import { HiDotsVertical } from 'react-icons/hi';
 import { MdOutlineDeleteSweep } from 'react-icons/md';
 import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { selectAuth } from 'features/auth/authSlice';
+import { refreshAccountComments } from 'features/account/accountSlice';
 
 interface ViewCommentInterface {
     comment: CommentInterface;
     images: string[];
     userComments?: { isTrue: boolean; productId: string };
-    handleRefresh?: () => void;
+    refreshAccountOpinions?: boolean;
 }
 
-const ViewComment = ({ comment, images, userComments, handleRefresh }: ViewCommentInterface) => {
+const ViewComment = ({ comment, images, userComments, refreshAccountOpinions }: ViewCommentInterface) => {
     const dispatch = useDispatch<AppDispatch>();
     const axiosPrivate = useAxiosPrivate();
     const auth = useSelector(selectAuth);
@@ -57,7 +58,6 @@ const ViewComment = ({ comment, images, userComments, handleRefresh }: ViewComme
         if (userComments?.isTrue) {
             const fetchProduct = async (product_id: string) => {
                 const response = await getProduct(product_id);
-
                 setProduct(response);
             };
             fetchProduct(userComments.productId);
@@ -88,8 +88,8 @@ const ViewComment = ({ comment, images, userComments, handleRefresh }: ViewComme
             },
         };
 
-        const deletedComment = await axiosPrivate.delete('user/comments/deleteComment', object);
-        if (handleRefresh) handleRefresh();
+        await axiosPrivate.delete('user/comments/deleteComment', object);
+        if (refreshAccountOpinions) dispatch(refreshAccountComments());
     };
 
     return (

@@ -3,95 +3,80 @@ import SumOfLikes from 'components/atoms/SumOfLikes/SumOfLikes';
 import ViewComment from 'components/molecules/ViewComment/ViewComment';
 import NewCommentNotification from 'components/organisms/NewCommentNotification/NewCommentNotification';
 import { selectAuth } from 'features/auth/authSlice';
-
-import useAxiosPrivate from 'hooks/useAxiosPrivate';
-import { GetAccountOpinionsInterface } from 'interfaces/Account.interfaces';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import AccountSettings from '../AccountSettings/AccountSettings';
 import { GeneralSection, TitleSection, UserOpinionSection, Wrapper } from './AccountOpinions.style';
+import { store } from 'app/store';
+import {
+    accountOpinionsRefresh,
+    fetchAccountOpinions,
+    getUserComments,
+    getUserCommentsStatus,
+} from 'features/account/accountSlice';
 
 const AccountOpinions = () => {
     const auth = useSelector(selectAuth);
-    const axiosPrivate = useAxiosPrivate();
-    const [waitForFetch, setWaitForFetch] = useState<boolean>(true);
-    const [userComments, setUserComments] = useState<GetAccountOpinionsInterface>({
-        message: 'User comments',
-        commentsData: [],
-        sumOfLikes: 0,
-        commentsCount: 0,
-        newComments: [],
-    });
-    const [refresh, setRefresh] = useState<boolean>(false);
-    useEffect(() => {
-        const fetchAccountComments = async (data: { userId: string; pageNr: number }) => {
-            try {
-                setWaitForFetch(true);
-                const response = await axiosPrivate.post('user/comments', data);
-                setUserComments(response.data);
-                setWaitForFetch(false);
-            } catch (err) {
-                console.log(err);
-            }
-        };
-        const data = {
-            userId: auth.id as string,
-            pageNr: 1,
-        };
+    const userComments = useSelector(getUserComments);
+    const status = useSelector(getUserCommentsStatus);
+    const refresh = useSelector(accountOpinionsRefresh);
 
-        fetchAccountComments(data);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [refresh]);
-
-    const handleRefresh = () => {
-        setRefresh(!refresh);
+    const dataObject = {
+        userId: auth.id as string,
+        pageNr: 1,
     };
+
+    useEffect(() => {
+        store.dispatch(fetchAccountOpinions(dataObject));
+    }, [refresh]);
 
     return (
         <AccountSettings>
-            {waitForFetch ? (
+            {status === 'loading' ? (
                 <LoadingAnimation loadingSize={15} />
             ) : (
-                <Wrapper>
-                    <TitleSection>
-                        <h1>Wystaw opinie ({userComments.newComments.length})</h1>{' '}
-                    </TitleSection>
-                    {userComments.newComments.length === 0 ? (
-                        <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
-                    ) : (
-                        <GeneralSection>
-                            {userComments.newComments.length !== 0 ? (
-                                <NewCommentNotification
-                                    newCommentProducts={userComments.newComments}
-                                    handleRefresh={handleRefresh}
-                                />
-                            ) : (
-                                <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
-                            )}
-                        </GeneralSection>
-                    )}
-                    <TitleSection>
-                        <h1>Twoje opinie ({userComments.commentsCount})</h1>
-                    </TitleSection>
-                    {userComments.commentsData.length === 0 ? (
-                        <p>Uzytkownik nie ma zadnych komentarzy</p>
-                    ) : (
-                        <GeneralSection>
-                            <SumOfLikes number={userComments.sumOfLikes} />
-                            <UserOpinionSection>
-                                {userComments.commentsData.slice(0, 5).map((comment, index) => (
-                                    <ViewComment
-                                        handleRefresh={handleRefresh}
-                                        key={index}
-                                        comment={comment.comment[0]}
-                                        images={comment.comment[0].image?.images}
-                                        userComments={{ isTrue: true, productId: comment.productId }}
+                status === 'succeeded' && (
+                    <Wrapper>
+                        <TitleSection>
+                            <h1>Wystaw opinie ({userComments.newComments.length})</h1>{' '}
+                        </TitleSection>
+                        {userComments.newComments.length === 0 ? (
+                            <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
+                        ) : (
+                            <GeneralSection>
+                                {userComments.newComments.length !== 0 ? (
+                                    <NewCommentNotification
+                                        newCommentProducts={userComments.newComments}
+                                        refreshAccountOpinions={true}
                                     />
-                                ))}
-                            </UserOpinionSection>
-                        </GeneralSection>
-                    )}
-                </Wrapper>
+                                ) : (
+                                    <p>Jesteś na bieżąco, dziękujemy za twój wkład</p>
+                                )}
+                            </GeneralSection>
+                        )}
+                        <TitleSection>
+                            <h1>Twoje opinie ({userComments.commentsCount})</h1>
+                        </TitleSection>
+                        {userComments.commentsData.length === 0 ? (
+                            <p>Uzytkownik nie ma zadnych komentarzy</p>
+                        ) : (
+                            <GeneralSection>
+                                <SumOfLikes number={userComments.sumOfLikes} />
+                                <UserOpinionSection>
+                                    {userComments.commentsData.slice(0, 5).map((comment, index) => (
+                                        <ViewComment
+                                            refreshAccountOpinions={true}
+                                            key={index}
+                                            comment={comment.comment[0]}
+                                            images={comment.comment[0].image?.images}
+                                            userComments={{ isTrue: true, productId: comment.productId }}
+                                        />
+                                    ))}
+                                </UserOpinionSection>
+                            </GeneralSection>
+                        )}
+                    </Wrapper>
+                )
             )}
         </AccountSettings>
     );
