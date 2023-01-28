@@ -13,7 +13,7 @@ import {
     fetchAccountOpinions,
     getUserComments,
     getUserCommentsStatus,
-} from 'features/account/accountSlice';
+} from 'features/account/opinions/accountOpinionsSlice';
 
 const AccountOpinions = () => {
     const auth = useSelector(selectAuth);

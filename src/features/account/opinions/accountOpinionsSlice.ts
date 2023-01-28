@@ -1,13 +1,10 @@
 import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from 'app/store';
 import { GetAccountOpinionsInterface } from 'interfaces/Account.interfaces';
-import { InitialState } from './accountInterface';
+import { InitialStateAccountOpinions } from '../accountInterface';
 import axios from 'api/axios';
-import { Root } from 'react-dom/client';
 
-/**IMPORTANT ---- SLICE WILL BE USED AFTER AUTHORIZATION REBUILD TO REDUX --------- DO NOT DELETE */
-
-const initialState: InitialState = {
+const initialState: InitialStateAccountOpinions = {
     accountComments: {
         status: 'idle',
         data: { message: 'User comments', commentsData: [], sumOfLikes: 0, commentsCount: 0, newComments: [] },
@@ -29,8 +26,8 @@ export const fetchAccountOpinions = createAsyncThunk(
     }
 );
 
-const accountSlice = createSlice({
-    name: 'account',
+const accountOpinionsSlice = createSlice({
+    name: 'accountOpinions',
     initialState,
     reducers: {
         refreshAccountComments(state) {
@@ -53,11 +50,11 @@ const accountSlice = createSlice({
     },
 });
 
-export const { refreshAccountComments } = accountSlice.actions;
+export const { refreshAccountComments } = accountOpinionsSlice.actions;
 
-export const getUserComments = (state: RootState) => state.account.accountComments.data;
-export const accountOpinionsRefresh = (state: RootState) => state.account.accountComments.refreshComments;
-export const getUserCommentsStatus = (state: RootState) => state.account.accountComments.status;
-export const getUserCommentsError = (state: RootState) => state.account.accountComments.error;
+export const getUserComments = (state: RootState) => state.account.opinions.accountComments.data;
+export const accountOpinionsRefresh = (state: RootState) => state.account.opinions.accountComments.refreshComments;
+export const getUserCommentsStatus = (state: RootState) => state.account.opinions.accountComments.status;
+export const getUserCommentsError = (state: RootState) => state.account.opinions.accountComments.error;
 
-export default accountSlice.reducer;
+export default accountOpinionsSlice.reducer;

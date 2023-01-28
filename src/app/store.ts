@@ -1,12 +1,12 @@
-import { configureStore, applyMiddleware } from '@reduxjs/toolkit';
+import { configureStore } from '@reduxjs/toolkit';
 import articlesReducer from 'features/articles/articlesSlice';
 import productsReducer from 'features/products/productsSlice';
 import basketReducer from 'features/basket/basketSlice';
 import commentsReducer from 'features/comments/commentsSlice';
-import accountReducer from 'features/account/accountSlice';
 import authReducer from 'features/auth/authSlice';
 import { authApi } from 'api/auth';
 import { listenerMiddleware } from './middleware';
+import accountsReducers from 'features/account/accountReducers';
 
 export const store = configureStore({
     reducer: {
@@ -16,7 +16,7 @@ export const store = configureStore({
         products: productsReducer,
         basket: basketReducer,
         comments: commentsReducer,
-        account: accountReducer,
+        account: accountsReducers,
     },
 
     middleware: (getDefaultMiddleware) => [
