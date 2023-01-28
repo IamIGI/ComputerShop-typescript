@@ -1,7 +1,6 @@
 import LoadingAnimation from 'components/atoms/LoadingAnimation/LoadingAnimation';
 import SectionDescription from 'components/atoms/SectionDescription/SectionDescription';
 import AccountSettings from 'components/templates/AccountSettings/AccountSettings';
-// import useAxiosPrivate from 'hooks/useAxiosPrivate';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { BsPersonLinesFill } from 'react-icons/bs';
