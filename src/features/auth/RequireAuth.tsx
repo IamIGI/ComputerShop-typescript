@@ -10,7 +10,6 @@ const RequireAuth = ({ allowedRoles }: RequireAuthProps) => {
     const auth = useSelector(selectAuth);
 
     const location = useLocation();
-    // return token ? <Outlet /> : <Navigate to="/login" state={{ from: location }} replace />;
     return auth?.roles?.find((role) => allowedRoles?.includes(role)) ? (
         <>
             <Outlet /> {/*//Show protected Routes */}
