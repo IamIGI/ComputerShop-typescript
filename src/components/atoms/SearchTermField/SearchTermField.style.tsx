@@ -3,14 +3,6 @@ import styled from 'styled-components';
 export const SearchSection = styled.div`
     position: relative;
 `;
-export const SearchDescription = styled.div`
-    position: absolute;
-    top: 1px;
-    right: 5px;
-    background-color: white;
-    padding: 0 5px;
-    font-size: 15px;
-`;
 
 export const SearchField = styled.input`
     margin: 10px 0;
@@ -53,4 +45,13 @@ export const SearchButton = styled.div`
         cursor: pointer;
         border: 1px solid grey;
     }
+`;
+
+export const SearchDescription = styled.div`
+    position: absolute;
+    top: 1px;
+    right: 5px;
+    background-color: white;
+    padding: 0 5px;
+    font-size: 15px;
 `;
