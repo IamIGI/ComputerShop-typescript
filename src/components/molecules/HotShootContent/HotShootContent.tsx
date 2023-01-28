@@ -34,7 +34,6 @@ const HotShootContent = () => {
             setHotShoot(response);
             setIsFetchHotShoot(false);
         };
-
         fetchHotShoot();
 
         const interval = setInterval(async () => {

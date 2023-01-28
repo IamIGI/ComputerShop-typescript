@@ -16,7 +16,6 @@ import {
 } from 'features/products/productsSlice';
 import { useSelector } from 'react-redux';
 import productsPreviewLogic from './productsPreview.logic';
-import { ProductDataInterface } from 'interfaces/Product.interfaces';
 
 interface ProductPreviewProps {
     allProducts?: boolean;
@@ -34,7 +33,10 @@ const ProductPreview = ({ allProducts = false, limitTheNumber = false }: Product
     const refresh = useSelector(getRefreshProduct);
 
     useEffect(() => {
-        store.dispatch(fetchProducts());
+        if (!limitTheNumber) {
+            store.dispatch(fetchProducts());
+            console.log('here');
+        }
     }, [productFilters, refresh]);
 
     useEffect(() => {
