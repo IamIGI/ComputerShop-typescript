@@ -27,7 +27,7 @@ import {
     UserDescriptionSmall,
     ButtonAddComment,
 } from './PopUpAddComment.style';
-import { useState, useReducer, SyntheticEvent } from 'react';
+import { useState, useReducer, SyntheticEvent, useEffect } from 'react';
 import StarRating from 'components/atoms/StarRating/StarRating';
 import { sendCommentAPI } from 'api/comments';
 import { BiCommentError } from 'react-icons/bi';
@@ -53,6 +53,7 @@ const PopUpAddComment = ({ onClose, productData, refreshAccountOpinions }: PopUp
     const auth = useSelector(selectAuth);
     const [state, dispatch] = useReducer(reducerFunction, INITIAL_STATE);
     const [userName, setUserName] = useState<string>(auth.userName !== null ? auth.userName : '');
+
     const notify = () =>
         toast.success('Dodano komentarz', {
             icon: '🗨️',
@@ -92,20 +93,26 @@ const PopUpAddComment = ({ onClose, productData, refreshAccountOpinions }: PopUp
 
         if (userName.length !== 0 && state.opinion.length > 10 && state.rating !== 0) {
             const formData = new FormData();
-
-            Object.keys(state.files).forEach((key) => {
-                formData.append(
-                    (state.files as unknown as FileList).item(key as unknown as number)!.name,
-                    (state.files as unknown as FileList).item(key as unknown as number)!
-                );
-            });
             formData.append('productId', productData._id);
             formData.append('userId', auth.id !== null ? auth.id : '');
             formData.append('userName', userName);
             formData.append('rating', state.rating as unknown as string); // formData accepts just string values
             formData.append('description', state.opinion.replace(/\n/g, '也'));
+            ///Add file(image)
+            if (state.files !== null) {
+                Object.keys(state.files).forEach((key) => {
+                    formData.append(
+                        (state.files as unknown as FileList).item(key as unknown as number)!.name.split('.')[0],
+                        (state.files as unknown as FileList).item(key as unknown as number)!
+                    );
+                });
+            }
 
             try {
+                // Display the values
+                for (const value of formData.values()) {
+                    console.log(value);
+                }
                 const response = await sendCommentAPI(formData);
 
                 if (response.code === '105') {

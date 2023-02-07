@@ -24,6 +24,11 @@ const commentApi = axios.create({
     headers: { 'Content-Type': 'application/json' },
 });
 
+const commentApiSendImage = axios.create({
+    baseURL: `${BASE_URL}/comments/`,
+    headers: { 'Content-Type': 'multipart/form-data' },
+});
+
 export const getAllCommentsAPI = async (data: getAllComments) => {
     try {
         const response = await commentApi.post(`/get`, data);
@@ -64,7 +69,7 @@ export const getProductAverageScore = async (productId: string) => {
 //you sending FormData
 export const sendCommentAPI = async (data: FormData) => {
     try {
-        const response = await commentApi.post('/add', data);
+        const response = await commentApiSendImage.post('/add', data);
         return response.data;
     } catch (err) {
         if (axios.isAxiosError(err)) {
