@@ -109,10 +109,6 @@ const PopUpAddComment = ({ onClose, productData, refreshAccountOpinions }: PopUp
             }
 
             try {
-                // Display the values
-                for (const value of formData.values()) {
-                    console.log(value);
-                }
                 const response = await sendCommentAPI(formData);
 
                 if (response.code === '105') {
