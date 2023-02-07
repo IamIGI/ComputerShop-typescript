@@ -12,11 +12,34 @@ export const ACTIONS = {
     CLEAR_ALERT: 'clearAlert',
 };
 
-export const INITIAL_STATE = {
+interface InitialState {
+    rating: number;
+    userName: string;
+    opinion: string;
+    files: FileList | null;
+    filesAlert: {
+        showAlert: boolean;
+        message: string;
+    };
+    sendComment: boolean;
+    alert: {
+        showAlert: boolean;
+        userName: string;
+        opinion: string;
+        rating: string;
+    };
+    languageValidation: {
+        showAlert: boolean;
+        message: string;
+    };
+    countChar: number;
+}
+
+export const INITIAL_STATE: InitialState = {
     rating: 0,
     userName: '',
     opinion: '',
-    files: [],
+    files: null,
     filesAlert: { showAlert: false, message: '' },
     sendComment: false,
     alert: { showAlert: false, userName: '', opinion: '', rating: '' },
@@ -81,8 +104,7 @@ export const reducerFunction = (state: typeof INITIAL_STATE, action: ReducerActi
         case ACTIONS.FILES:
             return {
                 ...state,
-                // @ts-ignore
-                files: action.payload,
+                files: action.payload !== null ? (action.payload as FileList) : null,
             };
         case ACTIONS.FILES_ALERT:
             return {
