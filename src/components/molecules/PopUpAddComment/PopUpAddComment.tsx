@@ -193,7 +193,8 @@ const PopUpAddComment = ({ onClose, productData, refreshAccountOpinions }: PopUp
                         </LittleDescription>
                     </Information>
                     {/* Check is it logged user*/}
-                    {Object.keys(auth).length === 0 ? (
+
+                    {auth.userName === null ? (
                         <AnonymousUser>
                             <UserDescription>Powiedz nam jak się nazywasz</UserDescription>
                             <UserDescriptionSmall>Jak się nazywasz</UserDescriptionSmall>
