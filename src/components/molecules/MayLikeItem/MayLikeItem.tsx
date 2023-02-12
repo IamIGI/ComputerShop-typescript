@@ -36,7 +36,7 @@ const MayLikeItem = ({ item }: MayLikeItemProps) => {
                         {item.special_offer.mode ? (
                             <PriceSection>
                                 <PriceOldValue>
-                                    <span>{item.price + item.special_offer.price} zł</span>
+                                    <span>{(item.price + item.special_offer.price).toFixed(2)} zł</span>
                                 </PriceOldValue>
                                 <PriceValue>
                                     <span>{item.price} zł</span>
