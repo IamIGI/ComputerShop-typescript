@@ -34,7 +34,7 @@ const ProductBuyContent = () => {
 
     const product = useSelector(getProductById) as ProductDataInterface;
     const [quantity, setQuantity] = useState<number>(1);
-    const [priceBeforeDiscount, setPriceBeforeDiscount] = useState<number>(0);
+    const [priceBeforeDiscount, setPriceBeforeDiscount] = useState<string>('0');
     const [isDiscount, setIsDiscount] = useState<boolean>(false);
     const [resetProductQuantity, setResetProductQuantity] = useState<boolean>(false);
 
@@ -51,10 +51,10 @@ const ProductBuyContent = () => {
 
     const getPrice = (product: ProductDataInterface) => {
         if (product.special_offer.mode) {
-            setPriceBeforeDiscount(product.price + product.special_offer.price);
+            setPriceBeforeDiscount((product.price + product.special_offer.price).toFixed(2));
             setIsDiscount(true);
         } else {
-            setPriceBeforeDiscount(0); // don't matter
+            setPriceBeforeDiscount('0'); // don't matter
             setIsDiscount(false);
         }
     };
@@ -80,7 +80,7 @@ const ProductBuyContent = () => {
                         <DiscountSize>Oszczędzasz {product.special_offer.price} zł </DiscountSize>
                         <PriceSection>
                             <OldPrice>{formatPrices(priceBeforeDiscount)} zł</OldPrice>
-                            <CurrentPrice> {formatPrices(product.price)} zł</CurrentPrice>
+                            <CurrentPrice> {formatPrices(product.price.toFixed(2))} zł</CurrentPrice>
                         </PriceSection>
                     </>
                 ) : (
