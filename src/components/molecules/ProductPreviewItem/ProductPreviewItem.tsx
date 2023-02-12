@@ -85,7 +85,7 @@ const ProductPreviewItem = ({ item, allProducts }: ProductPreviewItemProps) => {
                         {item.special_offer.mode ? (
                             <PriceSection>
                                 <PriceOldValue>
-                                    <span>{formatPrices(item.price + item.special_offer.price)} zł</span>
+                                    <span>{formatPrices((item.price + item.special_offer.price).toFixed(2))} zł</span>
                                 </PriceOldValue>
                                 <PriceValue>
                                     <span>{formatPrices(item.price)} zł</span>
