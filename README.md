@@ -1,4 +1,4 @@
-
+## Project is no longer supported
 # ComputerShop-typescript
 Frontend part of the project *HotShoot*, this is a computer shop that I started develop since august 2022.r
 this repository is the continuation of project development after its migration to typescript
