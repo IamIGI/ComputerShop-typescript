@@ -6,6 +6,27 @@ this repository is the continuation of project development after its migration t
 ## Project Board
 https://github.com/users/IamIGI/projects/1/views/1
 
+# HotShoot.tk
+
+**HotShoot.tk** is a comprehensive e-commerce website specializing in laptops, offering a wide selection of devices along with a suite of features that support a seamless online shopping experience. This full-stack application, developed from scratch and actively maintained since August 2022, includes both frontend and backend components.
+
+## Key Features
+
+- **User Authentication** – Provides secure login and registration for new customers.
+- **Advanced Shopping Cart** – Enables easy management of products in the cart, quantity adjustments, and order preview.
+- **Promotion Management** – Allows users to take advantage of current discounts and promotional offers.
+- **Product Filtering** – A robust filter system that helps users quickly find products tailored to their preferences.
+- **Account Management** – Access to account settings, order history, and profile information updates.
+- **Order Management** – Users can track the status of their orders and view details for each.
+- **Recipient Template Creation** – Simplifies the addition and management of delivery addresses.
+- **Enhanced Comment Section** – Users can share reviews and comments, fostering product interaction and feedback.
+- **Articles Section** – A space for guides, updates, and interesting insights about products.
+- **Contact Form** – Provides an easy way to get in touch with customer support for inquiries or assistance.
+- **PDF Document Generation** – Option to create and download invoices and order documents.
+- **Responsive Web Design (RWD)** – Fully optimized for use on both desktop and mobile devices, ensuring an excellent user experience across platforms.
+
+Thanks to its intuitive interface, advanced features, and user-friendly design, **HotShoot.tk** is the perfect destination for those looking to purchase modern and high-performance laptops, offering a top-tier online shopping experience.
+
 ## Functionalities:
 
 ### User authorization:
